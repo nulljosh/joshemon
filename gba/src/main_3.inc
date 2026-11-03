@@ -64,6 +64,7 @@ int main(void) {
 #ifdef QA_DIPLOMA
       S.map = MAP_CEDAR; S.x = 10; S.y = 1; // facing PROF. CEDAR
       if (keys_at_title & KEY_DOWN) { S.map = MAP_LEAGUE; S.x = 20; S.y = 6; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; } // START+L+R+DOWN: at the BATTLE HALL door
+      if (keys_at_title & KEY_RIGHT) { S.map = MAP_CEDAR; S.x = 17; S.y = 8; S.dir = DIR_RIGHT; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; S.repel = 250; } // START+L+R+RIGHT: at CEDAR's east exit, the coast road
       if (keys_at_title & KEY_UP) { S.map = MAP_SKY; S.x = 9; S.y = 3; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; } // START+L+R+UP: SKYREACH, under the SUMMIT path
 #endif
       if (qsel) { S.map = MAP_ROUTE2; S.x = 17; S.y = 4; S.dir = DIR_RIGHT; }

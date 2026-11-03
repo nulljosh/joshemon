@@ -248,7 +248,7 @@ static void ending(void) {
 static void wake_sleeper(int i) {
   const Npc *n = &mi->npcs[i];
   if (n->say) say_lines(n->say);
-  say("..."); cry(n->legend, 0); shake(40); say(n->legend == 105 ? "GRRRAAOOOH!" : n->legend == 106 ? "KHYOOOOAAAHH!" : "KYAAAAAAAH!"); surf_clear();
+  say("..."); cry(n->legend, 0); shake(40); say(n->legend == 105 ? "GRRRAAOOOH!" : n->legend == 106 ? "KHYOOOOAAAHH!" : n->legend == 107 ? "KYAAAAAAAH!" : "KSSHHHRRRNN!"); surf_clear();
   make_mon(&B.foe, n->legend, n->lv); B.tr = 0;
   int r = battle();
   if (r == R_RAN || r == R_LOSE) return;
@@ -256,7 +256,7 @@ static void wake_sleeper(int i) {
   set_flag(n->flag); // the later sleepers: caught, or calmed and still out there to catch
   if (r == R_CAUGHT) set_flag(n->flag + 1);
   blen = 0; cat(SPECIES[n->legend].name);
-  cat(r == R_CAUGHT ? " settles into its ball. The wind drops, and all is still." : " is worn out, but it will not yield. It watches you, waiting."); say(buf);
+  cat(r == R_CAUGHT ? (n->legend >= 105 ? " settles into its ball. The wind drops, and all is still." : " settles into its ball. The cave falls quiet.") : " is worn out, but it will not yield. It watches you, waiting."); say(buf);
   if (n->alt) say_lines(n->alt);
 }
 

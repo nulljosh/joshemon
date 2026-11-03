@@ -1,0 +1,25 @@
+qa 03000000
+wait 30
+press START+L+R 4
+wait 200
+expect map 0
+expect x 5
+expect y 14
+press RIGHT 64
+wait 24
+press UP 98
+wait 24
+press RIGHT 132
+wait 24
+expect map 0
+expect x 17
+expect y 8
+press RIGHT 13
+wait 24
+expect map 0
+expect x 17
+expect y 8
+press A 2
+wait 10
+mash B talking
+shot gate

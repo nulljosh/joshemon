@@ -1,6 +1,6 @@
 # Joshémon Technical Whitepaper
 
-**v1.0.0** | November 2026
+**v1.1.0** | November 2026
 
 Joshémon is a full monster-collecting RPG that runs on Game Boy Advance hardware: 105 creatures, eight gyms, a league and a post-game, in a 2 MB cartridge written in C with no engine and no libraries. This paper covers how the world, the battles and the sound fit on a 16.78 MHz ARM7 with 288 KB of RAM.
 
@@ -28,6 +28,6 @@ The save is one struct written to the cartridge's 32 KB SRAM: party, box, bag, f
 
 ## Testing
 
-`build/gbarun` runs the cartridge headless on libmgba. It follows a key script (`press A 2`, `wait 30`, `shot name`, `expect map 68`) and writes screenshots, sound and raw video. A small helper turns moves like `u3 r2 fight talk` into scripts. Twenty-three scripts walk every chapter, gym and side area, and each pass has to finish with zero failures. The same runner records the videos and the ad.
+`build/gbarun` runs the cartridge headless on libmgba. It follows a key script (`press A 2`, `wait 30`, `shot name`, `expect map 68`) and writes screenshots, sound and raw video. A small helper turns moves like `u3 r2 fight talk` into scripts. Twenty-five scripts walk every chapter, gym and side area, and each pass has to finish with zero failures. The same runner records the videos and the ad.
 
 MIT License, 2026 Joshua Trommel.

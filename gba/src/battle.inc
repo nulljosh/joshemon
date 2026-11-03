@@ -168,7 +168,7 @@ static void hit(int side, int dmg) {
   for (int i = 0; i < 8; i++) { B.hide[side] = i % 2 == 0; wait(4); }
   B.hide[side] = 0;
 #if defined QA_FIELD && !defined QA_REAL
-  if (side == ME && B.tr && ((cur >= MAP_E4A && cur <= MAP_CHAMP) || cur == MAP_HALL)) dmg = 0; // the QA build's lone L80 walks the LEAGUE in one go
+  if (side == ME && B.tr && ((cur >= MAP_E4A && cur <= MAP_CHAMP) || cur == MAP_HALL || cur == MAP_ROUTE12 || cur == MAP_GROTTO)) dmg = 0; // the QA build's lone L80 walks the LEAGUE and the post-game coast in one go
 #endif
   Mon *m = B.m[side]; m->hp = m->hp > dmg ? m->hp - dmg : 0;
   drain(side);

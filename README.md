@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80" height="80" alt="Joshémon icon">
 
-![version](https://img.shields.io/badge/version-v1.0.0-blue) [![tests](https://github.com/nulljosh/joshemon/actions/workflows/test.yml/badge.svg)](https://github.com/nulljosh/joshemon/actions/workflows/test.yml) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-v1.1.0-blue) [![tests](https://github.com/nulljosh/joshemon/actions/workflows/test.yml/badge.svg)](https://github.com/nulljosh/joshemon/actions/workflows/test.yml) ![license](https://img.shields.io/badge/license-MIT-green)
 
 A whole adventure on one tiny cartridge.
 
@@ -19,7 +19,7 @@ Download `joshemon.gba` from the [latest release](https://github.com/nulljosh/jo
 ## Features
 - 105 original creatures, plus three legends that sleep somewhere in the world.
 - Eight gyms, a rival, a villain team, VICTORY ROAD, the ELITE FOUR, a champion and a HALL OF FAME.
-- After the credits: the third legend, a BATTLE HALL with win streaks, and a diploma for a full DEX.
+- After the credits: the third legend, the CEDAR COAST and its crystal grotto, a BATTLE HALL with win streaks, and a diploma for a full DEX.
 - Gen 3 battle rules worked out from the pokeruby decompilation: damage, catching, EXP, status and evolution.
 - SURF, the BIKE, fishing, CUT, ROCK SMASH, STRENGTH, FLASH, FLY, the TOWN MAP, the PC and marts.
 - 34 songs on the GBA's four tone channels, with sampled brass, strings and drums mixed in software.
