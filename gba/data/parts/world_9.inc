@@ -461,6 +461,7 @@
 #include "coast_maps.inc" // ROUTE 12 and the ELDER GROTTO
 #include "desert_maps.inc" // ROUTE 13 and the SUN RUINS
 #include "river_maps.inc" // ROUTE 14
+#include "islands_maps.inc" // ROUTE 15
 };
 const Home HOME = {0, 5, 14, 0};
 const char *const ITEM_NAME[] = {"BALL","GREAT BALL","ULTRA BALL","POTION","SUPER POTION","ANTIDOTE","PARLYZ HEAL","AWAKENING","BURN HEAL","ICE HEAL","FULL HEAL","REVIVE","REPEL","ESCAPE ROPE","BIKE","OLD ROD","TOWN MAP","TM01","TM02","TM03","TM04","TM05","TM06","TM07","TM08","TM09","TM10","TM11","TM12","TM13","TM14","TM15","TM16","TM17","HYPER POTION","MAX POTION","LEFTOVERS","CHARCOAL","MYSTIC WATER","MIRACLE SEED"};

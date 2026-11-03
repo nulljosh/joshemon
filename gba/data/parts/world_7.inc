@@ -29,6 +29,7 @@ static const Sign Scv_route11[] = {{21, 9, "ROUTE 11, COVEWICK WOODS. East: COVE
 #include "coast.inc" // the post-game coast: ROUTE 12 and the ELDER GROTTO
 #include "desert.inc" // the DUNE ROAD and the SUN RUINS
 #include "river.inc" // ROUTE 14, the river under ROUTE 3
+#include "islands.inc" // ROUTE 15, the shoals south of LUMEN
 const Fly FLY[FLY_COUNT] = {{0,5,7,6,0},{4,6,8,7,2},{12,5,6,8,7},{18,5,6,9,9},{24,5,6,10,11},{31,5,6,11,14},{MAP_LUMEN,7,10,FLAG_BEEN_LUMEN,16},{MAP_FROSTGATE,6,7,FLAG_BEEN_FROST,18},{MAP_DRAKE,6,9,FLAG_BEEN_DRAKE,22},{MAP_LEAGUE,9,6,FLAG_BEEN_LEAGUE,24},{MAP_COVE,5,14,FLAG_BEEN_COVE,26}};
 const MapInfo MAP_INFO[MAP_COUNT] = {
   {"CEDAR TOWN", "TTTTTTTTTppTTTTTTTTTTTTTTTTTTppTTTTTTTTTT.f......pp.S.....fTT..RRRRR.pp.BBBBB..TT..RRRRR.pp.BBBBB..TT..HWHWH.pp.HWHWH..TT..HHDHH.pp.HHDHH..TTnnn.p.S.pp...p.S.nTT....pppppppppppppppT.f......pp..nnnnn.TT..RRRRR.pp..~~~~..TT..RRRRR.pp..~~~~..TT..HWHWH.pp..~~~~..TT..HHDHH.pp.....f..TT....pppppp........TTTTTTTTTTTTTTTTTTTTT", 20, 16, 1, 5, 5, 3, W_cedar, N_cedar, S_cedar, {0}, 0, 0, 0, 18, 2, K_cedar, 0, 0, {0}, 0, 0, 0, {0}, 0, 0, 0},

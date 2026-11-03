@@ -65,7 +65,7 @@
     .w = 24,
     .h = 20,
     .flags = MF_OUTDOOR,
-    .nwarps = 33,
+    .nwarps = 41,
     .nnpcs = 4,
     .nsigns = 2,
     .warps = W6_lumen,
