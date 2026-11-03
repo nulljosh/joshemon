@@ -49,6 +49,7 @@ build/crt0.o: crt0.s
 	$(CC) -mcpu=arm7tdmi -c $< -o $@
 
 build/rules_test: tools/rules_test.c src/rules.c data/dex.c $(wildcard data/parts/*.inc) data/dex.h
+	@mkdir -p build
 	cc -I data tools/rules_test.c src/rules.c data/dex.c -o $@
 
 test: build/rules_test
