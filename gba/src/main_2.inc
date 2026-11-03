@@ -221,7 +221,7 @@ static void talk(void) {
     const Npc *n = &mi->npcs[i];
     if (n->flags & NF_ITEM) {
       set_flag(n->flag);
-      cat(PLAYER_NAME); cat(" found "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat("a "); cat(ITEM_NAME[n->item]); if (n->count > 1) cat("S"); cat("!");
+      blen = 0; cat(PLAYER_NAME); cat(" found "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat("a "); cat(ITEM_NAME[n->item]); if (n->count > 1) cat("S"); cat("!");
       sfx(SFX_BUY); say(buf); S.bag[n->item] += n->count;
     } else {
       if (n->look < LOOK_BALL) ndir[i] = me_dir ^ 1; // turn to face you (down<->up, left<->right)
@@ -234,7 +234,7 @@ static void talk(void) {
           if (n->flags & NF_MON) { give_mon(n->item, n->count); say_lines(n->alt); surf_clear(); return; }
           S.bag[n->item] += n->count;
           const char *nm = ITEM_NAME[n->item];
-          cat(PLAYER_NAME); cat(" received "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat(has("AEIOU", nm[0]) ? "an " : "a "); cat(nm); if (n->count > 1) cat("S"); cat("!");
+          blen = 0; cat(PLAYER_NAME); cat(" received "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat(has("AEIOU", nm[0]) ? "an " : "a "); cat(nm); if (n->count > 1) cat("S"); cat("!");
           say(buf);
         }
       } else if (n->flags & NF_HEAL) nurse();
@@ -266,7 +266,7 @@ static void start_menu(void) {
     i -= 4;
     if (i == 0) {
       int nb = 0;
-      cat(PLAYER_NAME); cat(". MONEY $"); cat_num(S.money); cat(". DEX: seen "); cat_num(count_bits(S.seen)); cat(", caught "); cat_num(count_bits(S.caught)); cat(". BADGES: ");
+      blen = 0; cat(PLAYER_NAME); cat(". MONEY $"); cat_num(S.money); cat(". DEX: seen "); cat_num(count_bits(S.seen)); cat(", caught "); cat_num(count_bits(S.caught)); cat(". BADGES: ");
       for (int b = 0; b < BADGE_COUNT; b++) if (flag(BADGE_FLAG[b])) { if (nb++) cat(", "); cat(BADGE_NAME[b]); }
       cat(nb ? "." : "none yet.");
       say(buf);
