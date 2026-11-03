@@ -1,6 +1,6 @@
 <img src="icon.svg" width="80" height="80" alt="Joshémon icon">
 
-![version](https://img.shields.io/badge/version-v2.0.2-blue) [![tests](https://github.com/nulljosh/joshemon/actions/workflows/test.yml/badge.svg)](https://github.com/nulljosh/joshemon/actions/workflows/test.yml) ![license](https://img.shields.io/badge/license-MIT-green)
+![version](https://img.shields.io/badge/version-v2.1.0-blue) [![tests](https://github.com/nulljosh/joshemon/actions/workflows/test.yml/badge.svg)](https://github.com/nulljosh/joshemon/actions/workflows/test.yml) ![license](https://img.shields.io/badge/license-MIT-green)
 
 A whole adventure on one tiny cartridge.
 

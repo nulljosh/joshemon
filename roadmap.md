@@ -39,8 +39,9 @@ All 16 scripts pass.
 
 ## Bigger world (toward Sapphire's size)
 The game is about half of Sapphire's size. This loop adds routes and towns one area per pass. Each area gets its own wild creatures, trainers, items, a field skill to come back with, and a script that walks it.
-- [ ] Battle depth still missing next to Sapphire: held items, double battles, weather (RAIN DANCE, SUNNY DAY, SANDSTORM, HAIL still fail), and the moves that need them or more state: TAUNT, TORMENT, DISABLE, ENCORE, ATTRACT, PERISH SONG, BATON PASS, SPIKES, BIDE, two-turn moves.
-- [ ] Next areas: a river route between BASALT and SKYREACH that needs SURF, a second chain of islands off LUMEN, and a sandstorm on the DUNE ROAD.
+- [ ] Battle depth still missing next to Sapphire: held items, double battles, and the moves that need them or more state: TAUNT, TORMENT, DISABLE, ENCORE, ATTRACT, PERISH SONG, BATON PASS, SPIKES, BIDE, two-turn moves.
+- [x] Weather (2.1.0): RAIN DANCE, SUNNY DAY, SANDSTORM and HAIL last five turns. Rain and sun boost and halve WATER and FIRE, and sand and hail chip a sixteenth a turn. The DUNE ROAD has a sandstorm that never ends. Weather abilities, THUNDER, SOLARBEAM and WEATHER BALL tie-ins come later.
+- [ ] Next areas: a river route between BASALT and SKYREACH that needs SURF, a second chain of islands off LUMEN.
 
 Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was: real footage, short narrated lines on the beats, and the title theme as the music bed. `qa/ad/joshemon-x-cover.png` is the 1500x500 X header. The title logo now reads JOSHÉMON, with the acute drawn in main.c's title code.
 

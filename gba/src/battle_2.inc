@@ -55,6 +55,8 @@ static int use_move(int side, Slot *mv) {
     for (int k = 0; k < 8; k += 2) if (aab == PINCH[k] && M->type == PINCH[k + 1] && a->hp * 3 <= a->stats[0]) pw = pw * 15 / 10;
     if (B.ffire[side] && M->type == TYPE_FIRE) pw = pw * 15 / 10;
     int sport = B.fx[0].sport | B.fx[1].sport; if ((sport & 1 && M->type == TYPE_ELECTRIC) || (sport & 2 && M->type == TYPE_FIRE)) pw /= 2; // MUD SPORT, WATER SPORT
+    if ((weather == 1 && M->type == TYPE_WATER) || (weather == 2 && M->type == TYPE_FIRE)) pw = pw * 15 / 10; // ponytail: Gen 3 scales the damage, not the power; same 1.5x and 0.5x
+    else if ((weather == 1 && M->type == TYPE_FIRE) || (weather == 2 && M->type == TYPE_WATER)) pw /= 2;
     if (aab == AB_GUTS && a->status && phys) { atk = atk * 15 / 10; burn = 0; }
     if (dab == AB_THICK_FAT && (M->type == TYPE_FIRE || M->type == TYPE_ICE)) atk /= 2;
     int contact = makes_contact(mv->id); // Gen 3's F_MAKES_CONTACT, SEISMIC TOSS and SUPER FANG too
@@ -102,7 +104,7 @@ static int use_move(int side, Slot *mv) {
       cat(ch > 0 ? (ch > 1 ? " sharply rose!" : " rose!") : ch < -1 ? " harshly fell!" : " fell!"); bsay(buf);
     }
   }
-  if (!did) bsay(mv->id == 150 ? "But nothing happened!" : "But it failed!"); // ponytail: weather, trapping, two-turn moves come later
+  if (!did) bsay(mv->id == 150 ? "But nothing happened!" : "But it failed!"); // ponytail: trapping, two-turn moves come later
   return R_NONE;
 }
 static int take_turn(int side, Slot *mv) {

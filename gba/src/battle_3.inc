@@ -242,6 +242,7 @@ static int battle(void) {
   if (!B.tr) B.pend[FOE] = 1;
   B.fresh[ME] = B.fresh[FOE] = 0; // leads count their first turn (SPEED BOOST)
   pop_in(ME);
+  wturns = 0; if ((weather = cur == MAP_ROUTE13 ? 3 : 0)) bsay("A sandstorm is raging."); // the DUNE ROAD never clears
 #ifdef QA_FX
   for (int t = 0; t < 17; t++) { static Move m; m.type = t; m.power = 60; m.tgt = 0; move_anim(ME, &m, 0); for (int w = 0; w < 30; w++) next_frame(); } // every type's look in turn, for a recording
 #endif

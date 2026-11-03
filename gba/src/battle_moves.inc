@@ -6,7 +6,12 @@ enum { MV_MIST = 54, MV_SURF = 57, MV_LEECH_SEED = 73, MV_STUN_SPORE = 78, MV_EA
   MV_STRUGGLE = 165, MV_SPIDER_WEB = 169, MV_PROTECT = 182, MV_BELLY_DRUM = 187, MV_FORESIGHT = 193, MV_DETECT = 197,
   MV_ENDURE = 203, MV_MEAN_LOOK = 212, MV_HEAL_BELL = 215, MV_SAFEGUARD = 219, MV_MAGNITUDE = 222, MV_PSYCH_UP = 244,
   MV_SHADOW_BALL = 247, MV_NATURE_POWER = 267, MV_REFRESH = 287, MV_MUD_SPORT = 300, MV_AROMATHERAPY = 312,
-  MV_ODOR_SLEUTH = 316, MV_BLOCK = 335, MV_WATER_SPORT = 346, MV_FLAIL = 175, MV_REVERSAL = 179 };
+  MV_ODOR_SLEUTH = 316, MV_BLOCK = 335, MV_WATER_SPORT = 346, MV_FLAIL = 175, MV_REVERSAL = 179,
+  MV_SANDSTORM = 201, MV_RAIN_DANCE = 240, MV_SUNNY_DAY = 241, MV_HAIL = 258 };
+static u8 weather, wturns; // 0 none, 1 rain, 2 sun, 3 sand, 4 hail; wturns 0 means it never ends (DUNE ROAD)
+static const char *const WX_UP[] = { "", "It started to rain!", "The sunlight got bright!", "A sandstorm brewed!", "It started to hail!" };
+static const char *const WX_ON[] = { "", "Rain continues to fall.", "The sunlight is strong.", "The sandstorm rages.", "Hail continues to fall." };
+static const char *const WX_END[] = { "", "The rain stopped.", "The sunlight faded.", "The sandstorm subsided.", "The hail stopped." };
 
 static int fixed_damage(int id, const Mon *a, const Mon *d) { // the no-power moves that still hurt
   if (id == 12 || id == 32 || id == 90 || id == 329) return d->hp; // GUILLOTINE, HORN DRILL, FISSURE, SHEER COLD
@@ -76,12 +81,27 @@ static int special_move(int side, int id) {
   case MV_NATURE_POWER: { // sNaturePowerMoves: what the place turns it into
     int m = B.scene == SCENE_WATER ? MV_SURF : B.scene == SCENE_CAVE ? MV_SHADOW_BALL : B.scene == SCENE_INDOOR ? MV_SWIFT : mi->border == 'a' ? MV_EARTHQUAKE : mi->border == 'F' ? MV_SWIFT : MV_STUN_SPORE;
     blen = 0; cat("NATURE POWER turned into "); cat(MOVES[m].name); cat("!"); bsay(buf); return call_move(side, m); }
+  case MV_RAIN_DANCE: case MV_SUNNY_DAY: case MV_SANDSTORM: case MV_HAIL: {
+    int w = id == MV_RAIN_DANCE ? 1 : id == MV_SUNNY_DAY ? 2 : id == MV_SANDSTORM ? 3 : 4;
+    if (weather == w) break;
+    weather = w; wturns = 5; bsay(WX_UP[w]); return R_NONE; }
   default: return -1;
   }
   bsay("But it failed!"); return R_NONE;
 }
 // end of turn: LEECH SEED drains, the 5-turn side effects run out, this turn's guards drop
 static int moves_end_of_turn(void) {
+  if (weather && wturns && !--wturns) { bsay(WX_END[weather]); weather = 0; }
+  else if (weather) { // ponytail: no weather abilities (SAND VEIL, SWIFT SWIM, RAIN DISH...), THUNDER, SOLARBEAM or WEATHER BALL tie-ins yet
+    bsay(WX_ON[weather]);
+    for (int s = 0; s < 2 && weather > 2; s++) {
+      Mon *m = B.m[s];
+      if (!m->hp || (weather == 3 ? has_type(m, TYPE_ROCK) || has_type(m, TYPE_GROUND) || has_type(m, TYPE_STEEL) : has_type(m, TYPE_ICE))) continue;
+      int dmg = m->stats[0] / 16; if (dmg < 1) dmg = 1; if (dmg > m->hp) dmg = m->hp;
+      hit(s, dmg); bsayf(s, weather == 3 ? " is buffeted by the sandstorm!" : " is pelted by HAIL!");
+      if (!m->hp) { int r = faint(s); if (r) return r; }
+    }
+  }
   for (int s = 0; s < 2; s++) {
     Fx *f = &B.fx[s]; f->protect = f->endure = f->acted = 0; f->took = 0;
     static const char *const OFF[] = { "'s MIST wore off!", "'s REFLECT wore off!", "'s LIGHT SCREEN wore off!", "'s SAFEGUARD wore off!" };
