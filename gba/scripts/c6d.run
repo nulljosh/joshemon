@@ -172,6 +172,7 @@ mash B battle 1
 wait 30
 expect song 6
 mash A battle
+mash A battle
 wait 50
 mash B talking
 shot psy2

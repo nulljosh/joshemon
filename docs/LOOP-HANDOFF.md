@@ -62,7 +62,7 @@
   - The BAG remembers its pocket.
 
 ## Bigger world loop (2026-11-02)
-The COVEWICK area is done: ROUTE 10 (the SEAWALK), COVEWICK TOWN with a Rest House, Mart and gift house, and ROUTE 11 (the woods). The maps are MAP_ROUTE10 to MAP_ROUTE11 (67 to 72), with data under the `cv_` prefix in world.c (`L10_`/`L11_` were already taken by the league and the post-game). Its song is SONG_COVE. `START+L+R+UP+RIGHT` on qa_field starts you under the SEAWALK pier. All 23 scripts pass: the 21 old ones plus cv1 and cv2. Next, more areas from roadmap.md's "Bigger world". Promo files are in qa/ad.
+The COVEWICK area is done: ROUTE 10 (the SEAWALK), COVEWICK TOWN with a Rest House, Mart and gift house, and ROUTE 11 (the woods). The maps are MAP_ROUTE10 to MAP_ROUTE11 (67 to 72), with data under the `cv_` prefix in world.c (`L10_`/`L11_` were already taken by the league and the post-game). Its song is SONG_COVE. `START+L+R+UP+RIGHT` on qa_field starts you under the SEAWALK pier. All 25 scripts pass (`gba/tools/regress.sh`): the 21 old ones plus cv1, cv2, co1 (CEDAR COAST and ELDER GROTTO on qa_dip, `START+L+R+RIGHT`) and co2 (the coast guard on a fresh save). Next, more areas from roadmap.md's "Bigger world". Promo files are in qa/ad.
 
 ## Rules
 - **Public** (since 2026-11-02): commit and push to nulljosh/joshemon each pass. `./deploy.sh` updates joshemon.jaybulb.com. A release goes out when a version is worth playing.

@@ -77,6 +77,13 @@ build/qa_real.gba: $(OBJ) src/main.c
 	$(OBJCOPY) -O binary build/qa_real.elf $@
 
 # -DQA_DIPLOMA on top: a CHAMPION with all 105 caught, to see PROF. CEDAR's DIPLOMA
+# -DQA_FX: at the first battle, every type's move animation plays in turn (TYPE order), for a recording
+build/qa_fx.gba: $(OBJ) src/main.c
+	$(CC) $(CFLAGS) -DQA_FIELD -DQA_FX -I build -c src/main.c -o build/qa_fx.o
+	$(CC) $(LDFLAGS) -o build/qa_fx.elf build/qa_fx.o $(filter-out build/main.o,$(OBJ)) -lgcc
+	$(OBJCOPY) -O binary build/qa_fx.elf $@
+	python3 tools/gbafix.py $@
+
 build/qa_dip.gba: $(OBJ) src/main.c
 	$(CC) $(CFLAGS) -DQA_FIELD -DQA_DIPLOMA -I build -c src/main.c -o build/qa_dip.o
 	$(CC) $(LDFLAGS) -o build/qa_dip.elf build/qa_dip.o $(filter-out build/main.o,$(OBJ)) -lgcc

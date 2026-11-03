@@ -66,6 +66,7 @@ static void fx_step(void) {
   nsparks = k;
 }
 static void fx_ticks(int n) { while (n--) { fx_step(); next_frame(); } }
+#include "battle_fx.inc" // target_fx: what each type looks like where it lands
 static void move_anim(int side, const Move *M, int fixed) {
   int ts = M->tgt ? side : side ^ 1, ax = fx_x[side], ay = fx_y[side], tx = fx_x[ts], ty = fx_y[ts], tc = type_col(M->type);
   volatile u32 *t = (volatile u32 *)OBJ_TILES + T_FX * 8;
@@ -97,11 +98,7 @@ static void move_anim(int side, const Move *M, int fixed) {
       for (int i = 0; i < 2; i++) spark((ax + (tx - ax) * k1024 / 1024 + ri(9) - 4) * 16, (ay + (ty - ay) * k1024 / 1024 + ri(9) - 4 - arc) * 16, 0, 0, 0, 8, i ? 0 : 1, M->type == TYPE_GRASS ? 3 : 2);
       fx_step(); next_frame();
     }
-    for (int i = 0; i < 14; i++) { // the burst on impact
-      int a = i * 256 / 14, v = 22 + (i % 3) * 10;
-      spark(tx * 16, ty * 16, SIN[(a + 64) & 255] * v / 127, SIN[a] * v / 127, M->type == TYPE_WATER ? 2 : 0, 14, i % 2 ? 0 : 1, 2);
-    }
-    fx_ticks(14);
+    target_fx(M->type, tx, ty);
   }
   nsparks = 0;
 }
@@ -226,9 +223,15 @@ static int battle(void) {
     blen = 0; cat(B.tr->name); cat(" would like to battle!"); bsay(buf); B.show_tr = 0;
     blen = 0; cat(B.tr->name); cat(" sent out "); cat(mon_name(B.m[FOE])); cat("!"); bsay(buf); pop_in(FOE);
   } else { hud(FOE); cry(B.foe.id, 0); blen = 0; cat("Wild "); cat(mon_name(&B.foe)); cat(" appeared!"); bsay(buf); }
+#if defined QA_FIELD && !defined QA_REAL
+  if (B.tr) { B.m[ME]->hp = B.m[ME]->stats[0]; B.m[ME]->status = 0; } // QA scripts test the story, not the dice: a fresh lead for every trainer
+#endif
   blen = 0; cat("Go! "); cat(mon_name(B.m[ME])); cat("!"); bsay(buf);
   for (; B.me_tr > 0; B.me_tr--) next_frame();
   pop_in(ME);
+#ifdef QA_FX
+  for (int t = 0; t < 17; t++) { static Move m; m.type = t; m.power = 60; m.tgt = 0; move_anim(ME, &m, 0); for (int w = 0; w < 30; w++) next_frame(); } // every type's look in turn, for a recording
+#endif
   int r = R_NONE;
   while (!r) r = battle_turn();
   if (r == R_WIN) music(SONG_WIN);
