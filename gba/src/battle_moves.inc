@@ -102,6 +102,11 @@ static int moves_end_of_turn(void) {
       if (!m->hp) { int r = faint(s); if (r) return r; }
     }
   }
+  for (int s = 0; s < 2; s++) { // ponytail: only the player's side holds items; foes never do
+    Mon *m = B.m[s]; if (!m->hp || m->hp >= m->stats[0] || m->held != ITEM_LEFTOVERS + 1) continue;
+    int n = m->stats[0] / 16; if (n < 1) n = 1; if (n > m->stats[0] - m->hp) n = m->stats[0] - m->hp;
+    m->hp += n; drain(s); hud(s); bsayf(s, " restored a little HP using its LEFTOVERS!");
+  }
   for (int s = 0; s < 2; s++) {
     Fx *f = &B.fx[s]; f->protect = f->endure = f->acted = 0; f->took = 0;
     static const char *const OFF[] = { "'s MIST wore off!", "'s REFLECT wore off!", "'s LIGHT SCREEN wore off!", "'s SAFEGUARD wore off!" };

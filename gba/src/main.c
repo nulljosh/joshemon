@@ -138,13 +138,15 @@ static void load_text_pal(void) {
 // ---------- game state, saved to cartridge SRAM (mGBA finds the save type by this string)
 const char SAVE_TYPE[] = "SRAM_V113";
 #define SRAM ((volatile u8 *)0x0E000000)
-_Static_assert(FLAG_COUNT <= 512, "the save holds 512 story flags");
+_Static_assert(FLAG_COUNT <= 384, "384 story flags");
+_Static_assert(ITEM_COUNT - ITEM_SAVED <= 16, "16 late items");
 #define SAVE_MAGIC 0x3A4A4F54 // bump when the Save layout changes (HYPER and MAX POTION grew the bag)
 // a creature you own or meet (game.js makeMon): moves are move ids with their PP left, id 0 empty
 typedef struct { u16 id; u8 pp, pad; } Slot;
-typedef struct { u8 id, level, status, sleep; u16 hp, stats[6]; u8 nature, spare; u32 exp; u8 ivs[6]; Slot moves[4]; } Mon; // nature sits in what was padding, so old saves load (as HARDY)
+typedef struct { u8 id, level, status, sleep; u16 hp, stats[6]; u8 nature, held; u32 exp; u8 ivs[6]; Slot moves[4]; } Mon; // nature, held (item + 1) fill old padding: old saves load HARDY, empty-handed
 // rope: map+1, x, y, dir of the cave mouth you came in by (ESCAPE ROPE)
-typedef struct { u32 magic, money; u8 map, x, y, dir, starter, repel, speed, mute, surf, bike; u8 heal[4], rope[4]; u8 flags[64]; /* 512 flags; FLAG_COUNT stays under */ u8 bag[ITEM_COUNT]; u8 nparty, nbox; Mon party[6], box[30]; u8 seen[16], caught[16]; u16 hall_best, hall_pad; } Save;
+typedef struct { u32 magic, money; u8 map, x, y, dir, starter, repel, speed, mute, surf, bike; u8 heal[4], rope[4]; u8 flags[48]; u8 xbag[16]; u8 bag[ITEM_SAVED]; u8 nparty, nbox; Mon party[6], box[30]; u8 seen[16], caught[16]; u16 hall_best, hall_pad; } Save;
+#define BAG(k) (*((k) < ITEM_SAVED ? &S.bag[k] : &S.xbag[(k) - ITEM_SAVED])) // ponytail: late items live in the old (always 0) flag tail, so saves never move
 static Save S;
 static int flag(int f) { return (S.flags[f >> 3] >> (f & 7)) & 1; }
 static void set_flag(int f) { S.flags[f >> 3] |= 1 << (f & 7); }

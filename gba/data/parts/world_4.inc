@@ -77,7 +77,7 @@ static const Npc N6_gym6[] = {
   { .x = 5, .y = 2, .dir = DIR_DOWN, .look = LOOK_SABLE, .flags = NF_TRAINER, .say = L6_sable_in, .alt = L6_sable_after, .tr = &T6_sable }
 };
 static const Sign S6_gym6[] = {{0}};
-static const unsigned char K6_mart_lumen[] = {ITEM_ULTRA, ITEM_SUPER, ITEM_FULLHEAL, ITEM_REVIVE, ITEM_REPEL};
+static const unsigned char K6_mart_lumen[] = {ITEM_ULTRA, ITEM_SUPER, ITEM_FULLHEAL, ITEM_REVIVE, ITEM_REPEL, ITEM_MIRACLE};
 static const unsigned char K6_rest[] = {ITEM_BALL, ITEM_POTION};
 
 // ==================== Chapter 7: ROUTE 8 (the snow pass north of LUMEN ISLE), FROSTGATE ====================

@@ -222,7 +222,7 @@ static void talk(void) {
     if (n->flags & NF_ITEM) {
       set_flag(n->flag);
       blen = 0; cat(PLAYER_NAME); cat(" found "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat("a "); cat(ITEM_NAME[n->item]); if (n->count > 1) cat("S"); cat("!");
-      sfx(SFX_BUY); say(buf); S.bag[n->item] += n->count;
+      sfx(SFX_BUY); say(buf); BAG(n->item) += n->count;
     } else {
       if (n->look < LOOK_BALL) ndir[i] = me_dir ^ 1; // turn to face you (down<->up, left<->right)
       if (n->flags & NF_GIFT) {
@@ -232,7 +232,7 @@ static void talk(void) {
           say_lines(n->say);
           set_flag(n->flag);
           if (n->flags & NF_MON) { give_mon(n->item, n->count); say_lines(n->alt); surf_clear(); return; }
-          S.bag[n->item] += n->count;
+          BAG(n->item) += n->count;
           const char *nm = ITEM_NAME[n->item];
           blen = 0; cat(PLAYER_NAME); cat(" received "); if (n->count > 1) { cat_num(n->count); cat(" "); } else cat(has("AEIOU", nm[0]) ? "an " : "a "); cat(nm); if (n->count > 1) cat("S"); cat("!");
           say(buf);

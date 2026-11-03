@@ -83,7 +83,7 @@ static int team_screen(int pick, int cancel, const char *msg) {
     blen = 0; cat("Do what with "); cat(mon_name(&S.party[team_sel])); cat("?"); team_msg(buf);
     const char *opts[9]; int sk[6], nsk = 0, no = 0;
     for (int k = 0; k < SK_COUNT; k++) if (has_skill(k)) { sk[nsk++] = k; opts[no++] = SKILL_NAME[k]; }
-    opts[no++] = "SUMMARY"; opts[no++] = "SWITCH"; opts[no++] = "CANCEL";
+    opts[no++] = "SUMMARY"; opts[no++] = "SWITCH"; if (S.party[team_sel].held) opts[no++] = "TAKE"; opts[no++] = "CANCEL";
     int a = choose(opts, no, 150, 146 - no * 16, 88, 14 + no * 16, 16, 10, 1);
     if (a >= 0 && a < nsk) { // a field skill: back to the world to use it
       team_open = 0; REG_BG1CNT = bg1; REG_DISPCNT = dispcnt; restore_after_team();
@@ -95,6 +95,7 @@ static int team_screen(int pick, int cancel, const char *msg) {
     a -= nsk;
     if (a == 0) { summary(&S.party[team_sel]); team_bg(); REG_BG1CNT = BG_CBB(CBB_MAP) | BG_SBB(28) | BG_8BPP | BG_PRIO(3); REG_DISPCNT = MODE0 | BG0_ON | BG1_ON | OBJ_ON | OBJ_1D; for (int i = 0; i < S.nparty; i++) load_art(512 + i * 64, 6 + i, ART_MON(S.party[i].id, 0), 0); team_draw(msg); }
     else if (a == 1 && S.nparty > 1) { team_moving = team_sel; card_pal(team_sel); team_msg("Move to where?"); }
+    else if (a == 2 && no - nsk == 4) { Mon *m = &S.party[team_sel]; BAG(m->held - 1)++; blen = 0; cat("Took the "); cat(ITEM_NAME[m->held - 1]); cat(" from "); cat(mon_name(m)); cat("."); m->held = 0; team_msg(buf); }
     else team_draw(msg);
   }
   team_open = 0;

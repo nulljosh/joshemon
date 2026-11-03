@@ -53,7 +53,7 @@ static const Npc N10_lobby[] = {
   { .x = 11, .y = 6, .dir = DIR_LEFT, .look = LOOK_BOY, .flags = NF_WANDER, .say = L10_lobbykid }
 };
 static const Sign S10_lobby[] = {{0}};
-static const unsigned char K10_lobby[] = {ITEM_ULTRA, ITEM_HYPER, ITEM_MAXPOT, ITEM_FULLHEAL, ITEM_REVIVE, ITEM_REPEL};
+static const unsigned char K10_lobby[] = {ITEM_ULTRA, ITEM_HYPER, ITEM_MAXPOT, ITEM_FULLHEAL, ITEM_REVIVE, ITEM_REPEL, ITEM_LEFTOVERS, ITEM_CHARCOAL};
 static const Warp W10_nox[] = {{5, 0, MAP_E4B, 5, 9, DIR_UP}};
 static const Npc N10_nox[] = {
   { .x = 5, .y = 3, .dir = DIR_DOWN, .look = LOOK_NOX, .flags = NF_TRAINER, .say = L10_nox_in, .alt = L10_nox_after, .tr = &T10_nox },
@@ -166,5 +166,5 @@ static const Npc Ncv_mart_cove[] = {
   { .x = 7, .y = 6, .dir = DIR_UP, .look = LOOK_LASS, .flags = 0, .say = Lcv_cshop }
 };
 static const Sign Scv_mart_cove[] = {{0}};
-static const unsigned char Kcv_mart_cove[] = {ITEM_BALL, ITEM_GREAT, ITEM_POTION, ITEM_SUPER, ITEM_ANTIDOTE, ITEM_PARLYZ, ITEM_REPEL};
+static const unsigned char Kcv_mart_cove[] = {ITEM_BALL, ITEM_GREAT, ITEM_POTION, ITEM_SUPER, ITEM_ANTIDOTE, ITEM_PARLYZ, ITEM_REPEL, ITEM_MYSTIC};
 static const Warp Wcv_house_cove[] = {{4, 7, MAP_COVE, 6, 6, DIR_DOWN}, {5, 7, MAP_COVE, 6, 6, DIR_DOWN}};

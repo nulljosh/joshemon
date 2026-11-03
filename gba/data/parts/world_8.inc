@@ -132,7 +132,7 @@
     .npcs = N6_mart_lumen,
     .signs = S6_mart_lumen,
     .song = SONG_MART,
-    .nstock = 5,
+    .nstock = 6,
     .stock = K6_mart_lumen,
     .town = "LUMEN",
     .node = 16 },

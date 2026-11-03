@@ -182,3 +182,13 @@ static int ride_bike(void) {
   S.bike ^= 1; if (S.bike) load_look(LOOK_BIKE); music(map_song()); sfx(SFX_SELECT);
   blen = 0; cat(PLAYER_NAME); cat(S.bike ? " got on the BIKE." : " got off the BIKE."); say(buf); return 1;
 }
+
+// ---------- GIVE: a held item goes to a creature; what it held comes back to the BAG
+static void give_item(int key) {
+  int i = team_screen(1, 1, "Give to which creature?");
+  if (i < 0) return;
+  Mon *m = &S.party[i];
+  if (m->held) BAG(m->held - 1)++;
+  m->held = key + 1; BAG(key)--;
+  blen = 0; cat(mon_name(m)); cat(" is holding the "); cat(ITEM_NAME[key]); cat("."); say(buf);
+}

@@ -57,6 +57,7 @@ static int use_move(int side, Slot *mv) {
     int sport = B.fx[0].sport | B.fx[1].sport; if ((sport & 1 && M->type == TYPE_ELECTRIC) || (sport & 2 && M->type == TYPE_FIRE)) pw /= 2; // MUD SPORT, WATER SPORT
     if ((weather == 1 && M->type == TYPE_WATER) || (weather == 2 && M->type == TYPE_FIRE)) pw = pw * 15 / 10; // ponytail: Gen 3 scales the damage, not the power; same 1.5x and 0.5x
     else if ((weather == 1 && M->type == TYPE_FIRE) || (weather == 2 && M->type == TYPE_WATER)) pw /= 2;
+    if (a->held && ITEMS[a->held - 1].kind == 6 && ITEMS[a->held - 1].steps == M->type + 1) pw = pw * 11 / 10; // CHARCOAL, MYSTIC WATER, MIRACLE SEED
     if (aab == AB_GUTS && a->status && phys) { atk = atk * 15 / 10; burn = 0; }
     if (dab == AB_THICK_FAT && (M->type == TYPE_FIRE || M->type == TYPE_ICE)) atk /= 2;
     int contact = makes_contact(mv->id); // Gen 3's F_MAKES_CONTACT, SEISMIC TOSS and SUPER FANG too
@@ -158,7 +159,7 @@ static int use_medicine(int key) {
   else if (it->cure && m->hp && (it->cure >> m->status) & 1 && m->status) { int was = m->status; m->status = 0; if (in_battle && m == B.m[ME]) B.tox[ME] = 0; cat(mon_name(m)); cat(" "); cat(CURED[was]); }
   else if (it->revive && !m->hp) { m->hp = m->stats[0] / 2; m->status = 0; cat(mon_name(m)); cat(" recovered from fainting!"); }
   else { (in_battle ? bsay : say)("It won't have any effect."); return 0; }
-  S.bag[key]--; sfx(SFX_HEAL);
+  BAG(key)--; sfx(SFX_HEAL);
   if (in_battle && m == B.m[ME]) { drain(ME); hud(ME); }
   (in_battle ? bsay : say)(buf);
   return 1;

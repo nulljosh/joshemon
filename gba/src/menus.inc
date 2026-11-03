@@ -4,7 +4,7 @@
 // the item list on the right, the description underneath. Left and right change pockets.
 static const char *const POCKET_NAME[4] = { "ITEMS", "BALLS", "TM CASE", "KEY ITEMS" };
 static int bag_pocket, bag_sel, bag_top;
-static int bag_keys(int *out) { int n = 0; for (int k = 0; k < ITEM_COUNT; k++) if (ITEMS[k].pocket == bag_pocket && S.bag[k]) out[n++] = k; return n; }
+static int bag_keys(int *out) { int n = 0; for (int k = 0; k < ITEM_COUNT; k++) if (ITEMS[k].pocket == bag_pocket && BAG(k)) out[n++] = k; return n; }
 static void bag_satchel(void) {
   static const u32 FLAP[4] = { 0xc87840, 0xd05040, 0x58a058, 0x5878c0 };
   PAL_BG[SCENE_PAL * 16 + 5] = HEX(FLAP[bag_pocket]);
@@ -26,7 +26,7 @@ static void bag_list(void) {
   for (int r = 0; r < 6 && bag_top + r <= n; r++) {
     int j = bag_top + r, y = 14 + r * 16;
     text(j == n ? "CANCEL" : ITEMS[keys_[j]].label, 114, y, C_INK, C_SHADOW);
-    if (j < n && ITEMS[keys_[j]].kind != 5 && ITEMS[keys_[j]].pocket != 3) { blen = 0; cat("x"); cat_num(S.bag[keys_[j]]); text(buf, rtext_w(buf, 228), y, C_INK, C_SHADOW); }
+    if (j < n && ITEMS[keys_[j]].kind != 5 && ITEMS[keys_[j]].pocket != 3) { blen = 0; cat("x"); cat_num(BAG(keys_[j])); text(buf, rtext_w(buf, 228), y, C_INK, C_SHADOW); }
     if (j == bag_sel) arrow(C_INK, 104, y);
   }
   box(2, 112, 236, 46);
@@ -88,6 +88,7 @@ static void escape_rope(void);
 static int region_map(int fly);
 static int ride_bike(void);
 static void fish(void);
+static void give_item(int key);
 static int use_field(int key) {
   const Item *it = &ITEMS[key];
   if (it->heal || it->cure || it->revive) { if (S.nparty) use_medicine(key); return 0; }
@@ -98,6 +99,7 @@ static int use_field(int key) {
   if (it->kind == 5) { region_map(0); return 0; }
   if (it->kind == 3) return ride_bike();
   if (it->kind == 4) { fish(); return 1; }
+  if (it->kind == 6) give_item(key);
   return 0;
 }
 static void escape_rope(void) { Warp w = { 0, 0, S.rope[0] - 1, S.rope[1], S.rope[2], S.rope[3] }; surf_clear(); warp(&w); }
@@ -208,6 +210,7 @@ static void summary(const Mon *m) {
   text("EXP NEXT", 86, 62, 9, 0); blen = 0; cat_num(to_next); text(buf, rtext_w(buf, 236), 62, 7, 8);
   blen = 0; cat(NATURE_NAME[m->nature % 25]); cat(" nature."); text(buf, 86, 76, 7, 8); // the raised stat's name shows red, the lowered one blue
   text(ABILITY_NAME[ABILITY[m->id]], 86, 88, 9, 0);
+  if (m->held) text(ITEM_NAME[m->held - 1], rtext_w(ITEM_NAME[m->held - 1], 236), 88, 7, 8);
   static const char *const N[6] = { "HP", "ATTACK", "DEFENSE", "SP. ATK", "SP. DEF", "SPEED" };
   for (int j = 0; j < 6; j++) {
     int y = 100 + (j % 3) * 12, x = j < 3 ? 6 : 122;
@@ -272,7 +275,7 @@ static void shop(void) {
     int q = quantity(price, max); if (!q) continue;
     blen = 0; cat(ITEM_NAME[key]); cat(", and you want "); cat_num(q); cat(". That will be $"); cat_num(price * q); cat(". OK?"); say_now(buf);
     if (choose(YN, 2, 176, 66, 60, 44, 16, 10, 1) != 0) continue;
-    S.money -= price * q; S.bag[key] += q; sfx(SFX_BUY); money_box(-1);
+    S.money -= price * q; BAG(key) += q; sfx(SFX_BUY); money_box(-1);
     say("Here you go! Thank you very much.");
   }
   surf_clear();
