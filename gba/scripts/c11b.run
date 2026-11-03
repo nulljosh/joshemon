@@ -1,0 +1,44 @@
+qa 03000000
+wait 30
+press START+L+R+UP 4
+wait 200
+expect map 18
+shot sky
+press UP 13
+wait 24
+press UP 13
+wait 24
+press UP 13
+wait 24
+wait 120
+expect map 65
+expect x 7
+expect y 12
+shot summit
+press UP 115
+wait 24
+expect map 65
+expect x 7
+expect y 5
+shot near
+press A 2
+wait 22
+wait 30
+press A 2
+wait 22
+wait 30
+press A 2
+wait 22
+wait 30
+press A 2
+wait 22
+wait 60
+shot rise
+mash B battle 1
+wait 80
+shot battle
+mash A battle
+wait 60
+shot after
+mash B talking
+wait 30

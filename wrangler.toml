@@ -1,0 +1,11 @@
+name = "joshemon"
+compatibility_date = "2025-07-01"
+
+workers_dev = false
+routes = [{ pattern = "joshemon.jaybulb.com", custom_domain = true }]
+
+[assets]
+directory = "web"
+
+[observability]
+enabled = true

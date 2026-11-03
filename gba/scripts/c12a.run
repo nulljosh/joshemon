@@ -1,0 +1,57 @@
+qa 03000000
+wait 30
+press START+L+R+DOWN 4
+wait 200
+expect map 58
+shot out
+press UP 13
+wait 24
+wait 120
+expect map 66
+expect x 5
+expect y 7
+shot hall
+press UP 81
+wait 24
+expect map 66
+expect x 5
+expect y 3
+press A 2
+wait 60
+press A 2
+wait 30
+shot ask
+press A 2
+wait 60
+shot b1
+mash B battle 1
+wait 60
+shot fight1
+mash A battle
+wait 60
+press A 2
+wait 40
+shot won1
+press A 2
+wait 30
+shot ask2
+press A 2
+wait 60
+mash B battle 1
+wait 60
+mash A battle
+wait 60
+press A 2
+wait 40
+press A 2
+wait 30
+press DOWN 2
+wait 10
+press A 2
+wait 40
+shot stop
+mash B talking
+wait 30
+press A 2
+wait 30
+shot best

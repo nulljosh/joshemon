@@ -1,0 +1,374 @@
+qa 03000000
+wait 30
+press START+L+R+B+UP+LEFT+RIGHT+SELECT 4
+wait 200
+expect map 52
+expect y 18
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+wait 120
+expect map 56
+expect x 12
+expect y 1
+shot vr1
+press DOWN 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+expect map 56
+expect x 12
+expect y 2
+press DOWN 30
+wait 24
+press A 2
+wait 40
+press B 2
+wait 22
+wait 20
+press A 2
+wait 22
+wait 20
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+wait 20
+shot smash
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+expect map 56
+expect x 12
+expect y 7
+press DOWN 2
+wait 20
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 30
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 60
+press DOWN 64
+wait 24
+press DOWN 13
+wait 24
+expect map 56
+expect x 12
+expect y 13
+shot lake
+press LEFT 13
+wait 24
+press DOWN 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+expect map 56
+expect x 11
+expect y 14
+press DOWN 13
+wait 24
+press DOWN 2
+wait 20
+press A 2
+wait 40
+press B 2
+wait 22
+wait 20
+press A 2
+wait 22
+wait 20
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+wait 20
+press DOWN 13
+wait 24
+wait 10
+press DOWN 13
+wait 24
+wait 10
+expect map 56
+expect x 11
+expect y 17
+shot boulder
+press RIGHT 81
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+press RIGHT 64
+wait 24
+press DOWN 47
+wait 24
+press DOWN 13
+wait 24
+wait 120
+expect map 57
+expect x 9
+expect y 16
+shot vr2
+press UP 13
+wait 24
+press RIGHT 47
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+press RIGHT 13
+wait 24
+press UP 13
+wait 24
+press RIGHT 47
+wait 24
+press DOWN 13
+wait 24
+press RIGHT 30
+wait 24
+press UP 166
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+expect map 57
+expect x 18
+expect y 5
+press UP 30
+wait 24
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press LEFT 13
+wait 24
+expect map 57
+expect x 16
+expect y 1
+shot top
+press UP 13
+wait 24
+wait 120
+expect map 58
+expect x 9
+expect y 10
+shot league
+press UP 81
+wait 24
+wait 120
+expect map 59
+expect x 6
+expect y 8
+shot lobby
+press UP 64
+wait 24
+press LEFT 47
+wait 24
+press UP 13
+wait 24
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 60
+mash B talking
+wait 200
+mash B talking
+wait 30
+press DOWN 13
+wait 24
+press RIGHT 47
+wait 24
+press UP 64
+wait 24
+wait 120
+expect map 60
+expect x 5
+expect y 9
+shot nox
+press UP 81
+wait 24
+press A 2
+wait 10
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 40
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+wait 120
+expect map 61
+expect x 5
+expect y 9
+shot ves
+press UP 81
+wait 24
+press A 2
+wait 10
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 40
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+wait 120
+expect map 62
+expect x 5
+expect y 9
+shot fer
+press UP 81
+wait 24
+press A 2
+wait 10
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 40
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+wait 120
+expect map 63
+expect x 5
+expect y 9
+shot bra
+press UP 81
+wait 24
+press A 2
+wait 10
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 40
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+wait 120
+expect map 64
+expect x 5
+expect y 9
+shot champ
+press UP 81
+wait 24
+press A 2
+wait 10
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 60
+shot won
+wait 200
+shot maya1
+mash B battle 1
+wait 80
+shot mayab
+mash A battle
+wait 60
+mash B talking
+wait 60
+mash B talking
+wait 120
+shot hof1
+wait 200
+shot hof2
+wait 600
+shot hof3
+wait 1500
+shot cred
+wait 1500
+shot end
+press A 2
+wait 200
+shot home
+mash B talking
+wait 30
+expect map 0
+wait 30
+press RIGHT 81
+wait 24
+press UP 217
+wait 24
+expect map 0
+expect x 10
+expect y 1
+shot prof
+press A 2
+wait 10
+mash B talking
+wait 30
+mash B talking
+wait 30
+mash B talking
+wait 30
+mash B talking
+wait 30
+shot gave
+press START 2
+wait 20
+press DOWN 2
+wait 12
+press A 2
+wait 60
+shot team

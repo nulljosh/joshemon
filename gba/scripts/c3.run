@@ -1,0 +1,43 @@
+wait 30
+press START 4
+wait 200
+press LEFT 2
+wait 10
+press A 2
+wait 20
+shot typing
+wait 90
+shot mom1
+press A 2
+wait 120
+shot mom2
+press A 2
+wait 20
+press RIGHT 30
+wait 20
+press UP 92
+wait 20
+press RIGHT 2
+wait 10
+press A 2
+wait 150
+shot sign
+press A 2
+wait 20
+press START 2
+wait 20
+shot menu
+press A 2
+wait 150
+shot card
+press A 2
+wait 10
+press DOWN 2
+press A 2
+wait 120
+shot saved
+press A 2
+wait 10
+press B 2
+wait 20
+shot closed

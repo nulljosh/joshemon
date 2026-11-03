@@ -1,0 +1,70 @@
+wait 30
+press START+L+R 4
+wait 30
+press RIGHT 60
+wait 20
+press UP 230
+wait 60
+press UP 20
+wait 20
+press LEFT 20
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+wait 400
+press LEFT 2
+wait 6
+press UP 2
+wait 6
+press A 2
+wait 20
+press RIGHT 2
+wait 6
+press A 2
+wait 75
+wait 2
+shot g01
+wait 2
+shot g02
+wait 2
+shot g03
+wait 2
+shot g04
+wait 2
+shot g05
+wait 2
+shot g06
+wait 2
+shot g07
+wait 2
+shot g08
+wait 2
+shot g09
+wait 2
+shot g10
+wait 2
+shot g11
+wait 2
+shot g12

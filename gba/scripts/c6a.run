@@ -1,0 +1,30 @@
+wait 30
+press START+L+R+B 4
+wait 200
+shot town
+press UP 40
+wait 80
+shot dark
+press START 2
+wait 20
+press DOWN 2
+wait 4
+press A 2
+wait 30
+press A 2
+wait 30
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+shot skills
+press A 2
+wait 90
+shot flashed
+press A 2
+wait 30
+shot lit

@@ -1,0 +1,64 @@
+qa 03000000
+wait 30
+press START+L+R+UP 4
+wait 200
+expect map 18
+press START 2
+wait 20
+press DOWN 2
+wait 12
+press A 2
+wait 40
+press A 2
+wait 30
+press DOWN 2
+wait 10
+press DOWN 2
+wait 10
+press A 2
+wait 60
+shot flymap
+press RIGHT 2
+wait 10
+press RIGHT 2
+wait 10
+press RIGHT 2
+wait 10
+press RIGHT 2
+wait 10
+press RIGHT 2
+wait 10
+shot drake
+press A 2
+wait 200
+mash B talking
+wait 30
+expect map 52
+expect x 6
+expect y 9
+shot landed
+press START 2
+wait 20
+press DOWN 2
+wait 12
+press A 2
+wait 40
+press A 2
+wait 30
+press DOWN 2
+wait 10
+press DOWN 2
+wait 10
+press A 2
+wait 60
+press RIGHT 2
+wait 10
+shot league
+press A 2
+wait 200
+mash B talking
+wait 30
+expect map 58
+expect x 9
+expect y 6
+shot landed2

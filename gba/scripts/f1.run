@@ -1,0 +1,99 @@
+wait 30
+press START+L+R 4
+wait 200
+press A 2
+wait 100
+press A 2
+wait 30
+shot surfask
+press A 2
+wait 60
+press A 2
+wait 60
+shot surfing
+press LEFT 50
+wait 30
+shot surfleft
+press START 2
+wait 20
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+press A 2
+wait 30
+press RIGHT 2
+wait 6
+press RIGHT 2
+wait 6
+press RIGHT 2
+wait 10
+shot keys
+press DOWN 2
+wait 6
+press A 2
+wait 120
+shot cast
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+press A 2
+wait 8
+shot fished
+wait 300
+shot fishbattle

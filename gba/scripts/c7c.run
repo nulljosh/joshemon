@@ -1,0 +1,68 @@
+qa 03000000
+wait 30
+press START+L+R+B+UP 4
+wait 200
+shot frostn
+press UP 13
+wait 24
+press UP 13
+wait 24
+wait 120
+expect map 48
+expect x 9
+expect y 14
+shot cave
+press UP 13
+wait 24
+wait 50
+press UP 13
+wait 24
+wait 50
+press LEFT 13
+wait 24
+wait 50
+press UP 13
+wait 24
+wait 50
+press LEFT 13
+wait 24
+wait 50
+press DOWN 13
+wait 24
+wait 50
+press RIGHT 13
+wait 24
+wait 50
+press UP 13
+wait 24
+wait 50
+press RIGHT 13
+wait 24
+wait 50
+press UP 13
+wait 24
+wait 50
+press UP 13
+wait 24
+wait 50
+expect map 48
+expect x 6
+expect y 2
+shot ledge
+press LEFT 47
+wait 24
+press UP 13
+wait 24
+press A 2
+wait 10
+mash B talking
+wait 20
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+shot boreal

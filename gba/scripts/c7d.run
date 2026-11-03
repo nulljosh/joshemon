@@ -1,0 +1,16 @@
+wait 30
+press START+L+R 4
+wait 60
+press START 2
+wait 20
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+press DOWN 2
+wait 4
+press A 2
+wait 30
+shot map
+wait 16
+shot map2

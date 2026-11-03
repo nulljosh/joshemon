@@ -1,0 +1,128 @@
+wait 30
+press START+L+R 4
+wait 30
+press RIGHT 60
+wait 20
+press UP 230
+wait 60
+press UP 20
+wait 20
+press LEFT 20
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+wait 300
+press A 2
+wait 30
+press B 2
+wait 10
+press RIGHT 2
+wait 10
+shot cmd
+press A 2
+wait 20
+shot bag
+press A 2
+wait 30
+shot throw
+wait 40
+shot arc
+wait 120
+shot shake
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r5
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r10
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r15
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r20
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r25
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot r30
+wait 60
+press START 2
+wait 20
+press A 2
+wait 30
+shot team
+press DOWN 2
+wait 10
+shot team2

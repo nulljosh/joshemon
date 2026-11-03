@@ -1,0 +1,7 @@
+wait 30
+press START 4
+wait 30
+shot continue
+press A 2
+wait 60
+shot resumed

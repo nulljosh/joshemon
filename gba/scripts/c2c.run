@@ -1,0 +1,18 @@
+wait 30
+press START 4
+wait 200
+press RIGHT 60
+wait 20
+press UP 92
+wait 20
+press B+UP 120
+wait 60
+press UP 30
+wait 20
+press LEFT 20
+wait 20
+press UP 40
+wait 20
+press LEFT 60
+wait 20
+shot grass

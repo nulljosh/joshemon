@@ -1,0 +1,28 @@
+wait 30
+press START+L+R 4
+wait 20
+shot popup
+wait 170
+shot cedar
+press RIGHT 70
+press UP 120
+shot walking
+press B+UP 140
+wait 40
+shot route1
+press UP 100
+press LEFT 70
+shot ledge-top
+press DOWN 12
+shot hop
+wait 30
+shot landed
+press DOWN 40
+press RIGHT 60
+press DOWN 60
+wait 60
+shot back-cedar
+press LEFT 70
+press UP 120
+wait 40
+shot rest

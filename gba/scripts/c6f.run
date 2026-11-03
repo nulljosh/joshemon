@@ -1,0 +1,217 @@
+qa 03000000
+wait 30
+press START+L+R+B 4
+wait 200
+press UP 28
+wait 24
+wait 80
+press START 2
+wait 20
+press DOWN 2
+wait 6
+press A 2
+wait 30
+press A 2
+wait 30
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press A 2
+wait 60
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press UP 12
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press UP 28
+wait 24
+press RIGHT 44
+wait 24
+press UP 28
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press UP 60
+wait 24
+press RIGHT 28
+wait 24
+wait 90
+expect map 42
+expect x 2
+expect y 1
+press START 2
+wait 20
+press DOWN 2
+wait 6
+press A 2
+wait 30
+press A 2
+wait 30
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press A 2
+wait 60
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press DOWN 60
+wait 24
+press RIGHT 44
+wait 24
+expect map 42
+expect x 5
+expect y 5
+press A 2
+wait 10
+mash B talking
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+shot emberdone
+press UP 12
+wait 24
+press RIGHT 12
+wait 24
+press UP 12
+wait 24
+press A 2
+wait 10
+mash B talking
+shot keeper
+press LEFT 12
+wait 24
+press DOWN 12
+wait 24
+press LEFT 44
+wait 24
+press UP 60
+wait 24
+press LEFT 28
+wait 24
+wait 90
+expect map 41
+expect x 10
+expect y 1
+press LEFT 12
+wait 24
+press DOWN 92
+wait 24
+press LEFT 44
+wait 24
+press DOWN 60
+wait 24
+wait 100
+expect map 38
+expect x 11
+expect y 5
+shot outside
+press DOWN 92
+wait 24
+press RIGHT 76
+wait 24
+press DOWN 92
+wait 24
+press LEFT 60
+wait 24
+press UP 12
+wait 24
+wait 100
+expect map 43
+expect x 5
+expect y 12
+shot gym
+press UP 44
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+shot psy1
+press UP 44
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+shot psy2
+press UP 44
+wait 24
+press A 2
+wait 10
+mash B talking
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+shot sable
+wait 200
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+shot badge
+press START 2
+wait 20
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press A 2
+wait 120
+shot card

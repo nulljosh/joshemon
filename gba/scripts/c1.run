@@ -1,0 +1,17 @@
+wait 30
+press START 3
+wait 20
+shot cedar
+press DOWN 120
+press RIGHT 60
+shot cedar-pan
+press R 2
+wait 10
+shot route1
+press R 2
+press R 2
+wait 40
+shot harbor-anim
+press RIGHT 80
+press DOWN 40
+shot harbor-pan

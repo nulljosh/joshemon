@@ -1,0 +1,15 @@
+wait 30
+press START+L+R 4
+wait 30
+press DOWN 2
+press A 2
+wait 60
+press RIGHT 92
+wait 20
+press UP 204
+wait 20
+press RIGHT 2
+wait 10
+press A 2
+wait 150
+shot sign

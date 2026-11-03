@@ -1,0 +1,66 @@
+qa 03000000
+wait 30
+press START+L+R+B+UP+RIGHT 4
+wait 200
+expect map 45
+expect y 13
+press UP 13
+wait 24
+wait 120
+expect map 49
+expect x 6
+expect y 14
+shot gymin
+press UP 13
+wait 40
+press UP 13
+wait 40
+press LEFT 13
+wait 40
+press UP 13
+wait 90
+expect x 5
+expect y 3
+press RIGHT 13
+wait 40
+press UP 6
+wait 30
+expect x 6
+expect y 3
+shot boreal
+press A 2
+wait 10
+mash B talking
+wait 30
+shot bintro
+mash B battle 1
+mash A battle
+wait 60
+shot bwon
+mash B talking
+wait 40
+shot after
+press START 2
+wait 30
+shot menu
+press DOWN 2
+wait 12
+press DOWN 2
+wait 12
+press DOWN 2
+wait 12
+press DOWN 2
+wait 12
+press A 2
+wait 60
+shot card
+press A 2
+wait 40
+shot card2
+press B 2
+wait 30
+press B 2
+wait 20
+press DOWN 13
+wait 60
+shot slide

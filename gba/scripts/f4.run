@@ -1,0 +1,17 @@
+wait 30
+press START+L+R+SELECT 4
+wait 200
+shot tree
+press A 2
+wait 120
+press A 2
+wait 30
+shot ask
+press A 2
+wait 80
+press A 2
+wait 30
+shot cut
+press RIGHT 20
+wait 30
+shot through

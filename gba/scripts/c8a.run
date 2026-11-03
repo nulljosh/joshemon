@@ -1,0 +1,125 @@
+qa 03000000
+wait 30
+press START+L+R+B+UP+LEFT 4
+wait 200
+expect map 45
+shot fg
+press LEFT 30
+wait 24
+wait 120
+expect map 50
+expect x 22
+expect y 8
+shot bay
+press LEFT 115
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+press LEFT 200
+wait 24
+press DOWN 64
+wait 24
+expect map 50
+expect x 3
+expect y 12
+shot shore
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 30
+shot surfask
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 60
+shot surfing
+press DOWN 64
+wait 24
+press LEFT 13
+wait 24
+press DOWN 47
+wait 24
+press RIGHT 30
+wait 24
+press RIGHT 30
+wait 24
+expect map 50
+expect x 6
+expect y 20
+shot island
+press UP 13
+wait 24
+wait 120
+expect map 51
+expect x 9
+expect y 16
+shot shrine
+press UP 13
+wait 24
+press UP 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+press UP 2
+wait 20
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 30
+press A 2
+wait 22
+wait 60
+press A 2
+wait 22
+wait 60
+press UP 81
+wait 24
+shot hall
+press UP 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+expect map 51
+expect x 9
+expect y 7
+press UP 13
+wait 24
+press UP 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 30
+press UP 13
+wait 24
+expect map 51
+expect x 9
+expect y 4
+shot cindra
+press A 2
+wait 10
+mash B talking
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+wait 60
+shot after
+wait 60
+shot gone

@@ -1,0 +1,126 @@
+wait 30
+press START+L+R 4
+wait 30
+press RIGHT 60
+wait 20
+press UP 230
+wait 60
+press UP 20
+wait 20
+press LEFT 20
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+wait 400
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e4
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e8
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e12
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e16
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e20
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e24
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e28
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e32
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e36
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot e40

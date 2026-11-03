@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" width="960" height="520" font-family="-apple-system, system-ui, sans-serif">
+  <rect width="960" height="520" fill="#ffffff"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a94a6"/></marker>
+  </defs>
+  <style>
+    .n { fill: #f5f6f8; stroke: #d5d9e0; stroke-width: 1; }
+    .k { fill: #fff4ee; stroke: #b5502c; stroke-width: 1.5; }
+    .t { font-size: 14px; font-weight: 600; fill: #1d2433; }
+    .s { font-size: 11.5px; fill: #5b6475; }
+    .h { font-size: 12px; font-weight: 700; fill: #8a94a6; letter-spacing: .08em; }
+    .l { stroke: #8a94a6; stroke-width: 1.4; fill: none; marker-end: url(#a); }
+  </style>
+  <text x="40" y="40" class="h">SOURCE (EDITED BY HAND)</text>
+  <text x="360" y="40" class="h">HOST TOOLS (make)</text>
+  <text x="680" y="40" class="h">CARTRIDGE</text>
+
+  <rect x="40" y="60" width="260" height="62" rx="12" class="n"/>
+  <text x="58" y="86" class="t">data/world.c</text><text x="58" y="106" class="s">maps, people, trainers, story flags</text>
+  <rect x="40" y="140" width="260" height="62" rx="12" class="n"/>
+  <text x="58" y="166" class="t">data/dex.c · art.c</text><text x="58" y="186" class="s">107 creatures, moves, art, scenes</text>
+  <rect x="40" y="220" width="260" height="62" rx="12" class="n"/>
+  <text x="58" y="246" class="t">music/songs.py</text><text x="58" y="266" class="s">33 songs: melody and chords</text>
+
+  <rect x="360" y="60" width="260" height="62" rx="12" class="n"/>
+  <text x="378" y="86" class="t">tools/paint.c</text><text x="378" y="106" class="s">paints maps and people into tiles</text>
+  <rect x="360" y="220" width="260" height="62" rx="12" class="n"/>
+  <text x="378" y="246" class="t">tools/compose.py</text><text x="378" y="266" class="s">arranges the songs into world.c</text>
+  <rect x="360" y="300" width="260" height="62" rx="12" class="n"/>
+  <text x="378" y="326" class="t">tools/samples.py</text><text x="378" y="346" class="s">synthesizes brass, strings, drums</text>
+
+  <rect x="680" y="60" width="240" height="222" rx="12" class="n"/>
+  <text x="698" y="86" class="t">gba/src (C, ARM7)</text>
+  <text x="698" y="110" class="s">main.c  overworld, text, saves</text>
+  <text x="698" y="130" class="s">battle.inc  Gen 3 battles</text>
+  <text x="698" y="150" class="s">story.inc  trainers, cutscenes</text>
+  <text x="698" y="170" class="s">menus.inc  BAG, DEX, PC, map</text>
+  <text x="698" y="190" class="s">sound.inc  4 channels + sampler</text>
+  <text x="698" y="210" class="s">rules.c  pokeruby formulas</text>
+  <text x="698" y="240" class="s">drawing and mixer in IWRAM,</text>
+  <text x="698" y="258" class="s">music on the VBlank interrupt</text>
+
+  <rect x="680" y="320" width="240" height="62" rx="12" class="k"/>
+  <text x="698" y="346" class="t">build/joshemon.gba</text><text x="698" y="366" class="s">runs in mGBA and on hardware</text>
+
+  <rect x="360" y="420" width="560" height="62" rx="12" class="n"/>
+  <text x="378" y="446" class="t">build/gbarun (libmgba, no window)</text><text x="378" y="466" class="s">key scripts in, screenshots, wav and every frame out; QA checks map, place, battle and song</text>
+
+  <path class="l" d="M300 91H352"/>
+  <path class="l" d="M300 251H352"/>
+  <path class="l" d="M620 91H672"/>
+  <path class="l" d="M300 171C330 171 330 200 672 200"/>
+  <path class="l" d="M620 251H672"/>
+  <path class="l" d="M620 331C650 331 650 270 672 270"/>
+  <path class="l" d="M800 282V312"/>
+  <path class="l" d="M800 382V412"/>
+</svg>

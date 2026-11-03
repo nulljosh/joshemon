@@ -1,0 +1,144 @@
+wait 30
+press START+L+R 4
+wait 30
+press RIGHT 60
+wait 20
+press UP 230
+wait 60
+press UP 120
+wait 10
+shot bubble
+wait 60
+shot walk
+wait 60
+shot intro
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t6
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t12
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t18
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t24
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t30
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t36
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t42
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t48
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t54
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+press A 2
+wait 25
+shot t60

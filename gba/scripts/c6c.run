@@ -1,0 +1,81 @@
+qa 03000000
+wait 30
+press START+L+R+B 4
+wait 200
+press UP 28
+wait 24
+wait 80
+press START 2
+wait 20
+press DOWN 2
+wait 6
+press A 2
+wait 30
+press A 2
+wait 30
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press DOWN 2
+wait 6
+press A 2
+wait 60
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press UP 12
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press UP 28
+wait 24
+press RIGHT 44
+wait 24
+press UP 28
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press UP 60
+wait 24
+press RIGHT 28
+wait 24
+wait 90
+expect map 42
+expect x 2
+expect y 1
+press DOWN 12
+wait 24
+shot s1
+press DOWN 44
+wait 24
+shot s2
+press RIGHT 44
+wait 24
+shot s3
+expect map 42
+expect x 5
+expect y 5
+press A 2
+wait 40
+shot s4
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+shot s5

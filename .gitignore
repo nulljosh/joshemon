@@ -1,0 +1,6 @@
+gba/build/
+qa/
+.DS_Store
+web/joshemon.gba
+.wrangler/
+node_modules/

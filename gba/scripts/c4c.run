@@ -1,0 +1,55 @@
+wait 30
+press START+L+R 4
+wait 30
+press RIGHT 60
+wait 20
+press UP 230
+wait 60
+press UP 20
+wait 20
+press LEFT 20
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+press LEFT 40
+wait 20
+press RIGHT 40
+wait 20
+wait 400
+press RIGHT 2
+wait 10
+shot cmd
+press A 2
+wait 20
+shot bag
+press A 2
+wait 70
+shot arc
+wait 30
+shot open
+wait 60
+shot shake
+wait 120
+shot result
+wait 120
+shot result2
+wait 200
+shot after

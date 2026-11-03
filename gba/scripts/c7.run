@@ -1,0 +1,29 @@
+wait 30
+press START+L+R 4
+wait 60
+press START 2
+wait 20
+press DOWN 2
+wait 10
+press A 2
+wait 30
+shot bag
+press DOWN 2
+wait 10
+shot bag2
+press RIGHT 2
+wait 10
+shot balls
+press RIGHT 2
+wait 10
+shot tms
+press LEFT 2
+wait 4
+press LEFT 2
+wait 10
+press A 2
+wait 30
+shot target
+press A 2
+wait 100
+shot used

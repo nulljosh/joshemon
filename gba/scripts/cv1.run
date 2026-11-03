@@ -1,0 +1,276 @@
+qa 03000000
+wait 30
+press START+L+R+UP+RIGHT 4
+wait 200
+expect map 4
+expect x 11
+expect y 3
+press UP 30
+wait 24
+press UP 13
+wait 24
+wait 40
+expect map 67
+expect x 11
+expect y 28
+press UP 64
+wait 24
+press UP 13
+wait 24
+press UP 13
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+press UP 30
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 67
+expect x 12
+expect y 18
+press LEFT 149
+wait 24
+press RIGHT 13
+wait 24
+press UP 98
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 67
+expect x 4
+expect y 12
+press UP 30
+wait 24
+press RIGHT 81
+wait 24
+press UP 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 67
+expect x 9
+expect y 9
+press UP 30
+wait 24
+press UP 13
+wait 24
+press UP 13
+wait 24
+press UP 13
+wait 24
+press RIGHT 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 67
+expect x 10
+expect y 4
+press LEFT 64
+wait 24
+press A 2
+wait 10
+mash B talking
+press RIGHT 47
+wait 24
+press UP 64
+wait 24
+wait 40
+expect map 68
+expect x 9
+expect y 18
+shot cove
+press UP 47
+wait 24
+press UP 149
+wait 24
+press LEFT 47
+wait 24
+press UP 13
+wait 24
+wait 40
+expect map 71
+expect x 4
+expect y 6
+press UP 47
+wait 24
+press RIGHT 13
+wait 24
+press UP 13
+wait 24
+press A 2
+wait 10
+mash B talking
+shot gift
+press DOWN 47
+wait 24
+press DOWN 13
+wait 24
+wait 40
+expect map 68
+expect x 6
+expect y 6
+press DOWN 13
+wait 24
+press LEFT 98
+wait 24
+wait 40
+expect map 72
+expect x 22
+expect y 7
+shot woods
+press LEFT 115
+wait 24
+press UP 13
+wait 24
+press LEFT 13
+wait 24
+press UP 13
+wait 24
+press UP 13
+wait 24
+press RIGHT 13
+wait 24
+press RIGHT 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 72
+expect x 16
+expect y 4
+press LEFT 30
+wait 24
+press DOWN 13
+wait 24
+press LEFT 64
+wait 24
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+press LEFT 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 72
+expect x 9
+expect y 7
+press LEFT 115
+wait 24
+press DOWN 30
+wait 24
+expect map 72
+expect x 2
+expect y 9
+press DOWN 13
+wait 24
+press A 2
+wait 22
+press A 2
+wait 22
+press A 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+press LEFT 13
+wait 24
+press A 2
+wait 10
+mash B talking
+expect map 72
+expect x 2
+expect y 11
+press UP 64
+wait 24
+press RIGHT 132
+wait 24
+press DOWN 30
+wait 24
+press DOWN 13
+wait 24
+press RIGHT 30
+wait 24
+press DOWN 13
+wait 24
+press DOWN 30
+wait 24
+press LEFT 64
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 72
+expect x 8
+expect y 13
+press LEFT 64
+wait 24
+expect map 72
+expect x 4
+expect y 13
+press DOWN 13
+wait 24
+press A 2
+wait 22
+press A 2
+wait 22
+press A 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press DOWN 13
+wait 24
+wait 30
+press DOWN 13
+wait 24
+press DOWN 13
+wait 24
+wait 30
+press DOWN 13
+wait 24
+expect map 72
+expect x 4
+expect y 15
+press LEFT 47
+wait 24
+press DOWN 13
+wait 24
+press A 2
+wait 10
+mash B talking
+shot pocket
+press START 2
+wait 30
+press DOWN 13
+wait 24
+press A 2
+wait 22
+wait 40
+shot team

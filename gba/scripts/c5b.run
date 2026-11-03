@@ -1,0 +1,135 @@
+wait 30
+press START 4
+wait 60
+shot intro
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+press A 2
+wait 70
+wait 60
+shot mom
+press A 2
+wait 70
+press A 2
+wait 60
+shot world
+press RIGHT 60
+wait 20
+press UP 200
+wait 60
+shot help
+press A 2
+wait 80
+press A 2
+wait 80
+press A 2
+wait 80
+press A 2
+wait 80
+shot pick
+press RIGHT 2
+wait 20
+shot pick2
+press A 2
+wait 30
+shot yesno
+press A 2
+wait 300
+shot story
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot s8
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot s16
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot s24
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot s32
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+press A 2
+wait 30
+shot s40

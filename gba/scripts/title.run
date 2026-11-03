@@ -1,0 +1,6 @@
+wait 60
+shot title
+wait 32
+shot blink
+press START 4
+shot started

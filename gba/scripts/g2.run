@@ -1,0 +1,64 @@
+qa 03000000
+wait 30
+press START+L+R+RIGHT 4
+wait 200
+expect map 12
+expect x 7
+expect y 14
+shot town
+press UP 13
+wait 24
+wait 60
+expect map 16
+expect x 5
+expect y 12
+shot gymin
+press UP 64
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press RIGHT 47
+wait 24
+press UP 30
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+press LEFT 47
+wait 24
+press UP 47
+wait 24
+press UP 13
+wait 24
+expect map 16
+expect x 5
+expect y 3
+shot leader
+press A 2
+wait 10
+mash B battle 1
+wait 90
+shot inbattle
+mash A battle
+wait 50
+mash B talking
+wait 60
+shot badge
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+wait 40
+press A 2
+wait 40
+shot again
+mash B talking
+wait 20
+shot after

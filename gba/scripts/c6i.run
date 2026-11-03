@@ -1,0 +1,42 @@
+qa 03000000
+wait 30
+press START+L+R+B+SELECT 4
+wait 200
+press LEFT 30
+wait 24
+wait 120
+expect map 37
+expect x 29
+expect y 9
+shot r7
+press LEFT 13
+wait 24
+press UP 30
+wait 24
+press LEFT 285
+wait 24
+mash B battle 1
+shot preb
+mash A battle
+wait 50
+mash B talking
+shot swimmer
+press LEFT 183
+wait 24
+wait 120
+expect map 38
+expect x 23
+expect y 15
+shot lumen
+press LEFT 30
+wait 24
+press DOWN 13
+wait 24
+press LEFT 64
+wait 24
+mash B battle 1
+shot preb
+mash A battle
+wait 50
+mash B talking
+shot mayadone

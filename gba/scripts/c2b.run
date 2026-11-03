@@ -1,0 +1,23 @@
+wait 30
+press START+L+R 4
+wait 200
+press UP 10
+wait 30
+shot locked-door
+press RIGHT 60
+wait 20
+press UP 92
+wait 20
+press LEFT 60
+wait 20
+press UP 28
+wait 50
+shot rest-house
+press DOWN 30
+wait 60
+shot out-again
+press RIGHT 124
+wait 20
+press UP 12
+wait 50
+shot mart
