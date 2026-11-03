@@ -64,6 +64,9 @@
 ## Bigger world loop (2026-11-02)
 The COVEWICK area is done: ROUTE 10 (the SEAWALK), COVEWICK TOWN with a Rest House, Mart and gift house, and ROUTE 11 (the woods). The maps are MAP_ROUTE10 to MAP_ROUTE11 (67 to 72), with data under the `cv_` prefix in world.c (`L10_`/`L11_` were already taken by the league and the post-game). Its song is SONG_COVE. `START+L+R+UP+RIGHT` on qa_field starts you under the SEAWALK pier. All 25 scripts pass (`gba/tools/regress.sh`): the 21 old ones plus cv1, cv2, co1 (CEDAR COAST and ELDER GROTTO on qa_dip, `START+L+R+RIGHT`) and co2 (the coast guard on a fresh save). Next, more areas from roadmap.md's "Bigger world". Promo files are in qa/ad.
 
+## State 2026-11-02, late
+The latest release is v1.4.0. Shipped since 1.0.0: CEDAR COAST and the ELDER GROTTO (1.1.0), the in-browser player on the site, per-type battle effects (1.2.0), the DUNE ROAD and the SUN RUINS (1.3.0), and natures (1.4.0). Every pass runs `gba/tools/regress.sh 1` and then `2` (26 scripts, about 2 minutes, each capped at 120 s), commits, tags vX.Y.0, releases the .gba and runs `npx wrangler deploy`. Next: abilities (one per species, the common Gen 3 effects first), then a river route between BASALT and SKYREACH. Background tasks stay under 5 minutes, and any headless Chrome gets `--mute-audio`.
+
 ## Rules
 - **Public** (since 2026-11-02): commit and push to nulljosh/joshemon each pass. `./deploy.sh` updates joshemon.jaybulb.com. A release goes out when a version is worth playing.
 - **Battle rules:** read pokeruby before changing one (`gh api search/code -f q="Name repo:pret/pokeruby"`).
