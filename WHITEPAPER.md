@@ -1,6 +1,6 @@
 # Joshémon Technical Whitepaper
 
-**v1.4.0** | November 2026
+**v1.5.0** | November 2026
 
 Joshémon is a full monster-collecting RPG that runs on Game Boy Advance hardware: 105 creatures, eight gyms, a league and a post-game, in a 2 MB cartridge written in C with no engine and no libraries. This paper covers how the world, the battles and the sound fit on a 16.78 MHz ARM7 with 288 KB of RAM.
 
@@ -12,7 +12,7 @@ At build time a host program, `tools/paint.c`, reads the same file and draws eve
 
 ## Battles
 
-The battle rules follow the pokeruby decompilation of the 2003 games: the damage formula with its random factor, same-type bonus and type chart, natures, critical hits, accuracy and evasion stages, status, catching odds, EXP and evolution. They live in `src/rules.c`, apart from the screens, so `make test` can check them on the host against hand-worked numbers. Trainers pick moves by expected damage. The screens are built from sprites over a painted backdrop, with text drawn into a tile surface by ARM code running from fast internal RAM.
+The battle rules follow the pokeruby decompilation of the 2003 games: the damage formula with its random factor, same-type bonus and type chart, natures, 33 abilities (one per creature), critical hits, accuracy and evasion stages, status, catching odds, EXP and evolution. They live in `src/rules.c`, apart from the screens, so `make test` can check them on the host against hand-worked numbers. Trainers pick moves by expected damage. The screens are built from sprites over a painted backdrop, with text drawn into a tile surface by ARM code running from fast internal RAM.
 
 ## Text
 

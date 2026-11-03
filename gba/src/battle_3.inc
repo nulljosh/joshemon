@@ -1,3 +1,7 @@
+// ---------- evolution (game.js evolve): after the battle, dark sky, sparkles circling, the shape flashes
+// between old and new faster and faster; hold B to stop it.
+static const s8 SIN[256] = {0,3,6,9,12,16,19,22,25,28,31,34,37,40,43,46,49,51,54,57,60,63,65,68,71,73,76,78,81,83,85,88,90,92,94,96,98,100,102,104,106,107,109,111,112,113,115,116,117,118,120,121,122,122,123,124,125,125,126,126,126,127,127,127,127,127,127,127,126,126,126,125,125,124,123,122,122,121,120,118,117,116,115,113,112,111,109,107,106,104,102,100,98,96,94,92,90,88,85,83,81,78,76,73,71,68,65,63,60,57,54,51,49,46,43,40,37,34,31,28,25,22,19,16,12,9,6,3,0,-3,-6,-9,-12,-16,-19,-22,-25,-28,-31,-34,-37,-40,-43,-46,-49,-51,-54,-57,-60,-63,-65,-68,-71,-73,-76,-78,-81,-83,-85,-88,-90,-92,-94,-96,-98,-100,-102,-104,-106,-107,-109,-111,-112,-113,-115,-116,-117,-118,-120,-121,-122,-122,-123,-124,-125,-125,-126,-126,-126,-127,-127,-127,-127,-127,-127,-127,-126,-126,-126,-125,-125,-124,-123,-122,-122,-121,-120,-118,-117,-116,-115,-113,-112,-111,-109,-107,-106,-104,-102,-100,-98,-96,-94,-92,-90,-88,-85,-83,-81,-78,-76,-73,-71,-68,-65,-63,-60,-57,-54,-51,-49,-46,-43,-40,-37,-34,-31,-28,-25,-22,-19,-16,-12,-9,-6,-3};
+static int evo_t, evo_show, evo_from, evo_to;
 static void render_evolve(void) {
   int n = 0;
   for (int i = 0; i < 24; i++) {
@@ -123,8 +127,8 @@ static int battle_turn(void) {
     int any = 0; for (int i = 0; i < 4; i++) any |= me->moves[i].id && me->moves[i].pp;
     if (!any) { bsayf(ME, " has no moves left!"); act = &struggle; }
     else {
-      const char *names[4]; int n = 0; char cut[4][12];
-      for (int i = 0; i < 4 && me->moves[i].id; i++) { const char *s = MOVES[me->moves[i].id].name; int k = 0; for (; s[k] && k < 11; k++) cut[i][k] = s[k]; cut[i][k] = 0; names[n++] = cut[i]; }
+      const char *names[4]; int n = 0; char cut[4][13];
+      for (int i = 0; i < 4 && me->moves[i].id; i++) { const char *s = MOVES[me->moves[i].id].name; int k = 0; for (; s[k] && k < 12; k++) cut[i][k] = s[k]; cut[i][k] = 0; names[n++] = cut[i]; }
       int i = choose_grid(names, n, 0, 112, 160, 48, 14, 13, 2, 72, 1, show_pp);
       bbox();
       if (i < 0) return R_NONE;
@@ -144,7 +148,7 @@ static int battle_turn(void) {
   } else {
     int i = team_screen(1, 1, "Choose a creature.");
     if (i < 0 || i == B.mi) return R_NONE;
-    blen = 0; cat(mon_name(me)); cat(", come back!"); bsay(buf);
+    blen = 0; cat(mon_name(me)); cat(", come back!"); bsay(buf); if (abil(ME) == AB_NATURAL_CURE) { me->status = me->sleep = 0; B.tox[ME] = 0; }
     B.hide[ME] = 1; B.mi = i; B.m[ME] = &S.party[i]; B.shown[ME] = B.m[ME]->hp * 16; new_side(ME); hud(ME);
     blen = 0; cat("Go! "); cat(mon_name(B.m[ME])); cat("!"); bsay(buf); pop_in(ME);
   }
@@ -156,7 +160,7 @@ static int battle_turn(void) {
   if (run) {
     int a = mon_speed(ME), b = mon_speed(FOE); B.tries++;
     int f = a * 128 / (b ? b : 1) + 30 * B.tries;
-    if (a > b || f > 255 || ri(256) < f) { bsay("Got away safely!"); return R_RAN; }
+    if (abil(ME) == AB_RUN_AWAY || a > b || f > 255 || ri(256) < f) { bsay("Got away safely!"); return R_RAN; }
     bsay("Can't escape!");
   }
   int r;
@@ -233,6 +237,8 @@ static int battle(void) {
 #endif
   blen = 0; cat("Go! "); cat(mon_name(B.m[ME])); cat("!"); bsay(buf);
   for (; B.me_tr > 0; B.me_tr--) next_frame();
+  if (!B.tr) B.pend[FOE] = 1;
+  B.fresh[ME] = B.fresh[FOE] = 0; // leads count their first turn (SPEED BOOST)
   pop_in(ME);
 #ifdef QA_FX
   for (int t = 0; t < 17; t++) { static Move m; m.type = t; m.power = 60; m.tgt = 0; move_anim(ME, &m, 0); for (int w = 0; w < 30; w++) next_frame(); } // every type's look in turn, for a recording
@@ -269,6 +275,9 @@ static int wild_kind(int kind) { // returns 1 when a battle happened (REPEL can 
   const u8 *list = kind == 1 ? mi->water : kind == 2 ? mi->fish : mi->grass;
   int lo = kind == 1 ? mi->wlo : kind == 2 ? mi->flo : mi->lvlo, hi = kind == 1 ? mi->whi : kind == 2 ? mi->fhi : mi->lvhi;
   int id = list[pick_slot(ri(100))], lv = lo + ri(hi - lo + 1);
+#ifdef QA_WILD
+  id = QA_WILD; // a QA build that meets one kind on every grass step, to see an ability fire
+#endif
   if (kind != 2 && S.repel && lv < S.party[0].level) return 0; // Gen 3 REPEL: only weaker wild creatures are kept away
   make_mon(&B.foe, id, lv); B.tr = 0;
   fishing = kind == 2; battle(); fishing = 0;

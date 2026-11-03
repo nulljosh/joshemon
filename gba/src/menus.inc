@@ -207,6 +207,7 @@ static void summary(const Mon *m) {
   int to_next = m->level >= 100 ? 0 : exp_for_level(s->growth, m->level + 1) - (int)m->exp;
   text("EXP NEXT", 86, 62, 9, 0); blen = 0; cat_num(to_next); text(buf, rtext_w(buf, 236), 62, 7, 8);
   blen = 0; cat(NATURE_NAME[m->nature % 25]); cat(" nature."); text(buf, 86, 76, 7, 8); // the raised stat's name shows red, the lowered one blue
+  text(ABILITY_NAME[ABILITY[m->id]], 86, 88, 9, 0);
   static const char *const N[6] = { "HP", "ATTACK", "DEFENSE", "SP. ATK", "SP. DEF", "SPEED" };
   for (int j = 0; j < 6; j++) {
     int y = 100 + (j % 3) * 12, x = j < 3 ? 6 : 122;
@@ -220,7 +221,7 @@ static void summary(const Mon *m) {
     const Move *M = &MOVES[m->moves[j].id]; int x = j % 2 ? 122 : 6, y = 140 + (j / 2) * 10;
     PAL_BG[11 * 16 + 6 + j] = HEX(TYPE_COL[type_col(M->type)]);
     px(6 + j, x, y + 1, 3, 7);
-    char nm[12]; int k = 0; for (; M->name[k] && k < 11; k++) nm[k] = M->name[k]; nm[k] = 0;
+    char nm[13]; int k = 0; for (; M->name[k] && k < 12; k++) nm[k] = M->name[k]; nm[k] = 0;
     text(nm, x + 6, y, 3, 4);
     blen = 0; cat_num(m->moves[j].pp); cat("/"); cat_num(M->pp); text(buf, rtext_w(buf, x + 110), y, 5, 0);
   }

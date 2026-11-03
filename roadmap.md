@@ -39,10 +39,18 @@ All 16 scripts pass.
 
 ## Bigger world (toward Sapphire's size)
 The game is about half of Sapphire's size. This loop adds routes and towns one area per pass. Each area gets its own wild creatures, trainers, items, a field skill to come back with, and a script that walks it.
-- [ ] Battle depth still missing next to Sapphire: abilities, held items, double battles, weather.
+- [ ] Battle depth still missing next to Sapphire: held items, double battles, weather.
 - [ ] Next areas: a river route between BASALT and SKYREACH that needs SURF, a second chain of islands off LUMEN, and a sandstorm on the DUNE ROAD.
 
 Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was: real footage, short narrated lines on the beats, and the title theme as the music bed. `qa/ad/joshemon-x-cover.png` is the 1500x500 X header. The title logo now reads JOSHÉMON, with the acute drawn in main.c's title code.
+
+## Toward 2.0.0: stability, speed, and the source material
+Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release:
+- [ ] Moves match Gen 3: every move's type, power, accuracy, PP and effect against pokeruby's `battle_moves.h` (the data came from PokeAPI, which carries later-generation changes such as RAPID SPIN's SPEED boost).
+- [ ] No dead moves: every move whose effect isn't written yet says "But it failed!"; list them and write the common ones.
+- [ ] Saves that survive: two save slots with a checksum, written in turn the way Gen 3 does, so a power cut mid-save keeps the last good one.
+- [ ] No softlocks: a monkey script (random keys for minutes on every QA build) that flags a stuck frame, a crash, or a map with no way out.
+- [ ] Frame time: measure the worst frame on the busiest maps and in battle, and keep everything inside one frame.
 
 ## Compared with Sapphire (2026-11-02, for reference, not queued)
 Sapphire has much more besides: about 200 creatures in its dex where we have 106, 16 towns and 34 routes where we have 8 towns and 9 routes, 50 TMs where we have 17, and DIVE and WATERFALL. Its battles have abilities, natures, held items, double battles and weather. It also has breeding and eggs, shinies, berries, contests, secret bases, the Safari Zone, the Battle Tower, trainer rematches on the PokeNav, trading, and the Good and Super Rods.

@@ -11,6 +11,11 @@
 #include "rules.h"
 // The hot paths (drawing, the sound mixer) run as ARM code from IWRAM: no ROM wait states, a 32-bit bus.
 #define FAST __attribute__((section(".iwram.draw"), target("arm"), noinline, long_call))
+#ifdef QA_WILD
+#define QA_WILD_ON 1
+#else
+#define QA_WILD_ON 0
+#endif
 #include "sound.inc"
 
 #define SBB_TEXT 31

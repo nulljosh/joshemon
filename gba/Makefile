@@ -84,6 +84,14 @@ build/qa_fx.gba: $(OBJ) src/main.c
 	$(OBJCOPY) -O binary build/qa_fx.elf $@
 	python3 tools/gbafix.py $@
 
+# -DQA_FIELD -DQA_WILD=N: every wild creature is species N; START+L+R+SELECT starts on ROUTE 2 (make build/qa_wild.gba WILD=12), to see an ability fire
+WILD ?= 12
+build/qa_wild.gba: $(OBJ) src/main.c FORCE
+	$(CC) $(CFLAGS) -DQA_FIELD -DQA_WILD=$(WILD) -I build -c src/main.c -o build/qa_wild.o
+	$(CC) $(LDFLAGS) -o build/qa_wild.elf build/qa_wild.o $(filter-out build/main.o,$(OBJ)) -lgcc
+	$(OBJCOPY) -O binary build/qa_wild.elf $@
+	python3 tools/gbafix.py $@
+
 build/qa_dip.gba: $(OBJ) src/main.c
 	$(CC) $(CFLAGS) -DQA_FIELD -DQA_DIPLOMA -I build -c src/main.c -o build/qa_dip.o
 	$(CC) $(LDFLAGS) -o build/qa_dip.elf build/qa_dip.o $(filter-out build/main.o,$(OBJ)) -lgcc
@@ -92,3 +100,5 @@ qa: build/joshemon.gba build/qa_field.gba build/gbarun
 
 clean:
 	rm -f build/*.o build/*.elf build/*.gba build/maps.c build/maps.h build/paint build/rules_test
+
+FORCE:
