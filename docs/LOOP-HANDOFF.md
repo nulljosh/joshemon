@@ -4,18 +4,18 @@
 Joshemon is a GBA cartridge written in C (gba/), the size of about half of Pokemon Sapphire, public at nulljosh/joshemon and joshemon.jaybulb.com. Joshua's loop now runs to the next major, v2.0.0, on stability, performance and reliability, checked against the source material (pret/pokeruby for the rules, Sapphire for the feel). It works down "Toward 2.0.0" in roadmap.md, one line per pass, each a minor release. Each pass: change it, `cd gba && make`, play it headless with build/gbarun, look at the screens, run /code-review on the diff, keep regress.sh at 0, commit and push, tag, release, `./deploy.sh`. Replies to Joshua are one short line.
 
 ## Where things stand
-- **Released:** v1.6.0, the move table matches pokeruby's src/data/battle_moves.c: power, accuracy, PP, priority, targets, the Gen 3 names, and real contact flags (`MOVE_CONTACT` in dex_4.inc, from F_MAKES_CONTACT). `make test` checks that every stat-raising status move aims at the user (HOWL buffed the foe in 1.5.0). `python3 gba/tools/gen3_moves.py` compares the table with pokeruby and prints the contact bits; only SPIT UP should differ. LOW KICK keeps power 50 (our creatures have no weights).
+- **Released:** v1.7.0. STRUGGLE was an empty slot in the move table (a creature out of PP used a nameless move); it is real now, and `make test` checks every learnable move exists. About 30 moves that only said "But it failed!" work as in Gen 3, in src/battle_moves.inc: PROTECT, DETECT, ENDURE, REST, FOCUS ENERGY, LEECH SEED, MIST, REFLECT, LIGHT SCREEN, SAFEGUARD, HAZE, BELLY DRUM, PSYCH UP, MEAN LOOK, FORESIGHT, MIRROR MOVE, NATURE POWER, MUD and WATER SPORT, HEAL BELL, REFRESH, TELEPORT, MAGNITUDE, FLAIL, REVERSAL, COUNTER, PSYWAVE, ENDEAVOR. Per-side state is `B.fx`. `make build/qa_wild.gba WILD=12 MOVES=182,156,73,222` gives the lead four moves to try.
+- **v1.6.0:** the move table matches pokeruby's src/data/battle_moves.c: power, accuracy, PP, priority, targets, the Gen 3 names, and real contact flags (`MOVE_CONTACT` in dex_4.inc, from F_MAKES_CONTACT). `make test` checks that every stat-raising status move aims at the user (HOWL buffed the foe in 1.5.0). `python3 gba/tools/gen3_moves.py` compares the table with pokeruby and prints the contact bits; only SPIT UP should differ. LOW KICK keeps power 50 (our creatures have no weights).
 - **v1.5.0:** abilities. Every creature has one of 33 Gen 3 abilities (gba/data/parts/dex_4.inc), shown on the SUMMARY. INTIMIDATE and PRESSURE speak on entry and wait for the other side when it is not out yet (`B.pend`). FLASH FIRE takes any FIRE move and boosts its holder's (`B.ffire`). SPEED BOOST skips a creature's first turn in (`B.fresh`). Contact effects roll per hit.
 - **Fixed in 1.5.0, from pokeruby:** GROWL, LEER, SAND ATTACK and every other stat-lowering status move used to lower the user's own stats; they now hit the target. GUILLOTINE, HORN DRILL and FISSURE did nothing; they now work as Gen 3 one-hit KOs. RAPID SPIN lost its later-generation SPEED boost. Move names use the Gen 3 spellings (THUNDERPUNCH, ANCIENTPOWER, HI JUMP KICK) so all fit in 12 letters.
 - **Earlier:** 1.0.0 the full game, 1.1.0 CEDAR COAST, 1.2.0 per-type move effects, 1.3.0 the DUNE ROAD, 1.4.0 natures.
 - **pokeruby copies:** `gh api repos/pret/pokeruby/contents/<path> -H "Accept: application/vnd.github.raw"` fetches a file. src/battle_util.c has the ability code, src/battle_main.c the turn order, data/battle_scripts_1.s the scripts, src/data/battle_moves.c the move table, src/data/text/move_names_en.h the names.
 
 ## Next, in order
-1. No dead moves (roadmap "Toward 2.0.0", first line).
-2. Saves that survive.
-3. No softlocks (monkey script).
-4. Frame time.
-5. Then v2.0.0, and back to "Bigger world" (the river route between BASALT and SKYREACH).
+1. Saves that survive (roadmap "Toward 2.0.0", first line).
+2. No softlocks (monkey script).
+3. Frame time.
+4. Then v2.0.0. At 2.0.0 Joshua wants native macOS and iOS apps (roadmap "At 2.0.0"), shipped to the App Store with a GitHub release, then the Mac app opened here to play. Then back to "Bigger world" (the river route between BASALT and SKYREACH).
 
 ## How to work here
 - **Maps:** a `MapInfo` in gba/data/world.c. Rows of tile letters, exactly w x h (legend in world.h, art in tools/paint.c). Warps `W_`, signs `S_`, stock `K_`, wild tables, a song. New maps get a MAP_* entry in MAP_INFO order. Dark maps set MF_DARK.

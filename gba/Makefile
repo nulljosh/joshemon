@@ -84,10 +84,10 @@ build/qa_fx.gba: $(OBJ) src/main.c
 	$(OBJCOPY) -O binary build/qa_fx.elf $@
 	python3 tools/gbafix.py $@
 
-# -DQA_FIELD -DQA_WILD=N: every wild creature is species N; START+L+R+SELECT starts on ROUTE 2 (make build/qa_wild.gba WILD=12), to see an ability fire
+# -DQA_FIELD -DQA_WILD=N: every wild creature is species N; START+L+R+SELECT starts on ROUTE 2. MOVES=182,156,73,222 gives the lead those four (make build/qa_wild.gba WILD=12), to see an ability fire
 WILD ?= 12
 build/qa_wild.gba: $(OBJ) src/main.c FORCE
-	$(CC) $(CFLAGS) -DQA_FIELD -DQA_WILD=$(WILD) -I build -c src/main.c -o build/qa_wild.o
+	$(CC) $(CFLAGS) -DQA_FIELD -DQA_WILD=$(WILD) $(if $(MOVES),-DQA_MOVES=$(MOVES)) -I build -c src/main.c -o build/qa_wild.o
 	$(CC) $(LDFLAGS) -o build/qa_wild.elf build/qa_wild.o $(filter-out build/main.o,$(OBJ)) -lgcc
 	$(OBJCOPY) -O binary build/qa_wild.elf $@
 	python3 tools/gbafix.py $@

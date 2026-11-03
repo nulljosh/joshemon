@@ -38,6 +38,7 @@ static const char *const STAT_NAME[] = { "", "ATTACK", "DEFENSE", "SP. ATK", "SP
 static const u8 ACC[13][2] = {{33,100},{36,100},{43,100},{50,100},{60,100},{75,100},{1,1},{133,100},{166,100},{2,1},{233,100},{133,50},{3,1}};
 static const s8 SINE10[11] = { 0, 3, 6, 8, 10, 10, 10, 8, 6, 3, 0 }; // round(sin(t/10 * pi) * 10), the lunge
 
+typedef struct { u8 protect, protn, endure, acted, focus, seed, fore, trap, sport, mist, refl, light, safe; u16 last; int took; } Fx; // battle_moves.inc
 typedef struct {
   Mon foe; Mon *m[2]; int mi, scene, tries;
   int shown[2];     // HP on the bars, x16 so the drain can move in fractions
@@ -47,6 +48,7 @@ typedef struct {
   int intro;        // 30..0: pads and creatures slide in
   int me_tr;        // 12..0: your back slides off as the ball goes out
   u8 grew;          // party slots that levelled up, for evolution after the battle
+  Fx fx[2];
   const Trainer *tr; int tlook, ti, show_tr; Mon tparty[6]; // a trainer's team, the one out now, their portrait on screen
 } Battle;
 static Battle B;
@@ -198,7 +200,9 @@ static void on_entry(int side) { // INTIMIDATE and PRESSURE speak once both crea
 }
 
 static int first_alive(void) { for (int i = 0; i < S.nparty; i++) if (S.party[i].hp) return i; return -1; }
-static void new_side(int side) { for (int i = 0; i < 8; i++) B.st[side][i] = 6; B.conf[side] = B.flinch[side] = B.tox[side] = B.ffire[side] = B.pend[side] = 0; B.fresh[side] = 1; }
+static void new_side(int side) { for (int i = 0; i < 8; i++) B.st[side][i] = 6; B.conf[side] = B.flinch[side] = B.tox[side] = B.ffire[side] = B.pend[side] = 0; B.fresh[side] = 1;
+  Fx *f = &B.fx[side]; Fx keep = *f; memset(f, 0, sizeof *f); f->mist = keep.mist; f->refl = keep.refl; f->light = keep.light; f->safe = keep.safe; // the side's 5-turn effects stay
+  B.fx[side ^ 1].trap = 0; } // a MEAN LOOK ends when its user leaves
 
 static void anim_exp(Mon *m, u32 to) {
   int g = SPECIES[m->id].growth; u32 lo = exp_for_level(g, m->level), hi = exp_for_level(g, m->level + 1);
@@ -277,15 +281,10 @@ static int faint(int side) {
 // ---------- moves (game.js useMove, takeTurn, endOfTurn)
 static int stat_of(int side, int i) { return B.m[side]->stats[i]; }
 static int mon_speed(int side) { int v = stage_mod(stat_of(side, 5), B.st[side][5]); return B.m[side]->status == ST_PAR ? v / 4 : v; }
-static int fixed_damage(int id, const Mon *a, const Mon *d) { // the no-power moves that still hurt
-  if (id == 12 || id == 32 || id == 90 || id == 329) return d->hp; // GUILLOTINE, HORN DRILL, FISSURE, SHEER COLD
-  switch (id) { case 49: return 20; case 82: return 40; case 69: case 101: return a->level; case 162: return d->hp / 2 > 1 ? d->hp / 2 : 1; }
-  return 0;
-}
 static const u8 ST_OF[] = { 0, ST_PAR, ST_SLP, ST_PSN, ST_BRN, ST_FRZ }; // AIL_* to ST_*
 static int can_status(int side, int st) { // types and abilities that keep a status off
   const Mon *m = B.m[side]; int ab = abil(side);
-  if (m->status || !m->hp) return 0;
+  if (m->status || !m->hp || B.fx[side].safe) return 0;
   if (st == ST_PSN || st == ST_TOX) return !has_type(m, TYPE_POISON) && !has_type(m, TYPE_STEEL) && ab != AB_IMMUNITY;
   if (st == ST_BRN) return !has_type(m, TYPE_FIRE) && ab != AB_WATER_VEIL;
   if (st == ST_FRZ) return !has_type(m, TYPE_ICE) && ab != AB_MAGMA_ARMOR;
@@ -297,6 +296,7 @@ static void inflict(int side, int ail, int mv_id, int loud) {
   Mon *m = B.m[side];
   if (ail == AIL_CONF) {
     if (B.conf[side]) { if (loud) bsayf(side, " is already confused!"); return; }
+    if (B.fx[side].safe) { if (loud) bsayf(side, " is protected by SAFEGUARD!"); return; }
     if (abil(side) == AB_OWN_TEMPO) { if (loud) ab_say(side, " prevents confusion!"); return; }
     B.conf[side] = 2 + ri(4); bsayf(side, " became confused!"); return;
   }

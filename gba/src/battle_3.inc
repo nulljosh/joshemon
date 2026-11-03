@@ -148,6 +148,7 @@ static int battle_turn(void) {
   } else {
     int i = team_screen(1, 1, "Choose a creature.");
     if (i < 0 || i == B.mi) return R_NONE;
+    if (B.fx[ME].trap) { bsayf(ME, " can't be switched out!"); return R_NONE; }
     blen = 0; cat(mon_name(me)); cat(", come back!"); bsay(buf); if (abil(ME) == AB_NATURAL_CURE) { me->status = me->sleep = 0; B.tox[ME] = 0; }
     B.hide[ME] = 1; B.mi = i; B.m[ME] = &S.party[i]; B.shown[ME] = B.m[ME]->hp * 16; new_side(ME); hud(ME);
     blen = 0; cat("Go! "); cat(mon_name(B.m[ME])); cat("!"); bsay(buf); pop_in(ME);
@@ -160,7 +161,8 @@ static int battle_turn(void) {
   if (run) {
     int a = mon_speed(ME), b = mon_speed(FOE); B.tries++;
     int f = a * 128 / (b ? b : 1) + 30 * B.tries;
-    if (abil(ME) == AB_RUN_AWAY || a > b || f > 255 || ri(256) < f) { bsay("Got away safely!"); return R_RAN; }
+    int trapped = abil(ME) != AB_RUN_AWAY && B.fx[ME].trap; // MEAN LOOK; RUN AWAY slips past it
+    if (!trapped && (abil(ME) == AB_RUN_AWAY || a > b || f > 255 || ri(256) < f)) { bsay("Got away safely!"); return R_RAN; }
     bsay("Can't escape!");
   }
   int r;
@@ -215,7 +217,7 @@ static int battle(void) {
   B.shown[ME] = B.m[ME]->hp * 16; B.shown[FOE] = B.m[FOE]->hp * 16; B.tries = 0; B.grew = 0; B.swapped = 0;
   B.hide[ME] = 1; B.pop_side = B.lunge_side = -1; B.fy[0] = B.fy[1] = 0;
   { const Species *s = &SPECIES[B.m[ME]->id]; u32 lo = exp_for_level(s->growth, B.m[ME]->level), hi = exp_for_level(s->growth, B.m[ME]->level + 1); B.exp = B.m[ME]->level >= 100 ? 0 : (int)((B.m[ME]->exp - lo) * 1024 / (hi - lo)); }
-  new_side(ME); new_side(FOE);
+  memset(B.fx, 0, sizeof B.fx); new_side(ME); new_side(FOE);
   B.scene = S.surf || fishing ? SCENE_WATER : (mi->flags & MF_CAVE) ? SCENE_CAVE : (mi->flags & MF_OUTDOOR) ? SCENE_GRASS : SCENE_INDOOR;
   mark(S.seen, B.m[FOE]->id);
   in_battle = 1; B.intro = 30; B.me_tr = 12;

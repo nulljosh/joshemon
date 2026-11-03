@@ -45,6 +45,8 @@ int main(int argc, char **argv) {
   }
   assert(makes_contact(1) && makes_contact(69) && !makes_contact(89)); // POUND makes contact, EARTHQUAKE doesn't
   for (int i = 1; i <= SPECIES_COUNT; i++) assert(ABILITY[i] && ABILITY[i] < AB_COUNT);
+  assert(MOVES[165].name && MOVES[165].power == 50); // STRUGGLE, used when no PP is left (it was an empty slot until 1.7.0)
+  for (int i = 1; i <= SPECIES_COUNT; i++) for (int k = 0; k < SPECIES[i].nlearn; k++) assert(MOVES[SPECIES[i].learn[k] & 511].name);
   puts("rules ok");
   return 0;
 }

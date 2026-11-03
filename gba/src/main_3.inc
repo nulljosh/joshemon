@@ -68,6 +68,9 @@ int main(void) {
       if (keys_at_title & KEY_UP) { S.map = MAP_SKY; S.x = 9; S.y = 3; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; } // START+L+R+UP: SKYREACH, under the SUMMIT path
 #endif
       if (qsel) { S.map = MAP_ROUTE2; S.x = 17; S.y = 4; S.dir = DIR_RIGHT; }
+#ifdef QA_MOVES
+      { static const u16 MV[4] = { QA_MOVES }; for (int k = 0; k < 4; k++) { S.party[0].moves[k].id = MV[k]; S.party[0].moves[k].pp = MOVES[MV[k]].pp; } } // the moves under test
+#endif
 #ifdef QA_REAL
       { // a fair LEAGUE run: six fully evolved creatures at 54 to 56, damage and PP as in the real game, in the lobby under ELITE FOUR NOX's door.
         // Each creature's strongest move (power, same-type bonus, accuracy) goes first, as a player would pick it, since scripts mash the first move

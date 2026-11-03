@@ -6,30 +6,40 @@ static void contact_fx(int side) { // the holder's STATIC, POISON POINT, EFFECT 
   if (ail && can_status(side, ST_OF[ail])) { ab_say(o, "!"); inflict(side, ail, 0, 0); }
   if (ab == AB_ROUGH_SKIN) { int r = B.m[side]->stats[0] / 16; hit(side, r < 1 ? 1 : r); blen = 0; label(side); cat(" was hurt by "); label(o); cat("'s ROUGH SKIN!"); bsay(buf); }
 }
+#include "battle_moves.inc" // PROTECT, REST, LEECH SEED, MAGNITUDE and the rest
 static int use_move(int side, Slot *mv) {
   Mon *a = B.m[side], *d = B.m[side ^ 1]; int dside = side ^ 1; const Move *M = &MOVES[mv->id];
 #if !defined QA_FIELD || defined QA_REAL
-  if (side == ME) { mv->pp--; if (abil(FOE) == AB_PRESSURE && !MOVES[mv->id].tgt && mv->pp) mv->pp--; }
+  if (side == ME && mv->id != MV_STRUGGLE) { mv->pp--; if (abil(FOE) == AB_PRESSURE && !MOVES[mv->id].tgt && mv->pp) mv->pp--; }
 #endif // the QA build's one L80 runs whole gauntlets (the LEAGUE) on mashed A, so it never runs out
   blen = 0; label(side); cat(" used "); cat(M->name); cat("!"); bsay(buf);
   s8 *st = B.st[side], *dst = B.st[dside];
+  B.fx[side].last = mv->id; if (mv->id != MV_PROTECT && mv->id != MV_DETECT && mv->id != MV_ENDURE) B.fx[side].protn = 0;
+  if (B.fx[dside].protect && !M->tgt && mv->id != MV_MIRROR_MOVE && mv->id != MV_NATURE_POWER && mv->id != MV_PSYCH_UP) { bsayf(dside, " protected itself!"); return R_NONE; }
+  int vp = M->power ? M->power : var_power(mv->id, a);
   if (M->type == TYPE_FIRE && !M->tgt && (M->power || M->ail) && abil(dside) == AB_FLASH_FIRE && d->hp && d->status != ST_FRZ) { // Gen 3: any FIRE move aimed at it, WILL-O-WISP too
     ab_say(dside, B.ffire[dside] ? " made it ineffective!" : " raised its FIRE power!"); B.ffire[dside] = 1; return R_NONE;
   }
-  int ohko = !M->power && M->acc == 30 && fixed_damage(mv->id, a, d) == d->hp; // ponytail: the four OHKO moves are the only acc-30 fixed hits
+  int fixed = !M->power && !vp ? fixed_damage(mv->id, a, d) : 0; // drawn once: PSYWAVE rolls
+  int ohko = !M->power && M->acc == 30 && fixed == d->hp; // ponytail: the four OHKO moves are the only acc-30 fixed hits
   if (M->acc != 255 && !M->tgt) {
-    int stage = st[6] + 6 - dst[7]; if (stage < 0) stage = 0; if (stage > 12) stage = 12;
+    int stage = st[6] + 6 - (B.fx[dside].fore && dst[7] > 6 ? 6 : dst[7]); if (stage < 0) stage = 0; if (stage > 12) stage = 12; // FORESIGHT ignores raised evasion
     int p = ohko ? (d->level > a->level ? 0 : M->acc + a->level - d->level) : M->acc * (abil(side) == AB_COMPOUNDEYES ? 13 : 10) / 10 * ACC[stage][0] / ACC[stage][1];
     if (ri(100) >= p) { sfx(SFX_MISS); bsayf(side, "'s attack missed!"); return R_NONE; }
   }
-  move_anim(side, M, !M->power && fixed_damage(mv->id, a, d));
-  int did = 0, fixed = !M->power && fixed_damage(mv->id, a, d);
-  if (M->power || fixed) {
+  move_anim(side, M, vp || fixed);
+  { int r = special_move(side, mv->id); if (r >= 0) return r; }
+  int did = 0;
+  if (vp || fixed) {
     did = 1;
     int phys = is_physical(M->type), ai = phys ? 1 : 3, di = phys ? 2 : 4;
     const Species *ds = &SPECIES[d->id];
     int eff[2], ne = 0, immune = 0;
-    for (int k = 0; k < 2; k++) if (ds->types[k] != 255) { eff[ne] = TYPE_CHART[M->type][ds->types[k]]; immune |= !eff[ne]; ne++; }
+    for (int k = 0; k < 2; k++) if (ds->types[k] != 255) {
+      eff[ne] = TYPE_CHART[M->type][ds->types[k]];
+      if (mv->id == MV_STRUGGLE || (!eff[ne] && B.fx[dside].fore && ds->types[k] == TYPE_GHOST && (M->type == TYPE_NORMAL || M->type == TYPE_FIGHTING))) eff[ne] = 10; // STRUGGLE has no type; FORESIGHT lets NORMAL and FIGHTING hit GHOSTs
+      immune |= !eff[ne]; ne++;
+    }
     int dab = abil(dside);
     if (dab == AB_LEVITATE && M->type == TYPE_GROUND) { ab_say(dside, " makes GROUND moves miss!"); return R_NONE; }
     if (!fixed && ((dab == AB_WATER_ABSORB && M->type == TYPE_WATER) || (dab == AB_VOLT_ABSORB && M->type == TYPE_ELECTRIC))) {
@@ -40,19 +50,23 @@ static int use_move(int side, Slot *mv) {
     if (immune) { blen = 0; cat("It doesn't affect "); label(dside); cat("..."); bsay(buf); return R_NONE; }
     int over = eff[0] * (ne > 1 ? eff[1] : 10); // x100: >100 super effective, <100 not very
     int hits = !M->hitsLo ? 1 : M->hitsLo == M->hitsHi ? M->hitsLo : (const u8[]){ 2, 2, 2, 3, 3, 3, 4, 5 }[ri(8)];
-    int dealt = 0, n = 0, aab = abil(side), pw = M->power, atk = a->stats[ai], burn = a->status == ST_BRN;
+    int dealt = 0, n = 0, aab = abil(side), pw = vp, atk = a->stats[ai], burn = a->status == ST_BRN;
     static const u8 PINCH[] = { AB_OVERGROW, TYPE_GRASS, AB_BLAZE, TYPE_FIRE, AB_TORRENT, TYPE_WATER, AB_SWARM, TYPE_BUG };
     for (int k = 0; k < 8; k += 2) if (aab == PINCH[k] && M->type == PINCH[k + 1] && a->hp * 3 <= a->stats[0]) pw = pw * 15 / 10;
     if (B.ffire[side] && M->type == TYPE_FIRE) pw = pw * 15 / 10;
+    int sport = B.fx[0].sport | B.fx[1].sport; if ((sport & 1 && M->type == TYPE_ELECTRIC) || (sport & 2 && M->type == TYPE_FIRE)) pw /= 2; // MUD SPORT, WATER SPORT
     if (aab == AB_GUTS && a->status && phys) { atk = atk * 15 / 10; burn = 0; }
     if (dab == AB_THICK_FAT && (M->type == TYPE_FIRE || M->type == TYPE_ICE)) atk /= 2;
     int contact = makes_contact(mv->id); // Gen 3's F_MAKES_CONTACT, SEISMIC TOSS and SUPER FANG too
     for (; n < hits && d->hp && a->hp; n++) {
-      int crit = !fixed && dab != AB_SHELL_ARMOR && ri(crit_chance(M->crit)) == 0;
-      int dmg = fixed ? fixed_damage(mv->id, a, d) : damage(a->level, pw, M->type, atk, d->stats[di], st[ai], dst[di], crit, burn, has_type(a, M->type), eff, ne, 100 - ri(16));
+      int crit = !fixed && dab != AB_SHELL_ARMOR && ri(crit_chance(M->crit + (B.fx[side].focus ? 2 : 0))) == 0;
+      int dmg = fixed ? fixed : damage(a->level, pw, M->type, atk, d->stats[di], st[ai], dst[di], crit, burn, mv->id != MV_STRUGGLE && has_type(a, M->type), eff, ne, 100 - ri(16));
       sfx(fixed || over == 100 ? SFX_HIT : over > 100 ? SFX_SUPER : SFX_WEAK);
-      int before = d->hp; hit(dside, dmg); dealt += before - d->hp;
+      if (!crit && !fixed && (phys ? B.fx[dside].refl : B.fx[dside].light) && dmg > 1) dmg /= 2; // REFLECT, LIGHT SCREEN
+      int endured = B.fx[dside].endure && dmg >= d->hp; if (endured) dmg = d->hp - 1;
+      int before = d->hp; hit(dside, dmg); dealt += before - d->hp; if (phys) B.fx[dside].took += before - d->hp;
       if (crit) bsay("A critical hit!");
+      if (endured) bsayf(dside, " endured the hit!");
       if (contact && before > d->hp && a->hp) contact_fx(side);
     }
     if (ohko && !d->hp) bsay("It's a one-hit KO!");
@@ -60,7 +74,7 @@ static int use_move(int side, Slot *mv) {
     if (!fixed && over > 100) bsay("It's super effective!");
     if (!fixed && over < 100) bsay("It's not very effective...");
     if (M->drain > 0 && dealt) { int g = dealt * M->drain / 100; a->hp += g < 1 ? 1 : g; if (a->hp > a->stats[0]) a->hp = a->stats[0]; drain(side); blen = 0; label(dside); cat(" had its energy drained!"); bsay(buf); }
-    if (M->drain < 0 && dealt && aab != AB_ROCK_HEAD) { int r = dealt * -M->drain / 100; hit(side, r < 1 ? 1 : r); bsayf(side, " is hit with recoil!"); }
+    if (M->drain < 0 && dealt && (aab != AB_ROCK_HEAD || mv->id == MV_STRUGGLE)) { int r = dealt * -M->drain / 100; hit(side, r < 1 ? 1 : r); bsayf(side, " is hit with recoil!"); }
     if (!d->hp) { int r = faint(dside); if (r || a->hp) return r; }
     if (!a->hp) return faint(side);
     if (M->flinch && dab != AB_INNER_FOCUS && ri(100) < M->flinch) B.flinch[dside] = 1;
@@ -80,6 +94,7 @@ static int use_move(int side, Slot *mv) {
     int tgt = M->tgt || (M->cat == CAT_RAISE && M->power) ? side : dside; // GROWL, LEER: the foe. METAL CLAW, SUPERPOWER: the user
     for (int k = 0; k < M->nsc; k++) {
       int i = M->sc[k][0], ch = M->sc[k][1]; s8 *s = B.st[tgt];
+      if (tgt != side && ch < 0 && B.fx[tgt].mist) { if (!M->power) side_note(tgt, " is protected by MIST!"); continue; }
       if (tgt != side && ch < 0 && (abil(tgt) == AB_CLEAR_BODY || (abil(tgt) == AB_KEEN_EYE && i == 6))) { if (!M->power) ab_say(tgt, " prevents stat loss!"); continue; }
       blen = 0; label(tgt); cat("'s "); cat(STAT_NAME[i]);
       if ((ch > 0 && s[i] >= 12) || (ch < 0 && s[i] <= 0)) { cat(ch > 0 ? " won't go higher!" : " won't go lower!"); bsay(buf); continue; }
@@ -91,7 +106,7 @@ static int use_move(int side, Slot *mv) {
   return R_NONE;
 }
 static int take_turn(int side, Slot *mv) {
-  Mon *a = B.m[side];
+  Mon *a = B.m[side]; B.fx[side].acted = 1;
   if (!a->hp) return R_NONE;
   if (a->status == ST_SLP) { int dec = abil(side) == AB_EARLY_BIRD ? 2 : 1; a->sleep = a->sleep > dec ? a->sleep - dec : 0; if (a->sleep) { bsayf(side, " is fast asleep."); return R_NONE; } a->status = 0; hud(side); bsayf(side, " woke up!"); }
   if (a->status == ST_FRZ) { if (ri(5)) { bsayf(side, " is frozen solid!"); return R_NONE; } a->status = 0; hud(side); bsayf(side, " was defrosted!"); }
@@ -124,7 +139,7 @@ static int end_of_turn(void) {
     hit(side, dmg);
     if (!m->hp) { int r = faint(side); if (r) return r; }
   }
-  return R_NONE;
+  return moves_end_of_turn();
 }
 
 
