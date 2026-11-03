@@ -19,3 +19,6 @@ A global pre-commit hook blocks any text file over about 5000 tokens (20 KB), so
 - `gba/tools/paint.c`: draws every map (tiles with neighbour-aware edges, trees and canopy, water and flower frames), people, things and trainer portraits, then cuts and packs them for the hardware. It matched the old JS painter pixel for pixel.
 - `gba/src/main.c`: the overworld, text surface (BG0 tiles handed out on first touch, drawn by ARM code in IWRAM), dialog, menus, saves (SRAM). `battle.inc` battles, team screen, evolution. `story.inc` trainers and cutscenes. `menus.inc` BAG, DEX, SUMMARY, marts, PC, OPTION, TOWN MAP and FLY, field skills. `sound.inc` the four tone channels plus a software mixer of six sampled instruments on Direct Sound A (samples synthesized by `tools/samples.py`), all run from the VBlank interrupt. `rules.c` the Gen 3 formulas from pret/pokeruby.
 - `docs/LOOP-HANDOFF.md`: restart prompt, what is done, what is next. `roadmap.md`: the checklist.
+
+## The loop
+The Joshemon loop is handed off in `docs/LOOP-HANDOFF.md`. Read it before resuming, and keep its restart prompt current. It is stopped right now, mid-way through the abilities pass for v1.5.0.
