@@ -52,8 +52,13 @@ build/rules_test: tools/rules_test.c src/rules.c data/dex.c $(wildcard data/part
 	@mkdir -p build
 	cc -I data tools/rules_test.c src/rules.c data/dex.c -o $@
 
-test: build/rules_test
+build/warps_test: tools/warps_test.c data/world.c $(wildcard data/parts/*.inc) data/world.h build/songs.inc
+	@mkdir -p build
+	cc -I data tools/warps_test.c data/world.c -o $@
+
+test: build/rules_test build/warps_test
 	build/rules_test
+	build/warps_test
 
 build/gbarun: tools/gbarun.c
 	clang -O2 -I$(MGBA)/include -L$(MGBA)/lib -lmgba -Wl,-rpath,$(MGBA)/lib $< -o $@
@@ -99,6 +104,6 @@ build/qa_dip.gba: $(OBJ) src/main.c
 qa: build/joshemon.gba build/qa_field.gba build/gbarun
 
 clean:
-	rm -f build/*.o build/*.elf build/*.gba build/maps.c build/maps.h build/paint build/rules_test
+	rm -f build/*.o build/*.elf build/*.gba build/maps.c build/maps.h build/paint build/rules_test build/warps_test
 
 FORCE:

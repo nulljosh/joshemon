@@ -48,7 +48,7 @@ Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was:
 Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release. Done through 2.0.0: Gen 3 abilities, the move table, dead moves, two-slot saves, monkey tests and frame time.
 - [ ] Text: drawing glyphs is the frame cost now, not the boxes (2.0.0 draws boxes as one fill and thin rings). A menu's four labels take about 200 scanlines, over one frame, so a battle drops about 7 frames at text and menu changes. Walking drops none. Next: draw each glyph row with one cell lookup per tile, or cache glyph tiles.
 - [ ] Bug: an item pickup in scripts/co1.run (about 99 s in, the river route past CEDAR TOWN) prints "JOSH found a" and then a row of garbage glyphs. The item name lookup is reading past its table.
-- [ ] A static check that every map's warps and edges lead somewhere walkable (the monkey covers hangs, not dead ends).
+- [x] A static check that every map's warps and edges lead somewhere walkable (the monkey covers hangs, not dead ends). `make test` runs `tools/warps_test.c`; maps join only by warps, and all 77 pass.
 
 ## At 2.0.0: native apps (Joshua, 2026-11-02)
 - [ ] macOS and iOS apps: SwiftUI shell around the mGBA core (MPL-2.0) with joshemon.gba bundled, touch pad on iPhone, keyboard and controller on Mac, saves in the app's container. Probe the store name first (the "-émon" ending may meet 5.2.1); fall back to a new store name, Joshémon everywhere else.
