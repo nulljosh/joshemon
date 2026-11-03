@@ -52,6 +52,12 @@ ol li { margin-bottom: 8px; }
 .rbox .word { background: #000; color: #fff; font-size: 9px; letter-spacing: .06em; padding: 3px 0; }
 .rating p { color: var(--dim); font-size: 14px; max-width: 260px; }
 .rating p b { color: var(--ink); display: block; }
+.player { aspect-ratio: 3 / 2; border-radius: var(--r); overflow: hidden; background: #000 url(hero.jpg) center / cover; display: grid; place-items: center; position: relative; }
+.player::before { content: ""; position: absolute; inset: 0; background: rgba(24, 40, 72, .55); }
+.player .btn { position: relative; border: 0; cursor: pointer; font: 600 17px var(--font); }
+#game { width: 100%; height: 100%; }
+#game canvas { image-rendering: pixelated; }
+.note { color: var(--dim); font-size: 14px; margin-top: 16px; }
 footer { border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; text-align: center; padding: 32px 16px 48px; }
 footer p + p { margin-top: 8px; }
 </style>
@@ -65,11 +71,35 @@ footer p + p { margin-top: 8px; }
     <p class="sub">Joshémon is a monster-collecting RPG written in C for the Game Boy Advance. Catch 105 creatures, beat eight gyms and the league, and wake three legends.</p>
     <div class="ctas">
       <a class="btn main" href="joshemon.gba" download>Download the ROM</a>
-      <a class="btn alt" href="#film">Watch the ad</a>
+      <a class="btn alt" href="#play">Play it here</a>
     </div>
     <p class="small">Free. 1.9 MB. Plays in mGBA, or on a real GBA with a flash cart.</p>
   </div>
 </header>
+
+<section id="play">
+  <h2>Play it here</h2>
+  <div class="player" id="stage"><button class="btn main" id="start" type="button">Play in your browser</button></div>
+  <p class="note">The game runs in an open-source emulator (EmulatorJS) that loads only when you press play. Your save stays in this browser. Arrow keys move. Keyboard and gamepad buttons are in the player's controls menu.</p>
+</section>
+<script>
+function play() {
+  var stage = document.getElementById('stage');
+  stage.innerHTML = '<div id="game"></div>';
+  window.EJS_player = '#game';
+  window.EJS_core = 'gba';
+  window.EJS_gameUrl = 'joshemon.gba';
+  window.EJS_gameName = 'Joshemon';
+  window.EJS_pathtodata = 'https://cdn.emulatorjs.org/4.2.3/data/';
+  window.EJS_startOnLoaded = true;
+  window.EJS_color = '#f8d040';
+  var sc = document.createElement('script');
+  sc.src = 'https://cdn.emulatorjs.org/4.2.3/data/loader.js';
+  document.body.appendChild(sc);
+}
+document.getElementById('start').addEventListener('click', play);
+if (location.hash === '#playnow') play(); // a link straight into the game
+</script>
 
 <section id="film">
   <h2>Thirty seconds of it</h2>
