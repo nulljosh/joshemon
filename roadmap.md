@@ -46,7 +46,6 @@ Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was:
 
 ## Toward 2.0.0: stability, speed, and the source material
 Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release:
-- [ ] Moves match Gen 3: every move's type, power, accuracy, PP and effect against pokeruby's `battle_moves.h` (the data came from PokeAPI, which carries later-generation changes such as RAPID SPIN's SPEED boost).
 - [ ] No dead moves: every move whose effect isn't written yet says "But it failed!"; list them and write the common ones.
 - [ ] Saves that survive: two save slots with a checksum, written in turn the way Gen 3 does, so a power cut mid-save keeps the last good one.
 - [ ] No softlocks: a monkey script (random keys for minutes on every QA build) that flags a stuck frame, a crash, or a map with no way out.

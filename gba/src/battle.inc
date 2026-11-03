@@ -278,7 +278,7 @@ static int faint(int side) {
 static int stat_of(int side, int i) { return B.m[side]->stats[i]; }
 static int mon_speed(int side) { int v = stage_mod(stat_of(side, 5), B.st[side][5]); return B.m[side]->status == ST_PAR ? v / 4 : v; }
 static int fixed_damage(int id, const Mon *a, const Mon *d) { // the no-power moves that still hurt
-  if (id == 12 || id == 32 || id == 90) return d->hp; // GUILLOTINE, HORN DRILL, FISSURE
+  if (id == 12 || id == 32 || id == 90 || id == 329) return d->hp; // GUILLOTINE, HORN DRILL, FISSURE, SHEER COLD
   switch (id) { case 49: return 20; case 82: return 40; case 69: case 101: return a->level; case 162: return d->hp / 2 > 1 ? d->hp / 2 : 1; }
   return 0;
 }
@@ -301,7 +301,7 @@ static void inflict(int side, int ail, int mv_id, int loud) {
     B.conf[side] = 2 + ri(4); bsayf(side, " became confused!"); return;
   }
   if (ail == AIL_OTHER || ail > AIL_FRZ) { if (loud) bsay("But it failed!"); return; } // ponytail: leech seed, trapping, yawn... later
-  int st = ST_OF[ail]; if (mv_id == 92) st = ST_TOX;
+  int st = ST_OF[ail]; if (mv_id == 92 || mv_id == 305) st = ST_TOX; // TOXIC, POISON FANG
   if (!can_status(side, st)) { if (loud) { if (m->status) bsayf(side, m->status == ST_SLP ? " is already asleep!" : " is already affected!"); else { blen = 0; cat("It doesn't affect "); label(side); cat("..."); bsay(buf); } } return; }
   m->status = st; if (st == ST_SLP) m->sleep = 2 + ri(4); if (st == ST_TOX) B.tox[side] = 0;
   hud(side);

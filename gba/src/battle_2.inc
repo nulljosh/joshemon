@@ -16,7 +16,7 @@ static int use_move(int side, Slot *mv) {
   if (M->type == TYPE_FIRE && !M->tgt && (M->power || M->ail) && abil(dside) == AB_FLASH_FIRE && d->hp && d->status != ST_FRZ) { // Gen 3: any FIRE move aimed at it, WILL-O-WISP too
     ab_say(dside, B.ffire[dside] ? " made it ineffective!" : " raised its FIRE power!"); B.ffire[dside] = 1; return R_NONE;
   }
-  int ohko = !M->power && M->acc == 30 && fixed_damage(mv->id, a, d) == d->hp; // ponytail: the three OHKO moves are the only acc-30 fixed hits
+  int ohko = !M->power && M->acc == 30 && fixed_damage(mv->id, a, d) == d->hp; // ponytail: the four OHKO moves are the only acc-30 fixed hits
   if (M->acc != 255 && !M->tgt) {
     int stage = st[6] + 6 - dst[7]; if (stage < 0) stage = 0; if (stage > 12) stage = 12;
     int p = ohko ? (d->level > a->level ? 0 : M->acc + a->level - d->level) : M->acc * (abil(side) == AB_COMPOUNDEYES ? 13 : 10) / 10 * ACC[stage][0] / ACC[stage][1];
@@ -46,7 +46,7 @@ static int use_move(int side, Slot *mv) {
     if (B.ffire[side] && M->type == TYPE_FIRE) pw = pw * 15 / 10;
     if (aab == AB_GUTS && a->status && phys) { atk = atk * 15 / 10; burn = 0; }
     if (dab == AB_THICK_FAT && (M->type == TYPE_FIRE || M->type == TYPE_ICE)) atk /= 2;
-    int contact = phys && M->power && M->type != TYPE_GROUND && M->type != TYPE_ROCK; // ponytail: contact is read as a physical, non-GROUND, non-ROCK hit; Gen 3 has a flag per move
+    int contact = makes_contact(mv->id); // Gen 3's F_MAKES_CONTACT, SEISMIC TOSS and SUPER FANG too
     for (; n < hits && d->hp && a->hp; n++) {
       int crit = !fixed && dab != AB_SHELL_ARMOR && ri(crit_chance(M->crit)) == 0;
       int dmg = fixed ? fixed_damage(mv->id, a, d) : damage(a->level, pw, M->type, atk, d->stats[di], st[ai], dst[di], crit, burn, has_type(a, M->type), eff, ne, 100 - ri(16));

@@ -39,6 +39,12 @@ int main(int argc, char **argv) {
   assert(exp_gain(64, 7) == 64);
   assert(pick_slot(0) == 0 && pick_slot(99) == 11);
   for (int i = 1; i <= SPECIES_COUNT; i++) assert(SPECIES[i].growth < 6);
+  for (int i = 1; i < 355; i++) { const Move *M = &MOVES[i]; // a status move that raises stats aims at the user, one that lowers them at the foe (HOWL once buffed the foe)
+    if (!M->name || M->power || !M->nsc || M->cat != CAT_RAISE) continue;
+    assert((M->sc[0][1] > 0) == (M->tgt == 1));
+  }
+  assert(makes_contact(1) && makes_contact(69) && !makes_contact(89)); // POUND makes contact, EARTHQUAKE doesn't
+  for (int i = 1; i <= SPECIES_COUNT; i++) assert(ABILITY[i] && ABILITY[i] < AB_COUNT);
   puts("rules ok");
   return 0;
 }
