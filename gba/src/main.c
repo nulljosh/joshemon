@@ -112,10 +112,14 @@ static void text_s(const char *s, int x, int y, int ink, int shadow, int sc) { /
 }
 static void text(const char *s, int x, int y, int ink, int shadow) { text_s(s, x, y, ink, shadow, 1); }
 // Gen 3 dialog box: white, navy edge, pale blue inner line, rounded corners (game.js box()).
+// Drawn as one fill and thin rings (not six overlapping fills), so a battle box clears inside one frame.
+static void ring(int c, int x, int y, int w, int h) { // a 1-pixel rounded ring: sides, then the inner corner pixels
+  px(c, x + 1, y, w - 2, 1); px(c, x + 1, y + h - 1, w - 2, 1); px(c, x, y + 1, 1, h - 2); px(c, x + w - 1, y + 1, 1, h - 2);
+  px(c, x + 1, y + 1, 1, 1); px(c, x + w - 2, y + 1, 1, 1); px(c, x + 1, y + h - 2, 1, 1); px(c, x + w - 2, y + h - 2, 1, 1);
+}
 static void box_c(int x, int y, int w, int h, int fill, int edge, int inner) {
-  px(edge, x + 1, y, w - 2, h); px(edge, x, y + 1, w, h - 2);
-  px(inner, x + 2, y + 1, w - 4, h - 2); px(inner, x + 1, y + 2, w - 2, h - 4);
-  px(fill, x + 3, y + 2, w - 6, h - 4); px(fill, x + 2, y + 3, w - 4, h - 6);
+  px(fill, x + 2, y + 3, w - 4, h - 6); px(fill, x + 3, y + 2, w - 6, 1); px(fill, x + 3, y + h - 3, w - 6, 1);
+  ring(inner, x + 1, y + 1, w - 2, h - 2); ring(edge, x, y, w, h);
   px(0, x, y, 1, 1); px(0, x + w - 1, y, 1, 1); px(0, x, y + h - 1, 1, 1); px(0, x + w - 1, y + h - 1, 1, 1); // rounded: the corners show through
 }
 static void box(int x, int y, int w, int h) { box_c(x, y, w, h, C_PAPER, C_EDGE, C_INNER); }

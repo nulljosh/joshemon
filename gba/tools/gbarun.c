@@ -70,6 +70,7 @@ int main(int argc, char **argv) {
       else printf("ok monkey %d\n", frames);
       continue;
     }
+    if (!strcmp(cmd, "peek")) { unsigned a = strtoul(arg, 0, 16); printf("peek %08x %d\n", a, core->busRead8(core, a)); continue; } // peek HEXADDR: print one byte
     if (!strcmp(cmd, "reset")) { core->reset(core); continue; }
     if (!strcmp(cmd, "corrupt")) { unsigned a = 0x0E000000 + strtoul(arg, 0, 16); core->busWrite8(core, a, core->busRead8(core, a) ^ 0xFF); continue; }
     if (!strcmp(cmd, "mash") || !strcmp(cmd, "waitfor") || !strcmp(cmd, "expect")) {
