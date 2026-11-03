@@ -83,8 +83,10 @@ int main(void) {
 #endif
 #if !defined QA_DIPLOMA && !defined QA_REAL
       { // START+L+R plus UP, RIGHT, DOWN, LEFT or UP+LEFT: under the door of gym 1 to 5, with only the badges before it and a L80 on ICE BEAM
-        int t = keys_at_title, gym = t & KEY_B ? 0 : t & KEY_UP ? (t & KEY_LEFT ? 5 : t & KEY_RIGHT ? 0 : 1) : t & KEY_RIGHT ? 2 : t & KEY_DOWN ? 3 : t & KEY_LEFT ? 4 : 0;
+        int t = keys_at_title, gym = t & KEY_B ? 0 : t & KEY_UP ? (t & KEY_LEFT ? 5 : t & KEY_RIGHT || t & KEY_DOWN ? 0 : 1) : t & KEY_RIGHT ? 2 : t & KEY_DOWN ? 3 : t & KEY_LEFT ? 4 : 0;
         if (!(t & KEY_B) && (t & KEY_UP) && (t & KEY_RIGHT)) { S.map = MAP_HARBOR; S.x = 11; S.y = 3; S.dir = DIR_UP; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; S.repel = 250; } // UP+RIGHT: under the SEAWALK pier
+        if (!(t & KEY_B) && (t & KEY_UP) && (t & KEY_DOWN)) { S.map = MAP_ROUTE3; S.x = 20; S.y = 3; S.dir = DIR_UP; make_mon(&S.party[0], 9, 80); S.party[0].moves[0].id = 58; S.repel = 250;
+          for (int b = 2; b < BADGE_COUNT; b++) S.flags[BADGE_FLAG[b] >> 3] &= ~(1 << (BADGE_FLAG[b] & 7)); } // UP+DOWN: ROUTE 3 under the DUNE ROAD rock, two badges
         static const u8 DOOR[5][3] = {{MAP_HARBOR, 8, 15}, {MAP_BASALT, 7, 14}, {MAP_SKY, 7, 14}, {MAP_VOLTARA, 7, 13}, {MAP_MIREWOOD, 7, 13}};
         if (gym) { S.map = DOOR[gym - 1][0]; S.x = DOOR[gym - 1][1]; S.y = DOOR[gym - 1][2]; S.dir = DIR_UP;
           for (int b = gym - 1; b < BADGE_COUNT; b++) S.flags[BADGE_FLAG[b] >> 3] &= ~(1 << (BADGE_FLAG[b] & 7));

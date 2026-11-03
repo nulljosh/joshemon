@@ -191,7 +191,7 @@ static void load_shadow(void) {
 // ---------- the walk (game.js worldStep, arrive, warp)
 static const s8 DX[4] = { 0, 0, -1, 1 }, DY[4] = { 1, -1, 0, 0 };
 static const u8 HOP[33] = { 0,1,2,3,4,5,6,6,7,8,8,9,9,10,10,10,10,10,10,10,9,9,8,8,7,6,6,5,4,3,2,1,0 };
-static const char SOLID[] = "KYOnT~RBGHWSLwvrPychXbFQ";
+static const char SOLID[] = "KYOnT~RBGHWSLwvrPychXbFQC";
 static int me_x, me_y, me_dir, moving, off, speed, turn, walk, hop, fade_level;
 static u8 ndir[16], nx[16], ny[16], noff[16]; // people move in cutscenes and when a trainer walks up: their live place
 static int shake_x, legend_on, rustle_x, rustle_y, rustle_t = -99; // rustle: tall grass you just stepped into shakes // shake_x: the whole world jolts sideways (game.js ui.shake)

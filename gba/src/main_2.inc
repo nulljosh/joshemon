@@ -166,7 +166,7 @@ static void arrive(void) {
   if (S.repel && --S.repel == 0) { say("REPEL's effect wore off..."); surf_clear(); return; }
   if (check_trainers()) return;
   // wild creatures: tall grass and marsh outdoors, any cave floor; rate x16 out of 2880 a step (rules.mjs encounterHit)
-  if (mi->grass[0] && S.nparty && ((mi->flags & MF_CAVE) ? t == 'q' || t == 'g' || t == 'e' : t == ',' || t == 'j' || t == 'A') && (int)(rnd() % 2880) < mi->rate * 16) wild();
+  if (mi->grass[0] && S.nparty && ((mi->flags & MF_CAVE) ? t == 'q' || t == 'g' || t == 'e' : t == ',' || t == 'j' || t == 'A' || t == 'd') && (int)(rnd() % 2880) < mi->rate * 16) wild();
 }
 static void world_step(void) {
   for (int i = 0; i < mi->nnpcs; i++) if ((mi->npcs[i].flags & NF_WANDER) && frame % 90 == (nx[i] * 7 + ny[i] * 3) % 90 && visible(i)) ndir[i] = rnd() & 3;

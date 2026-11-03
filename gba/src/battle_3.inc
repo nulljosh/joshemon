@@ -178,15 +178,20 @@ static u16 snowy(u16 c) { // up north the grass scene's greens turn to snow and 
   if (g < r || g < b) return c;
   int k = l / 2; return RGB15(k + 14 > 31 ? 31 : k + 14, k + 15 > 31 ? 31 : k + 15, k + 17 > 31 ? 31 : k + 17);
 }
+static u16 sandy(u16 c) { // in the desert the grass scene's greens turn to warm sand
+  int r = c & 31, g = (c >> 5) & 31, b = (c >> 10) & 31, l = (r + g + b) / 3;
+  if (g < r || g < b) return c;
+  int k = l / 2; return RGB15(k + 17 > 31 ? 31 : k + 17, k + 13 > 31 ? 31 : k + 13, k + 6);
+}
 static void scene_in(void) {
-  const Scene *sc = &SCENES[B.scene]; int snow = B.scene == SCENE_GRASS && mi->border == 'F';
-  for (int i = 0; i < sc->npal; i++) PAL_BG[i] = snow ? snowy(sc->pal[i]) : sc->pal[i];
+  const Scene *sc = &SCENES[B.scene]; int snow = B.scene == SCENE_GRASS && mi->border == 'F', sand = B.scene == SCENE_GRASS && mi->border == 'a';
+  for (int i = 0; i < sc->npal; i++) PAL_BG[i] = snow ? snowy(sc->pal[i]) : sand ? sandy(sc->pal[i]) : sc->pal[i];
   copy32((volatile u32 *)CHARBLOCK(CBB_MAP), sc->tiles, sc->ntiles * 16);
   volatile u16 *m = SCREENBLOCK(SBB_GROUND);
   for (int y = 0; y < 32; y++) for (int x = 0; x < 32; x++) m[y * 32 + x] = y < 14 && x < 30 ? sc->map[y * 30 + x] : 0;
   REG_BG1HOFS = REG_BG1VOFS = 0;
   copy32((volatile u32 *)OBJ_TILES + T_PADS * 8, sc->pad, 5 * 32 * 8);
-  for (int i = 0; i < 16; i++) PAL_OBJ[P_PADS * 16 + i] = snow ? snowy(sc->padpal[i]) : sc->padpal[i];
+  for (int i = 0; i < 16; i++) PAL_OBJ[P_PADS * 16 + i] = snow ? snowy(sc->padpal[i]) : sand ? sandy(sc->padpal[i]) : sc->padpal[i];
   load_art(T_TRAINER, P_TRAINER, ART_PLAYER_BACK, 0);
   hud_pal(13); hud_pal(14);
 }

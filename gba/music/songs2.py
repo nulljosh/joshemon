@@ -102,4 +102,10 @@ dict(NAME='cove', LEAD_INST=('flute', .3), PAD_INST=('strings', .1), BASS_INST=(
          'b5:1 g5:.5 b5:.5 e6:1.5 d6:.5  c6:2 g5:1 e5:1  a5:1 c6:.5 a5:.5 e5:1 a5:1  f#5:3 r:1 '
          'b5:1.5 c6:.5 d6:1 b5:1  c6:1 e6:1 g5:2  a5:1 f#5:.5 a5:.5 d6:1 a5:1  b5:2 f#5:1 d5:1 '
          'e5:1 g5:.5 b5:.5 e6:2  c6:1 a5:.5 e5:.5 a5:1 c6:1  d6:1.5 c6:.5 a5:1 f#5:1  g5:3 r:1'),
+dict(NAME='dunes', LEAD_INST=('flute', .3), PAD_INST=('strings', .1), BASS_INST=('bass', .3), KIT=.36, BPM=112, LOOP=1, STYLE='route', HARMONY='arp8', LEAD=dict(vib=4),
+  CHORDS='Am:4 G:4 F:4 E:4 Am:4 G:4 F:4 E:4 Am:4 G:4 F:4 E:4 Am:4 G:4 F:4 E:4',
+  MELODY='e5:1 a5:1 c6:1.5 b5:.5  b5:2 g5:1 d5:1  c6:1 a5:.5 f5:.5 a5:1 c6:1  b5:1.5 g#5:.5 e5:2 '
+         'a5:1 c6:1 e6:1.5 d6:.5  d6:2 b5:1 g5:1  a5:1 f5:.5 a5:.5 c6:1 a5:1  g#5:3 r:1 '
+         'c6:1.5 b5:.5 a5:1 e5:1  d5:1 g5:1 b5:2  a5:1.5 g5:.5 f5:1 a5:1  e5:1 g#5:1 b5:2 '
+         'e6:1 d6:.5 c6:.5 a5:1 c6:1  b5:1.5 a5:.5 g5:1 b5:1  a5:1 c6:1 f6:1.5 e6:.5  e6:3 r:1'),
 ]

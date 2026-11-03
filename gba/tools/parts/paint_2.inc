@@ -1,11 +1,12 @@
 static const Cv *tile_img(char ch, int tx, int ty, int frame) {
   switch (ch) {
-    case '.': return &T_DOT; case 'f': return &T_F[((frame >> 5) + tx) & 1]; case ',': return &T_FERN; case 'p': return M && M->border == 'F' ? &T_PATH_SNOW : &T_PATH; case 'T': return &T_TREE_GROUND;
+    case '.': return &T_DOT; case 'f': return &T_F[((frame >> 5) + tx) & 1]; case ',': return &T_FERN; case 'p': return M && M->border == 'F' ? &T_PATH_SNOW : M && M->border == 'a' ? &T_PATH_SAND : &T_PATH; case 'T': return &T_TREE_GROUND;
     case '~': return &T_W[(frame >> 5) & 1]; case 'R': return &T_R; case 'H': return &T_H; case 'W': return &T_WIN; case 'D': return &T_D; case 'B': return &T_B;
-    case 'S': return M && M->border == 'F' ? &T_S_SNOW : &T_S; case 'G': return &T_G; case 'k': return &T_K_; case 'X': return &T_X[hash(tx & 255, ty & 255) % 3]; case 'q': return &T_Q; case 'z': return &T_Z;
+    case 'S': return M && M->border == 'F' ? &T_S_SNOW : M && M->border == 'a' ? &T_S_SAND : &T_S; case 'G': return &T_G; case 'k': return &T_K_; case 'X': return &T_X[hash(tx & 255, ty & 255) % 3]; case 'q': return &T_Q; case 'z': return &T_Z;
     case 'j': return &T_J; case 'K': return &T_CUT; case 'Y': return &T_Y; case 'O': return &T_O; case 'E': return &T_E; case 'n': return &T_N; case 'L': return &T_L;
     case 'w': return &T_WALL; case 'v': return &T_V; case 'r': return &T_RR; case 'o': return &T_FLOOR; case 'u': return &T_U; case 'P': return &T_P; case 'y': return &T_YY;
-    case 'c': return &T_C; case 'h': return &T_SH; case 'm': return &T_M; case 'b': return &T_BRICK; case 'g': return &T_SLATE; case 'U': return &T_STAIRS;
+    case 'c': return &T_C; case 'h': return &T_SH; case 'm': return &T_M; case 'b': return M && (M->flags & MF_SUN) ? &T_BRICK_SUN : &T_BRICK; case 'g': return M && (M->flags & MF_SUN) ? &T_SLATE_SUN : &T_SLATE; case 'U': return &T_STAIRS;
+    case 'a': return &T_SAND; case 'd': return &T_DUNE; case 'C': return &T_CACTUS;
     case 's': case 'F': return &T_SNOW; case 'A': return &T_DRIFT; case 'I': return &T_ICE; case 'Q': return &T_ICEWALL; case 'e': return &T_FROSTFLOOR;
   }
   fprintf(stderr, "no tile art for '%c'\n", ch); exit(1);
@@ -77,7 +78,7 @@ static void draw_tiles(int tx0, int ty0, int tx1, int ty1, int cx, int cy, int f
 // the whole map with its border, ground layer and the canopy that covers people (only tree tops above their own tile)
 static void export_map(int id, int frame, int padx, int pady, Cv *ground, Cv *over) {
   M = &MAP_INFO[id];
-  for (int i = 0; i < M->w * M->h; i++) { char c = M->rows[i]; ROWS[i] = has("KYO", c) ? ((M->flags & MF_CAVE) ? 'q' : !(M->flags & MF_OUTDOOR) ? 'o' : M->border == 'F' ? 's' : '.') : c; } // obstacles are sprites on the cartridge
+  for (int i = 0; i < M->w * M->h; i++) { char c = M->rows[i]; ROWS[i] = has("KYO", c) ? ((M->flags & MF_CAVE) ? 'q' : !(M->flags & MF_OUTDOOR) ? 'o' : M->border == 'F' ? 's' : M->border == 'a' ? 'a' : '.') : c; } // obstacles are sprites on the cartridge
   int w = (M->w + padx * 2) * 16, h = (M->h + pady * 2) * 16, cx = -padx * 16, cy = -pady * 16;
   *ground = cv(w, h); *over = cv(w, h);
   g = ground; px(0, 0, 0, w, h);

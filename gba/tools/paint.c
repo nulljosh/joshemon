@@ -55,6 +55,7 @@ static int has(const char *s, char c) { return c && strchr(s, c); }
 // ---------- tiles (game.js 85-199): our own pixel art, GBA palette
 enum { GRASS = 0x73c6a5, GRASS_HI = 0x8ad4b4, GRASS_LO = 0x5fb898, PATH = 0xa5d6c6, PATH_HI = 0xc4e8da, SPECK = 0xb5ff84, LEAF_HI = 0xb5ff84, LEAF = 0x84c663,
   LEAF_MID = 0x398c31, LEAF_DK = 0x395200, SNOW = 0xf0f4f8, SNOW_LO = 0xd0dcec, SNOW_SH = 0xa8b8d4, TALL = 0x18a56b, TALL_HI = 0x42b584, WATER = 0x5aa0e0, WATER_HI = 0x9cd0f8, SHADOW = 0x4aa88a };
+static Cv T_SAND, T_DUNE, T_CACTUS, T_PATH_SAND, T_S_SAND, T_BRICK_SUN, T_SLATE_SUN; enum { SAND = 0xecd49c, SAND_LO = 0xd4b478 };
 static Cv T_DOT, T_F[2], T_FERN, T_PATH, T_TREE_GROUND, T_W[2], T_R, T_H, T_WIN, T_D, T_B, T_S, T_G, T_K_, T_X[3], T_Q, T_Z, T_J, T_CUT, T_Y, T_O, T_E, T_N, T_L, T_WALL, T_V, T_RR, T_FLOOR, T_U, T_P, T_YY, T_C, T_SH, T_M, T_BRICK, T_SLATE, T_STAIRS, TREE, T_SNOW, T_DRIFT, TREE_SNOW, T_S_SNOW, T_PATH_SNOW, T_ICE, T_ICEWALL, T_FROSTFLOOR;
 static Cv *t; static void p(unsigned c, int x, int y, int w, int h) { fill(t, c, x, y, w, h); }
 static void p1(unsigned c, int x, int y) { p(c, x, y, 1, 1); }
@@ -171,6 +172,7 @@ static void make_tiles(void) {
     q[0] = n >> 16; q[1] = (n >> 8) & 255; q[2] = n & 255;
   }
   t = &T_M; *t = cv(16, 16); p(0xf0e0b8, 0, 0, 16, 16); p(0xc04838, 1, 4, 14, 10); for (int x = 3; x < 14; x += 3) p(0xe07058, x, 5, 1, 8);
+#include "parts/desert.inc"
 }
 // game.js TILES[key]: '~' and 'f' have two frames, 'X' three layouts picked per tile
 static const MapInfo *M; // the map being painted

@@ -1,0 +1,155 @@
+qa 03000000
+wait 30
+press START+L+R+UP+DOWN 4
+wait 200
+expect map 17
+expect x 20
+expect y 3
+press UP 13
+wait 24
+expect map 17
+expect x 20
+expect y 2
+press UP 13
+wait 24
+press A 2
+wait 22
+press A 2
+wait 22
+press A 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press UP 13
+wait 24
+press UP 13
+wait 24
+wait 40
+expect map 75
+expect x 9
+expect y 24
+shot desert
+press UP 132
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 75
+expect x 9
+expect y 16
+shot hiker
+press UP 47
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 75
+expect x 9
+expect y 13
+press RIGHT 115
+wait 24
+press UP 47
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 75
+expect x 16
+expect y 10
+shot birder
+press UP 47
+wait 24
+press LEFT 30
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 75
+expect x 14
+expect y 7
+press LEFT 47
+wait 24
+press UP 81
+wait 24
+press UP 13
+wait 24
+wait 40
+expect map 76
+expect x 7
+expect y 12
+shot ruins
+press UP 47
+wait 24
+press RIGHT 13
+wait 24
+mash B battle 1
+mash A battle
+wait 50
+mash B talking
+expect map 76
+expect x 8
+expect y 9
+press LEFT 81
+wait 24
+press UP 13
+wait 24
+press LEFT 13
+wait 24
+press A 2
+wait 10
+mash B talking
+expect map 76
+expect x 3
+expect y 8
+press UP 13
+wait 24
+press RIGHT 13
+wait 24
+press UP 30
+wait 24
+press RIGHT 47
+wait 24
+press UP 47
+wait 24
+expect map 76
+expect x 7
+expect y 2
+press UP 13
+wait 24
+press A 2
+wait 22
+wait 20
+shot tablet
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press B 2
+wait 22
+press RIGHT 81
+wait 24
+press DOWN 13
+wait 24
+press RIGHT 13
+wait 24
+press A 2
+wait 10
+mash B talking
+expect map 76
+expect x 12
+expect y 3
+shot end
