@@ -7,6 +7,7 @@
 //   mash KEYS FIELD [VALUE]  press KEYS every 12 frames while the field is not 0, or until it equals VALUE (6000 frames at most)
 //   waitfor FIELD VALUE  run until the field equals VALUE (at most 6000 frames)
 //   expect FIELD VALUE   print FAIL when it does not
+// reset: power-cycle, keeping the save in memory. corrupt HEXOFF: flip one save byte there, as a torn write would.
 #include <mgba-util/vfs.h>
 #include <mgba/core/core.h>
 #include <mgba/core/config.h>
@@ -39,6 +40,7 @@ int main(int argc, char **argv) {
   FILE *wav = argc > 4 ? fopen(argv[4], "wb") : 0, *raw = argc > 5 ? fopen(argv[5], "wb") : 0; long samples = 0;
   if (wav) { core->setAudioBufferSize(core, 2048); for (int c = 0; c < 2; c++) blip_set_rates(core->getAudioChannel(core, c), core->frequency(core), 32768); fseek(wav, 44, SEEK_SET); }
 #define FRAME() do { core->runFrame(core); if (wav) { short b[2048]; blip_t *bl = core->getAudioChannel(core, 0); int n; while ((n = blip_read_samples(bl, b, 2048, 0)) > 0) { fwrite(b, 2, n, wav); samples += n; } while (blip_read_samples(core->getAudioChannel(core, 1), b, 2048, 0) > 0); } if (raw) { static unsigned char px[240 * 160 * 3]; for (unsigned i = 0; i < w * h; i++) { unsigned c = buf[i]; px[i * 3] = c; px[i * 3 + 1] = c >> 8; px[i * 3 + 2] = c >> 16; } fwrite(px, 1, sizeof px, raw); } } while (0) // right channel drained too, or it overflows
+  setvbuf(stdout, 0, _IOLBF, 0); // results survive a crash
   char line[256]; int shots = 0;
   while (fgets(line, sizeof line, sc)) {
     char cmd[32] = "", arg[128] = ""; int n = 0;
@@ -47,6 +49,8 @@ int main(int argc, char **argv) {
     static const char *F[7] = { "battle", "talking", "map", "x", "y", "dir", "song" };
     int fi = -1; char a2[64] = ""; sscanf(line, "%*s %*s %63s", a2);
     if (!strcmp(cmd, "qa")) { qa = strtoul(arg, 0, 16); continue; }
+    if (!strcmp(cmd, "reset")) { core->reset(core); continue; }
+    if (!strcmp(cmd, "corrupt")) { unsigned a = 0x0E000000 + strtoul(arg, 0, 16); core->busWrite8(core, a, core->busRead8(core, a) ^ 0xFF); continue; }
     if (!strcmp(cmd, "mash") || !strcmp(cmd, "waitfor") || !strcmp(cmd, "expect")) {
       const char *field = !strcmp(cmd, "mash") ? a2 : arg;
       for (int i = 0; i < 7; i++) if (!strcmp(field, F[i])) fi = i;

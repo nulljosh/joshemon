@@ -138,12 +138,39 @@ typedef struct { u32 magic, money; u8 map, x, y, dir, starter, repel, speed, mut
 static Save S;
 static int flag(int f) { return (S.flags[f >> 3] >> (f & 7)) & 1; }
 static void set_flag(int f) { S.flags[f >> 3] |= 1 << (f & 7); }
-static void sram_write(void) { const u8 *p = (const u8 *)&S; for (unsigned i = 0; i < sizeof S; i++) SRAM[i] = p[i]; }
-static int sram_read(void) {
+// Two save slots, written in turn like Gen 3's save blocks: a new save goes over the older slot, data first and the
+// footer last, so a power cut mid-save leaves the other slot whole, and the footer's checksum catches the torn one.
+// Saves from before 1.8.0 are one copy at the start with no footer; they still load.
+#define SLOT_SIZE 0x4000
+typedef struct { u32 count, sum, magic; } Footer;
+#define FOOTER_MAGIC 0x534C4F54
+_Static_assert(sizeof(Save) + sizeof(Footer) <= SLOT_SIZE, "a save slot is 16 KB");
+static u32 save_count;
+static u32 save_sum(u32 count) { // a rotate-and-add hash of the save and its count (no division: the ARM7 has none)
+  const u8 *p = (const u8 *)&S; u32 h = count * 2654435761u;
+  for (unsigned i = 0; i < sizeof S; i++) h = (h << 5 | h >> 27) + p[i];
+  return h;
+}
+static void sram_put(unsigned off, const void *src, unsigned n) { const u8 *p = src; while (n--) SRAM[off++] = *p++; } // SRAM takes bytes only
+static void sram_get(unsigned off, void *dst, unsigned n) { u8 *p = dst; while (n--) *p++ = SRAM[off++]; }
+static void sram_write(void) {
+  Footer f = { ++save_count, save_sum(save_count), FOOTER_MAGIC }; u32 none = 0;
+  unsigned off = (f.count & 1) * SLOT_SIZE, foot = off + sizeof S;
+  sram_put(foot + 8, &none, 4); // the slot reads as empty until the new footer is whole
+  sram_put(off, &S, sizeof S); sram_put(foot, &f, 8); sram_put(foot + 8, &f.magic, 4);
+}
+static int sram_read(void) { // reads straight into S: NEW GAME clears it anyway when nothing loads
   (void)*(volatile const char *)SAVE_TYPE;
-  Save t; u8 *p = (u8 *)&t; for (unsigned i = 0; i < sizeof t; i++) p[i] = SRAM[i];
-  if (t.magic != SAVE_MAGIC) return 0;
-  S = t; return 1;
+  Footer f[2]; int any = 0;
+  for (int k = 0; k < 2; k++) { sram_get(k * SLOT_SIZE + sizeof S, &f[k], sizeof f[k]); any |= f[k].magic == FOOTER_MAGIC; }
+  int first = f[1].magic == FOOTER_MAGIC && (f[0].magic != FOOTER_MAGIC || f[1].count > f[0].count);
+  for (int n = 0; n < 2; n++) { // the newer slot first, then the other
+    int k = first ^ n; if (f[k].magic != FOOTER_MAGIC) continue;
+    sram_get(k * SLOT_SIZE, &S, sizeof S);
+    if (S.magic == SAVE_MAGIC && save_sum(f[k].count) == f[k].sum) { save_count = f[k].count; return 1; }
+  }
+  if (any) return 0; // slots were written and neither is whole
+  sram_get(0, &S, sizeof S); save_count = 0; return S.magic == SAVE_MAGIC; // a save from before 1.8.0: one copy, no footer
 }
 // a small string builder for lines like "JOSH found a POTION!"
 static char buf[200]; static int blen;

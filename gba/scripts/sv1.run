@@ -1,0 +1,67 @@
+# 1.8.0 saves: two slots in turn. Save at HARBOR (5,3), walk two steps right, save again, power-cycle: CONTINUE
+# puts you at the second save. Then flip a byte in the slot that save went to (slot 0) and power-cycle: the
+# torn slot is skipped and CONTINUE falls back to the first save.
+qa 03000000
+wait 30
+press START+L+R 4
+wait 200
+expect x 5
+expect y 3
+press START 3
+wait 20
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press A 3
+wait 60
+mash A talking
+wait 30
+press B 3
+wait 30
+press RIGHT 16
+wait 20
+press RIGHT 16
+wait 30
+expect x 7
+press START 3
+wait 20
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press DOWN 3
+wait 8
+press A 3
+wait 60
+mash A talking
+wait 30
+press B 3
+wait 30
+reset
+wait 120
+press START 3
+wait 60
+press A 3
+wait 120
+shot cont2
+expect x 7
+corrupt 10
+reset
+wait 120
+press START 3
+wait 60
+press A 3
+wait 120
+shot cont1
+expect x 5

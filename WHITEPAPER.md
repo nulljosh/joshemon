@@ -1,6 +1,6 @@
 # Joshémon Technical Whitepaper
 
-**v1.7.0** | November 2026
+**v1.8.0** | November 2026
 
 Joshémon is a full monster-collecting RPG that runs on Game Boy Advance hardware: 105 creatures, eight gyms, a league and a post-game, in a 2 MB cartridge written in C with no engine and no libraries. This paper covers how the world, the battles and the sound fit on a 16.78 MHz ARM7 with 288 KB of RAM.
 

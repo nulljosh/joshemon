@@ -46,7 +46,6 @@ Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was:
 
 ## Toward 2.0.0: stability, speed, and the source material
 Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release:
-- [ ] Saves that survive: two save slots with a checksum, written in turn the way Gen 3 does, so a power cut mid-save keeps the last good one.
 - [ ] No softlocks: a monkey script (random keys for minutes on every QA build) that flags a stuck frame, a crash, or a map with no way out.
 - [ ] Frame time: measure the worst frame on the busiest maps and in battle, and keep everything inside one frame.
 
@@ -54,8 +53,8 @@ Joshua, 2026-11-02: loop to the next major on stability, performance and reliabi
 - [ ] macOS and iOS apps: SwiftUI shell around the mGBA core (MPL-2.0) with joshemon.gba bundled, touch pad on iPhone, keyboard and controller on Mac, saves in the app's container. Probe the store name first (the "-émon" ending may meet 5.2.1); fall back to a new store name, Joshémon everywhere else.
 - [ ] Submit both to the App Store, GitHub release and tags for the apps, then open the Mac app here and play it.
 
-## Sprites to Sapphire quality (after 2.0.0)
-Self-graded B- on 2026-11-02 from a sheet of all 107 fronts. Readable and cute, but many share a few body templates (the boxer biped, the same quadruped), evolutions mostly grow instead of changing shape, a lot of them fill only half of the 64x64 frame, and shading is flat with no light source. The three late legends, drawn by tools/legend.py from layered shapes, are the bar (about A-).
+## Sprites to Sapphire quality (before the App Store submit)
+Joshua graded them C+ on 2026-11-02 (self-grade was B-), from a sheet of all 107 fronts. Readable and cute, but many share a few body templates (the boxer biped, the same quadruped), evolutions mostly grow instead of changing shape, a lot of them fill only half of the 64x64 frame, and shading is flat with no light source. The three late legends, drawn by tools/legend.py from layered shapes, are the bar (about A-). Joshua, same day: "nice and colorful but still look elementary and childish compared to pokemon sprites." So the target is Sapphire's grown-up look: real anatomy and proportion, attitude in the pose, darker selective outlines, hue-shifted shadows, and fewer cartoon eyes and flat fills.
 - [ ] Redraw the fronts and backs about ten per pass with the legend.py method: distinct silhouette per line, top-left light with three-tone shading, a coloured outline, filling the frame the way Sapphire does. Look at each pass on a contact sheet next to the old one.
 
 ## Compared with Sapphire (2026-11-02, for reference, not queued)
