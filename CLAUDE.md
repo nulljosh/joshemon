@@ -21,4 +21,4 @@ A global pre-commit hook blocks any text file over about 5000 tokens (20 KB), so
 - `docs/LOOP-HANDOFF.md`: restart prompt, what is done, what is next. `roadmap.md`: the checklist.
 
 ## The loop
-The Joshemon loop is handed off in `docs/LOOP-HANDOFF.md`. Read it before resuming, and keep its restart prompt current. It is stopped right now, mid-way through the abilities pass for v1.5.0.
+The Joshemon loop is handed off in `docs/LOOP-HANDOFF.md`. Read it before resuming, and keep its restart prompt current. It is stopped after the 2.0.0 stability major; the handoff holds the next steps.

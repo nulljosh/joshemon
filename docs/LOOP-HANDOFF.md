@@ -1,4 +1,4 @@
-# Joshemon loop handoff (2026-11-02, night)
+# Joshemon loop handoff (2026-11-03, morning)
 
 ## What the loop is
 Joshemon is a GBA cartridge written in C (gba/), the size of about half of Pokemon Sapphire, public at nulljosh/joshemon and joshemon.jaybulb.com. Joshua's loop now runs to the next major, v2.0.0, on stability, performance and reliability, checked against the source material (pret/pokeruby for the rules, Sapphire for the feel). It works down "Toward 2.0.0" in roadmap.md, one line per pass, each a minor release. Each pass: change it, `cd gba && make`, play it headless with build/gbarun, look at the screens, run /code-review on the diff, keep regress.sh at 0, commit and push, tag, release, `./deploy.sh`. Replies to Joshua are one short line.
