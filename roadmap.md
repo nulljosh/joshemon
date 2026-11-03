@@ -42,7 +42,8 @@ The game is about half of Sapphire's size. This loop adds routes and towns one a
 - [x] Held items (2.2.0): GIVE from the BAG, TAKE on the team screen, the item shows on the summary. LEFTOVERS heals a sixteenth a turn, and CHARCOAL, MYSTIC WATER and MIRACLE SEED boost their type by a tenth. Sold in the LEAGUE lobby, CORALCOVE and LUMEN marts. Foes and berries hold nothing yet.
 - [ ] Battle depth still missing next to Sapphire: double battles, and the moves that need them or more state: TAUNT, TORMENT, DISABLE, ENCORE, ATTRACT, PERISH SONG, BATON PASS, SPIKES, BIDE, two-turn moves.
 - [x] Weather (2.1.0): RAIN DANCE, SUNNY DAY, SANDSTORM and HAIL last five turns. Rain and sun boost and halve WATER and FIRE, and sand and hail chip a sixteenth a turn. The DUNE ROAD has a sandstorm that never ends. Weather abilities, THUNDER, SOLARBEAM and WEATHER BALL tie-ins come later.
-- [ ] Next areas: a river route between BASALT and SKYREACH that needs SURF, a second chain of islands off LUMEN.
+- [x] ROUTE 14 (2.3.0): the BASALT RIVER under ROUTE 3. Two paths drop to the banks, the river between needs SURF, with two swimmers, a fisher on the pier, a birder and two items on the south bank you only reach by water.
+- [ ] Next area: a second chain of islands off LUMEN.
 
 Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was: real footage, short narrated lines on the beats, and the title theme as the music bed. `qa/ad/joshemon-x-cover.png` is the 1500x500 X header. The title logo now reads JOSHÉMON, with the acute drawn in main.c's title code.
 

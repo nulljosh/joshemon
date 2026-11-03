@@ -37,15 +37,15 @@ static void options(void) {
 // ---------- TOWN MAP (game.js regionMap, drawMap, NODES, LINKS): a sketch of the region, you blink where you are.
 // With fly set it picks a town you have been to and returns its FLY index (-1: backed out).
 enum { N_TOWN, N_ROUTE, N_CAVE };
-static const struct { u8 x, y, kind; const char *name; } NODES[32] = {
+static const struct { u8 x, y, kind; const char *name; } NODES[33] = {
   { 36, 126, N_TOWN, "CEDAR TOWN" }, { 36, 98, N_ROUTE, "ROUTE 1" }, { 36, 66, N_TOWN, "HARBOR CITY" }, { 74, 66, N_ROUTE, "ROUTE 2" },
   { 112, 66, N_CAVE, "GRANITE HOLLOW" }, { 112, 46, N_CAVE, "DEEP TUNNEL" }, { 96, 34, N_CAVE, "SLEEPER'S HOLLOW" }, { 140, 46, N_TOWN, "BASALT CITY" },
   { 172, 46, N_ROUTE, "ROUTE 3" }, { 204, 46, N_TOWN, "SKYREACH TOWN" }, { 204, 82, N_ROUTE, "ROUTE 4" }, { 204, 118, N_TOWN, "VOLTARA TOWN" },
   { 204, 126, N_ROUTE, "ROUTE 5" }, { 152, 126, N_ROUTE, "ROUTE 6" }, { 100, 126, N_TOWN, "MIREWOOD CITY" }, // JS had these at 138, under the box
   { 218, 126, N_ROUTE, "ROUTE 7" }, { 232, 126, N_TOWN, "LUMEN ISLE" }, { 232, 100, N_ROUTE, "ROUTE 8" }, { 232, 74, N_TOWN, "FROSTGATE" }, { 232, 50, N_CAVE, "ICE CAVE" }, { 218, 74, N_ROUTE, "FROZEN BAY" }, { 218, 92, N_CAVE, "SUNKEN SHRINE" }, { 172, 92, N_TOWN, "DRAKESPIRE" }, { 172, 110, N_CAVE, "VICTORY ROAD" }, { 140, 110, N_TOWN, "JOSHEMON LEAGUE" },
-  { 36, 46, N_ROUTE, "ROUTE 10" }, { 36, 28, N_TOWN, "COVEWICK TOWN" }, { 20, 28, N_ROUTE, "ROUTE 11" }, { 58, 130, N_ROUTE, "ROUTE 12" }, { 76, 120, N_CAVE, "ELDER GROTTO" }, { 172, 30, N_ROUTE, "ROUTE 13" }, { 172, 22, N_CAVE, "SUN RUINS" },
+  { 36, 46, N_ROUTE, "ROUTE 10" }, { 36, 28, N_TOWN, "COVEWICK TOWN" }, { 20, 28, N_ROUTE, "ROUTE 11" }, { 58, 130, N_ROUTE, "ROUTE 12" }, { 76, 120, N_CAVE, "ELDER GROTTO" }, { 172, 30, N_ROUTE, "ROUTE 13" }, { 172, 22, N_CAVE, "SUN RUINS" }, { 172, 62, N_ROUTE, "ROUTE 14" },
 };
-static const u8 LINKS[23][2] = { { 8, 30 }, { 30, 31 }, { 0, 28 }, { 28, 29 }, { 2, 25 }, { 25, 26 }, { 26, 27 }, { 0, 2 }, { 2, 4 }, { 4, 5 }, { 5, 7 }, { 7, 9 }, { 9, 11 }, { 11, 12 }, { 12, 14 }, { 12, 16 }, { 16, 18 }, { 18, 19 }, { 18, 20 }, { 20, 21 }, { 21, 22 }, { 22, 23 }, { 23, 24 } };
+static const u8 LINKS[24][2] = { { 8, 32 }, { 8, 30 }, { 30, 31 }, { 0, 28 }, { 28, 29 }, { 2, 25 }, { 25, 26 }, { 26, 27 }, { 0, 2 }, { 2, 4 }, { 4, 5 }, { 5, 7 }, { 7, 9 }, { 9, 11 }, { 11, 12 }, { 12, 14 }, { 12, 16 }, { 16, 18 }, { 18, 19 }, { 18, 20 }, { 20, 21 }, { 21, 22 }, { 22, 23 }, { 23, 24 } };
 static void map_draw(int fly, int here) {
   static const u32 C[] = { 0x2c58a8, 0x3462b4, 0x5a8a40, 0x88c068, 0x78b058, 0xa89070, 0xc0a888, 0xf0e0a0, 0x283040, 0xe85840, 0xf8a088, 0x806040, 0x181010 };
   surf_clear(); scene_cols(C, 13);
