@@ -15,6 +15,7 @@ Joshemon is a GBA cartridge written in C (gba/), the size of about half of Pokem
 - **pokeruby copies:** `gh api repos/pret/pokeruby/contents/<path> -H "Accept: application/vnd.github.raw"` fetches a file. src/battle_util.c has the ability code, src/battle_main.c the turn order, data/battle_scripts_1.s the scripts, src/data/battle_moves.c the move table, src/data/text/move_names_en.h the names.
 
 ## Next, in order
+0. Landing hero (uncommitted in web/: index.html parallax and gradient, new hero.mp4). The montage opens on an indoor map with black edges: re-cut from outdoor walks only (record cv1, de1, c7b, co1, c2 through a fifo), screenshot phone width through a 390px iframe (headless Chrome won't go under ~500px), grade to A+, then `./deploy.sh`.
 1. Joshua's next ask (roadmap "At 2.0.0"): the sprite redraw, then native macOS and iOS apps to the App Store, a release, and the Mac app opened here to play. The two small "Toward 2.0.0" lines (glyph speed, map dead-end check) can ride along.
 2. Then v2.0.0. At 2.0.0 Joshua wants native macOS and iOS apps (roadmap "At 2.0.0"), shipped to the App Store with a GitHub release, then the Mac app opened here to play. Then back to "Bigger world" (the river route between BASALT and SKYREACH).
 
