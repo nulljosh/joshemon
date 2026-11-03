@@ -1,3 +1,12 @@
+static int nobj;
+static void put(int sx, int sy, u16 a0, u16 a1, u16 a2) {
+  if (nobj >= 128 || sx <= -64 || sx >= 240 || sy <= -64 || sy >= 160) return;
+  oam[nobj++] = (Obj){ (sy & 255) | a0, (sx & 511) | a1, a2, 0 };
+}
+// One person or thing: depth order is screen y, nearer the bottom drawn on top.
+typedef struct { int y, sx, sy, look, dir, step; } Thing;
+static int in_battle, team_open, evo_open, scene_open;
+static void render_battle(void), render_team(void), render_evolve(void), render_scene(void);
 static void render(void) {
   if (scene_open) { render_scene(); return; }
   if (team_open) { render_team(); return; }

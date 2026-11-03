@@ -58,7 +58,7 @@ static void surf_clear(void) {
 // The drawing hot path runs as ARM code from IWRAM: no ROM wait states, a 32-bit bus (cartridge ROM is ~5x slower).
 FAST static volatile u32 *cell_tile(int cx, int cy);
 FAST static void px(int c, int x, int y, int w, int h);
-FAST static void glyph_row(int bits, int c, int x, int y);
+FAST static void glyph8(int k, int c, int x, int y);
 static volatile u32 *cell_tile(int cx, int cy) {
   int e = cell[cy][cx], t = e & 1023;
   if (!t) {
@@ -87,24 +87,30 @@ static void px(int c, int x, int y, int w, int h) {
 }
 static int glyph(int ch) { return ch > 0 && ch < FONT_GLYPHS ? ch : 63; }
 static int measure(const char *s) { int w = 0; for (; *s; s++) w += FONT_W[glyph((u8)*s)]; return w; }
-// One row of a glyph (bit b = pixel b) in colour c at x: spread the bits to nibbles, then one masked write per tile.
-static void glyph_row(int bits, int c, int x, int y) {
-  if (y < 0 || y >= 160 || !bits) return;
-  u32 m = 0; for (int b = 0; b < 8; b++) if ((bits >> b) & 1) m |= 15u << (b * 4);
-  u32 fill = (u32)c * 0x11111111u; int sh = (x & 7) * 4, cx = x >> 3;
-  u32 lo = m << sh, hi = sh ? m >> (32 - sh) : 0;
-  if (cx >= 0 && cx < 30 && lo) { volatile u32 *row = cell_tile(cx, y >> 3) + (y & 7); *row = (*row & ~lo) | (fill & lo); }
-  if (cx + 1 >= 0 && cx + 1 < 30 && hi) { volatile u32 *row = cell_tile(cx + 1, y >> 3) + (y & 7); *row = (*row & ~hi) | (fill & hi); }
+// A whole glyph (row r, bit b = pixel b) in colour c at x, y. Each row's bits spread to nibbles in three shifts, and each of
+// the (at most four) tiles it covers is looked up once per glyph, on first ink, so tiles are handed out in the same order.
+static void glyph8(int k, int c, int x, int y) {
+  u32 fill = (u32)c * 0x11111111u; int sh = (x & 7) * 4, cx = x >> 3, lo = FONT_LO[k], ty = -1;
+  volatile u32 *a = 0, *b = 0;
+  for (int r = 0; r < 8; r++) {
+    int yy = y + r, bits = (lo >= 0 ? FONT_BITS[k * 8 + r] >> lo : FONT_BITS[k * 8 + r] << -lo) & 255;
+    if (yy < 0 || yy >= 160 || !bits) continue;
+    if (yy >> 3 != ty) { ty = yy >> 3; a = b = 0; }
+    u32 m = bits; m = (m | m << 12) & 0x000F000Fu; m = (m | m << 6) & 0x03030303u; m = ((m | m << 3) & 0x11111111u) * 15;
+    u32 l = m << sh, h = sh ? m >> (32 - sh) : 0;
+    if (l && cx >= 0 && cx < 30) { if (!a) a = cell_tile(cx, ty); a[yy & 7] = (a[yy & 7] & ~l) | (fill & l); }
+    if (h && cx + 1 < 30 && cx + 1 >= 0) { if (!b) b = cell_tile(cx + 1, ty); b[yy & 7] = (b[yy & 7] & ~h) | (fill & h); }
+  }
 }
 static void text_s(const char *s, int x, int y, int ink, int shadow, int sc) { // sc: pixel size (chapter titles are 2)
   for (int pass = shadow ? 0 : 1; pass < 2; pass++) {
     int c = pass ? ink : shadow, d = pass ? 0 : sc, cx = x;
     for (const char *p = s; *p; p++) {
       int k = glyph((u8)*p);
-      for (int r = 0; r < 8; r++) {
+      if (sc == 1) { if (cx + d >= -8) glyph8(k, c, cx + d, y + d); }
+      else for (int r = 0; r < 8; r++) {
         int bits = FONT_LO[k] >= 0 ? FONT_BITS[k * 8 + r] >> FONT_LO[k] : FONT_BITS[k * 8 + r] << -FONT_LO[k];
-        if (sc == 1) { if (cx + d >= -8) glyph_row(bits, c, cx + d, y + r + d); }
-        else for (int b = 0; b < 8; b++) if ((bits >> b) & 1) px(c, cx + b * sc + d, y + r * sc + d, sc, sc);
+        for (int b = 0; b < 8; b++) if ((bits >> b) & 1) px(c, cx + b * sc + d, y + r * sc + d, sc, sc);
       }
       cx += FONT_W[k] * sc;
     }
@@ -307,14 +313,5 @@ static void show_name(void) {
 static int map_song(void) { return S.surf ? SONG_SURF : S.bike ? SONG_BIKE : mi->song; }
 static int fit(int o, int size, int view) { return !(mi->flags & MF_OUTDOOR) && size <= view ? (size - view) / 2 : o + 8 - view / 2; }
 
-static int nobj;
-static void put(int sx, int sy, u16 a0, u16 a1, u16 a2) {
-  if (nobj >= 128 || sx <= -64 || sx >= 240 || sy <= -64 || sy >= 160) return;
-  oam[nobj++] = (Obj){ (sy & 255) | a0, (sx & 511) | a1, a2, 0 };
-}
-// One person or thing: depth order is screen y, nearer the bottom drawn on top.
-typedef struct { int y, sx, sy, look, dir, step; } Thing;
-static int in_battle, team_open, evo_open, scene_open;
-static void render_battle(void), render_team(void), render_evolve(void), render_scene(void);
 #include "main_2.inc"
 #include "main_3.inc"
