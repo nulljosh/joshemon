@@ -3,6 +3,8 @@
 extern const unsigned char STAGE[13][2];
 int is_physical(int type);
 int calc_stat(int base, int iv, int ev, int level, int hp);
+int nature_pct(int nature, int stat); // 110, 100 or 90 for stat 0..5 (HP ATK DEF SPA SPD SPE); HP never changes
+extern const char *const NATURE_NAME[25];
 int stage_mod(int v, int stage);
 // atk/def: the chosen pair (attack/defense or sp.atk/sp.def); stages 0..12, 6 neutral
 int base_damage(int level, int power, int type, int atk, int def, int atk_stage, int def_stage, int crit, int burn);

@@ -10,7 +10,15 @@ int is_physical(int t) {
 int stage_mod(int v, int s) { return v * STAGE[s][0] / STAGE[s][1]; }
 int calc_stat(int base, int iv, int ev, int level, int hp) {
   int core = (2 * base + iv + ev / 4) * level / 100;
-  return hp ? core + level + 10 : core + 5; // ponytail: no natures yet, so the x100/100 drops out
+  return hp ? core + level + 10 : core + 5; // the nature's x110/100 or x90/100 comes after, in nature_pct
+}
+// Gen 3 natures (pokeruby gNatureStatTable): nature n raises stat n/5 and lowers stat n%5 of ATK DEF SPE SPA SPD,
+// and does nothing when the two match. Our stats run HP ATK DEF SPA SPD SPE, hence the remap.
+const char *const NATURE_NAME[25] = {"HARDY","LONELY","BRAVE","ADAMANT","NAUGHTY","BOLD","DOCILE","RELAXED","IMPISH","LAX","TIMID","HASTY","SERIOUS","JOLLY","NAIVE","MODEST","MILD","QUIET","BASHFUL","RASH","CALM","GENTLE","SASSY","CAREFUL","QUIRKY"};
+int nature_pct(int nature, int stat) {
+  static const unsigned char OURS[5] = {1, 2, 5, 3, 4};
+  int up = OURS[nature / 5 % 5], down = OURS[nature % 5];
+  return up == down || stat == 0 ? 100 : stat == up ? 110 : stat == down ? 90 : 100;
 }
 int base_damage(int level, int power, int type, int atk, int def, int as, int ds, int crit, int burn) {
   int a = crit ? (as > 6 ? stage_mod(atk, as) : atk) : stage_mod(atk, as);

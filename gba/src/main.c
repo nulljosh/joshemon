@@ -127,7 +127,7 @@ _Static_assert(FLAG_COUNT <= 512, "the save holds 512 story flags");
 #define SAVE_MAGIC 0x3A4A4F54 // bump when the Save layout changes (HYPER and MAX POTION grew the bag)
 // a creature you own or meet (game.js makeMon): moves are move ids with their PP left, id 0 empty
 typedef struct { u16 id; u8 pp, pad; } Slot;
-typedef struct { u8 id, level, status, sleep; u16 hp, stats[6]; u32 exp; u8 ivs[6]; Slot moves[4]; } Mon;
+typedef struct { u8 id, level, status, sleep; u16 hp, stats[6]; u8 nature, spare; u32 exp; u8 ivs[6]; Slot moves[4]; } Mon; // nature sits in what was padding, so old saves load (as HARDY)
 // rope: map+1, x, y, dir of the cave mouth you came in by (ESCAPE ROPE)
 typedef struct { u32 magic, money; u8 map, x, y, dir, starter, repel, speed, mute, surf, bike; u8 heal[4], rope[4]; u8 flags[64]; /* 512 flags; FLAG_COUNT stays under */ u8 bag[ITEM_COUNT]; u8 nparty, nbox; Mon party[6], box[30]; u8 seen[16], caught[16]; u16 hall_best, hall_pad; } Save;
 static Save S;

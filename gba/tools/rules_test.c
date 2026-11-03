@@ -9,6 +9,11 @@ static unsigned max16(void) { return 65535; }
 int main(int argc, char **argv) {
   if (argc > 1 && !strcmp(argv[1], "curves")) { for (int g = 0; g < 6; g++) for (int n = 1; n <= 100; n++) printf("%d\n", exp_for_level(g, n)); return 0; }
   assert(calc_stat(40, 31, 0, 5, 1) == 20);
+  // natures: ADAMANT (3) raises ATK and lowers SP. ATK, BOLD (5) raises DEF and lowers ATK, HARDY (0) and HP never change
+  assert(nature_pct(3, 1) == 110 && nature_pct(3, 3) == 90 && nature_pct(3, 5) == 100);
+  assert(nature_pct(5, 2) == 110 && nature_pct(5, 1) == 90 && nature_pct(10, 5) == 110 && nature_pct(10, 1) == 90);
+  assert(nature_pct(0, 1) == 100 && nature_pct(24, 4) == 100 && nature_pct(3, 0) == 100);
+  assert(calc_stat(65, 31, 0, 50, 0) * nature_pct(15, 3) / 100 == 93); // a MODEST L50 with base 65 SP. ATK: 85 raised to 93.5, floored
   int e20[] = { 20 }, e205[] = { 20, 5 }, e0[] = { 0 };
   assert(base_damage(50, 80, TYPE_NORMAL, 100, 100, 6, 6, 0, 0) == 37);
   assert(base_damage(50, 80, TYPE_NORMAL, 100, 100, 6, 6, 1, 0) == 37);

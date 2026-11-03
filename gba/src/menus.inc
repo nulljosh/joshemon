@@ -195,8 +195,8 @@ static void dex_screen(void) {
 // ---------- SUMMARY (game.js summary, drawSummary): everything on one page
 static void summary(const Mon *m) {
   u16 dispcnt = REG_DISPCNT; const Species *s = &SPECIES[m->id];
-  static const u32 C[] = { 0xf0e8d8, 0x3888c0, 0xf8f8f8, 0x204060, 0xd8e8f0, 0xa8c8d8, 0x404040, 0xd0d0c8, 0x606060, 0x404040, 0, 0, 0 };
-  scene_begin(); scene_cols(C, 13); cry(m->id, 0);
+  static const u32 C[] = { 0xf0e8d8, 0x3888c0, 0xf8f8f8, 0x204060, 0xd8e8f0, 0xa8c8d8, 0x404040, 0xd0d0c8, 0x606060, 0x404040, 0, 0, 0, 0xd84838 };
+  scene_begin(); scene_cols(C, 14); cry(m->id, 0);
   pen = SCENE_PAL;
   px(1, 0, 0, 240, 160); px(2, 0, 0, 240, 16); text("CREATURE INFO", 8, 4, 3, 4);
   px(5, 4, 20, 76, 76); px(6, 4, 80, 76, 16);
@@ -206,10 +206,11 @@ static void summary(const Mon *m) {
   if (m->status) { PAL_BG[SCENE_PAL * 16 + 13] = HEX(ST_COL[m->status]); px(10, 190, 34, 23, 10); px(13, 191, 35, 21, 8); text(ST_NAME[m->status], 192, 35, 3, 0); }
   int to_next = m->level >= 100 ? 0 : exp_for_level(s->growth, m->level + 1) - (int)m->exp;
   text("EXP NEXT", 86, 62, 9, 0); blen = 0; cat_num(to_next); text(buf, rtext_w(buf, 236), 62, 7, 8);
+  blen = 0; cat(NATURE_NAME[m->nature % 25]); cat(" nature."); text(buf, 86, 76, 7, 8); // the raised stat's name shows red, the lowered one blue
   static const char *const N[6] = { "HP", "ATTACK", "DEFENSE", "SP. ATK", "SP. DEF", "SPEED" };
   for (int j = 0; j < 6; j++) {
     int y = 100 + (j % 3) * 12, x = j < 3 ? 6 : 122;
-    text(N[j], x, y, 9, 0);
+    int pct = nature_pct(m->nature % 25, j); text(N[j], x, y, pct > 100 ? 14 : pct < 100 ? 2 : 9, 0);
     blen = 0; if (!j) { cat_num(m->hp); cat("/"); } cat_num(m->stats[j]); text(buf, rtext_w(buf, x + 110), y, 7, 8);
   }
   pen = 11; // the move rows: their own bank for four type colours

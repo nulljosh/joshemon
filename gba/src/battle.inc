@@ -5,11 +5,12 @@
 // ---------- creatures (game.js makeMon, statsOf)
 static int ri(int n) { return (int)(rnd() % (u32)n); }
 static unsigned rnd16(void) { return rnd() & 0xFFFF; }
-static void calc_stats(Mon *m) { const Species *s = &SPECIES[m->id]; for (int i = 0; i < 6; i++) m->stats[i] = calc_stat(s->stats[i], m->ivs[i], 0, m->level, i == 0); }
+static void calc_stats(Mon *m) { const Species *s = &SPECIES[m->id]; for (int i = 0; i < 6; i++) m->stats[i] = calc_stat(s->stats[i], m->ivs[i], 0, m->level, i == 0) * nature_pct(m->nature, i) / 100; }
 static void make_mon(Mon *m, int id, int level) {
   memset(m, 0, sizeof *m);
   m->id = id; m->level = level;
   for (int i = 0; i < 6; i++) m->ivs[i] = ri(32);
+  m->nature = ri(25);
   const Species *s = &SPECIES[id];
   u16 ids[64]; int n = 0; // unique moves learnt by now, first-seen order, then the last four
   for (int i = 0; i < s->nlearn; i++) {
