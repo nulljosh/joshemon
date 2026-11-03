@@ -39,19 +39,12 @@ All 16 scripts pass.
 
 ## Bigger world (toward Sapphire's size)
 The game is about half of Sapphire's size. This loop adds routes and towns one area per pass. Each area gets its own wild creatures, trainers, items, a field skill to come back with, and a script that walks it.
-- [x] Held items (2.2.0): GIVE from the BAG, TAKE on the team screen, the item shows on the summary. LEFTOVERS heals a sixteenth a turn, and CHARCOAL, MYSTIC WATER and MIRACLE SEED boost their type by a tenth. Sold in the LEAGUE lobby, CORALCOVE and LUMEN marts. Foes and berries hold nothing yet.
 - [ ] Battle depth still missing next to Sapphire: double battles, and the moves that need them or more state: TAUNT, TORMENT, DISABLE, ENCORE, ATTRACT, PERISH SONG, BATON PASS, SPIKES, BIDE, two-turn moves.
-- [x] Weather (2.1.0): RAIN DANCE, SUNNY DAY, SANDSTORM and HAIL last five turns. Rain and sun boost and halve WATER and FIRE, and sand and hail chip a sixteenth a turn. The DUNE ROAD has a sandstorm that never ends. Weather abilities, THUNDER, SOLARBEAM and WEATHER BALL tie-ins come later.
-- [x] ROUTE 14 (2.3.0): the BASALT RIVER under ROUTE 3. Two paths drop to the banks, the river between needs SURF, with two swimmers, a fisher on the pier, a birder and two items on the south bank you only reach by water.
-- [x] ROUTE 15 (2.4.0): the LUMEN SHOALS, a chain of five islands off LUMEN's south shore, reached by SURF. Two swimmers, a fisher and a sailor, a MYSTIC on the west isle and two REVIVEs on the far south one.
 
 Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was: real footage, short narrated lines on the beats, and the title theme as the music bed. `qa/ad/joshemon-x-cover.png` is the 1500x500 X header. The title logo now reads JOSHÉMON, with the acute drawn in main.c's title code.
 
 ## Toward 2.0.0: stability, speed, and the source material
 Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release. Done through 2.0.0: Gen 3 abilities, the move table, dead moves, two-slot saves, monkey tests and frame time.
-- [x] Text: glyphs draw a whole row at a time with one tile lookup per glyph (2.0.1). Battle text frames lost in c11b went from 15 to 5, pixel-identical. The scaled title text still goes pixel by pixel.
-- [x] Bug: an item pickup in scripts/co1.run printed "JOSH found a" and then garbage glyphs. The item table was fine; three overworld lines (item found, gift received, trainer card) built onto the shared text buffer without clearing it first. (2.0.2)
-- [x] A static check that every map's warps and edges lead somewhere walkable (the monkey covers hangs, not dead ends). `make test` runs `tools/warps_test.c`; maps join only by warps, and all 77 pass.
 
 ## At 2.0.0: native apps (Joshua, 2026-11-02)
 - [ ] macOS and iOS apps: SwiftUI shell around the mGBA core (MPL-2.0) with joshemon.gba bundled, touch pad on iPhone, keyboard and controller on Mac, saves in the app's container. Probe the store name first (the "-émon" ending may meet 5.2.1); fall back to a new store name, Joshémon everywhere else.
