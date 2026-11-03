@@ -45,9 +45,9 @@ The game is about half of Sapphire's size. This loop adds routes and towns one a
 Promo: `qa/ad/joshemon-ad.mp4` is a 30 s ad made the way the Joshua Tree ad was: real footage, short narrated lines on the beats, and the title theme as the music bed. `qa/ad/joshemon-x-cover.png` is the 1500x500 X header. The title logo now reads JOSHÉMON, with the acute drawn in main.c's title code.
 
 ## Toward 2.0.0: stability, speed, and the source material
-Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release:
-- [ ] No softlocks: a monkey script (random keys for minutes on every QA build) that flags a stuck frame, a crash, or a map with no way out.
-- [ ] Frame time: measure the worst frame on the busiest maps and in battle, and keep everything inside one frame.
+Joshua, 2026-11-02: loop to the next major on stability, performance and reliability, checked against pokeruby. One pass per line, each a minor release. Done through 1.9.0: Gen 3 abilities, the move table, dead moves, two-slot saves, monkey tests and frame time.
+- [ ] Text boxes: clearing one drops a single frame (about 7 per battle, one per menu open). Walking and animation drop none. Clear with DMA fill if it ever shows.
+- [ ] A static check that every map's warps and edges lead somewhere walkable (the monkey covers hangs, not dead ends).
 
 ## At 2.0.0: native apps (Joshua, 2026-11-02)
 - [ ] macOS and iOS apps: SwiftUI shell around the mGBA core (MPL-2.0) with joshemon.gba bundled, touch pad on iPhone, keyboard and controller on Mac, saves in the app's container. Probe the store name first (the "-émon" ending may meet 5.2.1); fall back to a new store name, Joshémon everywhere else.

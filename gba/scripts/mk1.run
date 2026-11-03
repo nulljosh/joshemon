@@ -1,0 +1,16 @@
+# 1.9.0 reliability: walk LUMEN ISLE for 960 frames and expect no frame to miss its VBlank, then 20000 frames of
+# random keys (gbarun monkey): FAIL if the screen ever stops changing for a minute (a softlock or a hang).
+qa 03000000
+wait 30
+press START+L+R+B 4
+wait 200
+press LEFT 240
+wait 10
+press RIGHT 240
+wait 10
+press UP 240
+wait 10
+press DOWN 240
+wait 10
+expect lag 0
+monkey 20000 7

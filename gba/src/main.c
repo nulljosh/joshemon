@@ -40,7 +40,7 @@ static u32 seed = 0x2545F491;
 static u32 rnd(void) { seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5; return seed; }
 static int frame;
 // What the headless runner (tools/gbarun.c) reads to script play: in a battle, text on screen, where you stand.
-volatile struct { u8 battle, talking, map, x, y, dir, song; } QA __attribute__((section(".data.0qa"))) = {0}; // always at 0x03000000 (gba.ld), for gbarun scripts
+volatile struct { u8 battle, talking, map, x, y, dir, song, lag; } QA __attribute__((section(".data.0qa"))) = {0}; // always at 0x03000000 (gba.ld), for gbarun scripts
 
 // ---------- text surface: BG0 tiles are handed out on first touch, so any pixel on screen can be drawn,
 // like the JS canvas. Colours of palette 15: 1 paper, 2 box edge, 3 box inner line, 4 ink, 5 ink shadow.

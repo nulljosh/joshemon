@@ -1,0 +1,7 @@
+# 1.9.0 reliability on the post-game save (qa_dip): 20000 frames of random keys from PROF. CEDAR, through the
+# DIPLOMA talk and the town, with no softlock.
+qa 03000000
+wait 30
+press START+L+R 4
+wait 200
+monkey 20000 11

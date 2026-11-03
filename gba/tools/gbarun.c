@@ -7,6 +7,8 @@
 //   mash KEYS FIELD [VALUE]  press KEYS every 12 frames while the field is not 0, or until it equals VALUE (6000 frames at most)
 //   waitfor FIELD VALUE  run until the field equals VALUE (at most 6000 frames)
 //   expect FIELD VALUE   print FAIL when it does not
+// monkey FRAMES SEED: random keys (a new one every 8 frames) for FRAMES; prints FAIL when the screen stops changing
+//   for 3600 frames (a softlock or a hang) and "ok monkey" otherwise. lag: frames that missed their VBlank.
 // reset: power-cycle, keeping the save in memory. corrupt HEXOFF: flip one save byte there, as a torn write would.
 #include <mgba-util/vfs.h>
 #include <mgba/core/core.h>
@@ -46,14 +48,33 @@ int main(int argc, char **argv) {
     char cmd[32] = "", arg[128] = ""; int n = 0;
     if (sscanf(line, "%31s %127s %d", cmd, arg, &n) < 1 || cmd[0] == '#') continue;
     static unsigned qa = 0;
-    static const char *F[7] = { "battle", "talking", "map", "x", "y", "dir", "song" };
+    static const char *F[8] = { "battle", "talking", "map", "x", "y", "dir", "song", "lag" };
     int fi = -1; char a2[64] = ""; sscanf(line, "%*s %*s %63s", a2);
     if (!strcmp(cmd, "qa")) { qa = strtoul(arg, 0, 16); continue; }
+    if (!strcmp(cmd, "monkey")) {
+      int frames = atoi(arg); unsigned seed = n ? n : 1, last = 0, same = 0, still = 0, state = 0, stuck = 0;
+      for (int t = 0; t < frames && !stuck; t++) {
+        if (t % 8 == 0) { seed = seed * 1103515245u + 12345u; unsigned k = (seed >> 16) % 40; // mostly A, B and the pad; START (menus, SAVE) 1 in 20
+          core->setKeys(core, k >= 30 ? 0 : k < 8 ? 1u << (k % 2) : k < 28 ? 1u << (4 + (k - 8) % 4) : 1u << (k == 28 ? 3 : 2)); }
+        FRAME();
+        if (t % 60 == 0) {
+          unsigned hash = 2166136261u; for (unsigned i = 0; i < w * h; i += 7) hash = (hash ^ buf[i]) * 16777619u;
+          same = hash == last ? same + 60 : 0; last = hash;
+          unsigned st = 0; if (qa) for (int i = 0; i < 7; i++) st = st * 31 + core->busRead8(core, qa + i); // battle, talking, map, x, y, dir, song
+          still = qa && st == state ? still + 60 : 0; state = st;
+          if (same >= 3600 || still >= 6000) stuck = t; // a frozen screen for a minute, or no move, talk, battle or song change for 100 s (animated tiles keep a softlocked screen changing)
+        }
+      }
+      core->setKeys(core, 0);
+      if (stuck) printf("FAIL monkey stuck at frame %d (map %d, %d,%d)\n", stuck, qa ? core->busRead8(core, qa + 2) : -1, qa ? core->busRead8(core, qa + 3) : -1, qa ? core->busRead8(core, qa + 4) : -1);
+      else printf("ok monkey %d\n", frames);
+      continue;
+    }
     if (!strcmp(cmd, "reset")) { core->reset(core); continue; }
     if (!strcmp(cmd, "corrupt")) { unsigned a = 0x0E000000 + strtoul(arg, 0, 16); core->busWrite8(core, a, core->busRead8(core, a) ^ 0xFF); continue; }
     if (!strcmp(cmd, "mash") || !strcmp(cmd, "waitfor") || !strcmp(cmd, "expect")) {
       const char *field = !strcmp(cmd, "mash") ? a2 : arg;
-      for (int i = 0; i < 7; i++) if (!strcmp(field, F[i])) fi = i;
+      for (int i = 0; i < 8; i++) if (!strcmp(field, F[i])) fi = i;
       if (fi < 0 || !qa) { fprintf(stderr, "bad %s line: %s", cmd, line); continue; }
     }
 #define QAF() (core->busRead8(core, qa + fi))

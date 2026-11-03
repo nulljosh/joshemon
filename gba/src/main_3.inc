@@ -39,6 +39,7 @@ static void title(void) {
     if ((f & 31) == 0) { pen = 12; if ((f >> 5) & 1) text(ps, (240 - measure(ps)) / 2, 132, 4, 6); else px(0, 0, 132, 240, 10); pen = TEXT_PAL; }
     if (pressed(KEY_START) || pressed(KEY_A)) break;
   }
+  lag_rebase(); // the title waited on vsync() alone
   // the title stays up under CONTINUE / NEW GAME; the world or the intro replaces it
 }
 

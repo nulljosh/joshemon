@@ -41,7 +41,10 @@ static void render(void) {
   }
   for (int i = nobj; i < 128; i++) oam[i].a0 = 1 << 9;
 }
+static u32 lag_mark; // the VBlank count at the last present(); loops that wait on vsync() alone move it (lag_rebase)
+static void lag_rebase(void) { lag_mark = vblanks; }
 static void present(void) {
+  { u32 now = vblanks, n = now - lag_mark; if (lag_mark && n > 1) QA.lag = QA.lag + n - 1 > 255 ? 255 : QA.lag + n - 1; lag_mark = now; } // QA: frames missed, read mid-frame before the wait so the VBlank interrupt has settled
   vsync();
   copy32((volatile u32 *)OAM, (const u32 *)oam, 256);
   if (!in_battle) { REG_BG1HOFS = REG_BG2HOFS = camx; REG_BG1VOFS = REG_BG2VOFS = camy; }
@@ -266,7 +269,7 @@ static void start_menu(void) {
   surf_clear();
 }
 
-static void release(void) { do { vsync(); read_keys(); } while (keys); } // a press that ended one screen must not start the next
+static void release(void) { do { vsync(); read_keys(); } while (keys); lag_rebase(); } // a press that ended one screen must not start the next
 
 // game.js drawTitle: the painted sea and rock (BG1), a creature on the rock that changes every 128 frames,
 // JOSHEMON big in gold with a dark outline, PRESS START blinking.

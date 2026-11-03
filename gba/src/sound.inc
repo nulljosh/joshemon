@@ -58,9 +58,11 @@ FAST static void ds_mix(s8 *out) { // adds every sounding voice into one frame o
 }
 static void sound_tick(void);
 static void (*volatile irq_tick)(void) = sound_tick; // through a pointer: IWRAM code cannot reach ROM with a plain call
+static volatile u32 vblanks; // counted by the VBlank interrupt; present() reads it to spot a frame that ran long
 FAST static void isr(void) {
   u16 f = IRQ_IF;
   if (f & 1) { // VBlank: play the frame mixed last time, mix the next, step the music
+    vblanks++;
     SND_DMA1CNT = 0; SND_DMA1SAD = (u32)mixbuf[mixcur]; SND_DMA1CNT = 0xB640; // on, FIFO timing, repeat, 32-bit, fixed dest
     mixcur ^= 1; ds_mix(mixbuf[mixcur]); irq_tick();
   }
