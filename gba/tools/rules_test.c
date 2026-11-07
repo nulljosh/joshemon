@@ -47,6 +47,8 @@ int main(int argc, char **argv) {
   for (int i = 1; i <= SPECIES_COUNT; i++) assert(ABILITY[i] && ABILITY[i] < AB_COUNT);
   assert(MOVES[165].name && MOVES[165].power == 50); // STRUGGLE, used when no PP is left (it was an empty slot until 1.7.0)
   for (int i = 1; i <= SPECIES_COUNT; i++) for (int k = 0; k < SPECIES[i].nlearn; k++) assert(MOVES[SPECIES[i].learn[k] & 511].name);
+  assert(taunt_blocks(45) && taunt_blocks(14) && taunt_blocks(182)); // GROWL, SWORDS DANCE, PROTECT
+  assert(!taunt_blocks(1) && !taunt_blocks(68) && !taunt_blocks(69) && !taunt_blocks(175) && !taunt_blocks(0)); // POUND, COUNTER, SEISMIC TOSS, FLAIL, empty
   puts("rules ok");
   return 0;
 }

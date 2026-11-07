@@ -71,3 +71,12 @@ int pick_slot(int r100) {
   for (int i = 0, acc = 0; i < 12; i++) { acc += W[i]; if (r100 < acc) return i; }
   return 11;
 }
+
+// pokeruby: TAUNT stops any move whose power is 0. Gen 3 gives COUNTER, SEISMIC TOSS and the other self-scaling hits
+// power 1, but this table holds 0 for them, so they're listed to stay usable.
+int taunt_blocks(int id) {
+  static const unsigned short HITS[] = { 12, 32, 49, 68, 69, 82, 90, 101, 117, 149, 162, 175, 179, 217, 222, 243, 255, 283, 329 };
+  if (!id || MOVES[id].power) return 0;
+  for (unsigned i = 0; i < sizeof HITS / sizeof *HITS; i++) if (HITS[i] == id) return 0;
+  return 1;
+}

@@ -7,7 +7,7 @@ enum { MV_MIST = 54, MV_SURF = 57, MV_LEECH_SEED = 73, MV_STUN_SPORE = 78, MV_EA
   MV_ENDURE = 203, MV_MEAN_LOOK = 212, MV_HEAL_BELL = 215, MV_SAFEGUARD = 219, MV_MAGNITUDE = 222, MV_PSYCH_UP = 244,
   MV_SHADOW_BALL = 247, MV_NATURE_POWER = 267, MV_REFRESH = 287, MV_MUD_SPORT = 300, MV_AROMATHERAPY = 312,
   MV_ODOR_SLEUTH = 316, MV_BLOCK = 335, MV_WATER_SPORT = 346, MV_FLAIL = 175, MV_REVERSAL = 179,
-  MV_SANDSTORM = 201, MV_RAIN_DANCE = 240, MV_SUNNY_DAY = 241, MV_HAIL = 258 };
+  MV_SANDSTORM = 201, MV_RAIN_DANCE = 240, MV_SUNNY_DAY = 241, MV_HAIL = 258, MV_TAUNT = 269 };
 static u8 weather, wturns; // 0 none, 1 rain, 2 sun, 3 sand, 4 hail; wturns 0 means it never ends (DUNE ROAD)
 static const char *const WX_UP[] = { "", "It started to rain!", "The sunlight got bright!", "A sandstorm brewed!", "It started to hail!" };
 static const char *const WX_ON[] = { "", "Rain continues to fall.", "The sunlight is strong.", "The sandstorm rages.", "Hail continues to fall." };
@@ -67,6 +67,7 @@ static int special_move(int side, int id) {
     if (g->seed || has_type(d, TYPE_GRASS)) { bsayf(o, " evaded the attack!"); return R_NONE; }
     g->seed = 1; bsayf(o, " was seeded!"); return R_NONE;
   case MV_FORESIGHT: case MV_ODOR_SLEUTH: g->fore = 1; blen = 0; label(side); cat(" identified "); label(o); cat("!"); bsay(buf); return R_NONE;
+  case MV_TAUNT: if (g->taunt) break; g->taunt = 2; bsayf(o, " fell for the TAUNT!"); return R_NONE; // pokeruby: 2 end-of-turns, silent when it ends
   case MV_MEAN_LOOK: case MV_SPIDER_WEB: case MV_BLOCK: if (g->trap) break; g->trap = 1; bsayf(o, " can't escape now!"); return R_NONE;
   case MV_MUD_SPORT: case MV_WATER_SPORT: f->sport |= id == MV_MUD_SPORT ? 1 : 2; bsay(id == MV_MUD_SPORT ? "ELECTRIC's power was weakened!" : "FIRE's power was weakened!"); return R_NONE;
   case MV_HEAL_BELL: case MV_AROMATHERAPY: {
@@ -108,7 +109,7 @@ static int moves_end_of_turn(void) {
     m->hp += n; drain(s); hud(s); bsayf(s, " restored a little HP using its LEFTOVERS!");
   }
   for (int s = 0; s < 2; s++) {
-    Fx *f = &B.fx[s]; f->protect = f->endure = f->acted = 0; f->took = 0;
+    Fx *f = &B.fx[s]; f->protect = f->endure = f->acted = 0; f->took = 0; if (f->taunt) f->taunt--;
     static const char *const OFF[] = { "'s MIST wore off!", "'s REFLECT wore off!", "'s LIGHT SCREEN wore off!", "'s SAFEGUARD wore off!" };
     u8 *t[4] = { &f->mist, &f->refl, &f->light, &f->safe };
     for (int k = 0; k < 4; k++) if (*t[k] && !--*t[k]) side_note(s, OFF[k]);

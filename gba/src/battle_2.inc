@@ -9,6 +9,7 @@ static void contact_fx(int side) { // the holder's STATIC, POISON POINT, EFFECT 
 #include "battle_moves.inc" // PROTECT, REST, LEECH SEED, MAGNITUDE and the rest
 static int use_move(int side, Slot *mv) {
   Mon *a = B.m[side], *d = B.m[side ^ 1]; int dside = side ^ 1; const Move *M = &MOVES[mv->id];
+  if (B.fx[side].taunt && taunt_blocks(mv->id)) { blen = 0; label(side); cat(" can't use "); cat(M->name); cat(" after the taunt!"); bsay(buf); return R_NONE; }
 #if !defined QA_FIELD || defined QA_REAL
   if (side == ME && mv->id != MV_STRUGGLE) { mv->pp--; if (abil(FOE) == AB_PRESSURE && !MOVES[mv->id].tgt && mv->pp) mv->pp--; }
 #endif // the QA build's one L80 runs whole gauntlets (the LEAGUE) on mashed A, so it never runs out

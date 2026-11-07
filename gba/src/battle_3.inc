@@ -124,7 +124,7 @@ static int battle_turn(void) {
   static Slot struggle = { 165, 99, 0 };
   Slot *act = 0; int run = 0;
   if (cmd == 0) {
-    int any = 0; for (int i = 0; i < 4; i++) any |= me->moves[i].id && me->moves[i].pp;
+    int any = 0; for (int i = 0; i < 4; i++) any |= me->moves[i].id && me->moves[i].pp && !(B.fx[ME].taunt && taunt_blocks(me->moves[i].id));
     if (!any) { bsayf(ME, " has no moves left!"); act = &struggle; }
     else {
       const char *names[4]; int n = 0; char cut[4][13];
@@ -135,7 +135,11 @@ static int battle_turn(void) {
 #ifdef QA_REAL
       while (!me->moves[i].pp) i = (i + 1) % n; // the script only mashes A: fall through to the next move with PP, as a player would
 #endif
+#ifdef QA_REAL
+      while (B.fx[ME].taunt && taunt_blocks(me->moves[i].id)) i = (i + 1) % n;
+#endif
       if (!me->moves[i].pp) { say("There is no PP left for this move!"); return R_NONE; }
+      if (B.fx[ME].taunt && taunt_blocks(me->moves[i].id)) { blen = 0; cat(mon_name(me)); cat(" can't use "); cat(MOVES[me->moves[i].id].name); cat(" after the taunt!"); say(buf); return R_NONE; }
       act = &me->moves[i];
     }
   } else if (cmd == 3) run = 1;
@@ -156,6 +160,10 @@ static int battle_turn(void) {
 
   int nf = 0; while (nf < 4 && B.m[FOE]->moves[nf].id) nf++;
   Slot *foe_mv = &B.m[FOE]->moves[ri(nf ? nf : 1)];
+  if (B.fx[FOE].taunt && taunt_blocks(foe_mv->id)) { // ponytail: foes still pick at random, just not a move TAUNT forbids
+    int ok[4], k = 0; for (int i = 0; i < nf; i++) if (!taunt_blocks(B.m[FOE]->moves[i].id)) ok[k++] = i;
+    foe_mv = k ? &B.m[FOE]->moves[ok[ri(k)]] : &struggle;
+  }
   if (run && story_battle) { bsay("There's no running away now!"); return R_NONE; }
   if (run && B.tr) { bsay("No! There's no running from a TRAINER battle!"); return R_NONE; }
   if (run) {

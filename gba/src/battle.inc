@@ -38,7 +38,7 @@ static const char *const STAT_NAME[] = { "", "ATTACK", "DEFENSE", "SP. ATK", "SP
 static const u8 ACC[13][2] = {{33,100},{36,100},{43,100},{50,100},{60,100},{75,100},{1,1},{133,100},{166,100},{2,1},{233,100},{133,50},{3,1}};
 static const s8 SINE10[11] = { 0, 3, 6, 8, 10, 10, 10, 8, 6, 3, 0 }; // round(sin(t/10 * pi) * 10), the lunge
 
-typedef struct { u8 protect, protn, endure, acted, focus, seed, fore, trap, sport, mist, refl, light, safe; u16 last; int took; } Fx; // battle_moves.inc
+typedef struct { u8 protect, protn, endure, acted, focus, seed, fore, trap, sport, mist, refl, light, safe, taunt; u16 last; int took; } Fx; // battle_moves.inc
 typedef struct {
   Mon foe; Mon *m[2]; int mi, scene, tries;
   int shown[2];     // HP on the bars, x16 so the drain can move in fractions

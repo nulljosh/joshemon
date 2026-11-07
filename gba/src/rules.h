@@ -19,3 +19,5 @@ int exp_for_level(int growth, int n);
 int level_for_exp(int growth, int exp);
 int exp_gain(int base_exp, int foe_level);
 int pick_slot(int r100);
+// TAUNT blocks Gen 3's power-0 moves. Here the moves that set their own damage have power 0 too, so they're named.
+int taunt_blocks(int move_id);
